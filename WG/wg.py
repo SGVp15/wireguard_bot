@@ -12,9 +12,9 @@ def create_user(name):
     server_ip = SERVER_IP
     server_port = '443'
 
-    AllowedIPs = '0.0.0.0/0'
-    DNS = '8.8.8.8'
-    PersistentKeepalive = 20
+    allowed_ips = '0.0.0.0/0'
+    dns = '8.8.8.8'
+    persistent_keepalive = 20
     net = IPv4Network('172.26.10.0/24')
 
     name = name.strip()
@@ -23,9 +23,9 @@ def create_user(name):
 
     wg_config_file = '/etc/wireguard/wg0.conf'
 
-    path_wg = '/etc/wireguard/'
-    path_keys = path_wg + 'keys/'
-    path_confs = path_wg + 'confs/'
+    path_wg = os.path.join('/', 'etc', 'wireguard')
+    path_keys = os.path.join(path_wg, 'keys')
+    path_confs = os.path.join(path_wg, 'confs')
     os.makedirs(path_confs, exist_ok=True)
     os.makedirs(path_keys, exist_ok=True)
 
@@ -51,13 +51,12 @@ def create_user(name):
     with open(f'{path_keys}{name}_public.key') as f:
         public_key = f.read()
 
-    s += (
-        f'\n\n' \
-        f'[Peer]\n' \
-        f'#{name}_public.key {public_key}' \
-        f'PublicKey = {public_key}' \
-        f'AllowedIPs = {ip}/32'
-    )
+    s += f'\n\n' \
+         f'[Peer]\n' \
+         f'#{name}_public.key {public_key}' \
+         f'PublicKey = {public_key}' \
+         f'AllowedIPs = {ip}/32'
+
     with open(wg_config_file, 'w') as f:
         f.write(s)
 
@@ -67,13 +66,13 @@ def create_user(name):
     config_string = f'[Interface]\n' \
                     f'PrivateKey = {private_key}\n' \
                     f'Address = {ip}/32\n' \
-                    f'DNS = {DNS}\n' \
+                    f'DNS = {dns}\n' \
                     f'\n' \
                     f'[Peer]\n' \
                     f'PublicKey = {wg_public_key}\n' \
-                    f'AllowedIPs = {AllowedIPs}\n' \
+                    f'AllowedIPs = {allowed_ips}\n' \
                     f'Endpoint = {server_ip}:{server_port}\n' \
-                    f'PersistentKeepalive = {PersistentKeepalive}\n'
+                    f'PersistentKeepalive = {persistent_keepalive}\n'
 
     print(config_string)
     time.sleep(0.1)
