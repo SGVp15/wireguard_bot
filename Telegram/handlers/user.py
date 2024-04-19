@@ -2,10 +2,9 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 
 from WG import wg
-from config import ADMIN_ID
+from Telegram.config import ADMIN_ID
 from loader import dp, bot
-from states.Menu import Menu
-import keybords
+from Telegram.states.Menu import Menu
 
 
 # @dp.callback_query_handler(lambda c: c.data == 'create_user', state=['*', None])
@@ -17,4 +16,4 @@ async def create_user(callback_query: types.callback_query, state: FSMContext):
     await state.reset_state()
     with open(file, "rb") as f:
         await bot.send_document(chat_id=callback_query.from_user.id, document=f,
-                                reply_markup=keybords.users.users_menu)
+                                reply_markup=Telegram.keybords.users.users_menu)

@@ -1,9 +1,6 @@
 from aiogram.utils import executor
 
-import menus
-import handlers
-import utils
-from loader import bot, dp
+from loader import dp
 from utils.set_bot_commands import set_default_commands
 
 
