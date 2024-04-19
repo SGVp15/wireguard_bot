@@ -8,7 +8,7 @@ from config import SERVER_IP
 from utils.translit import transliterate
 
 
-def create_user(name):
+def create_user(name: str) -> (str, str):
     server_ip = SERVER_IP
     server_port = '443'
 
@@ -77,12 +77,12 @@ def create_user(name):
 
     print(config_string)
     time.sleep(0.1)
-    file = f'{path_confs}{name}.conf'
-    with open(file, 'w') as f:
+    file_conf = os.path.join(path_confs, f'{name}.conf')
+    with open(file_conf, 'w') as f:
         f.write(config_string)
 
     print('[  START  ] systemctl restart wg-quick@wg0.service')
     os.system('systemctl restart wg-quick@wg0.service')
     print('[  OK  ] systemctl restart wg-quick@wg0.service')
 
-    return config_string, file
+    return config_string, file_conf
