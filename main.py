@@ -1,13 +1,15 @@
-from aiogram.utils import executor
+import asyncio
 
-from loader import dp
-from utils.set_bot_commands import set_default_commands
+from Telegram.main import start_bot
 
 
-async def on_start(dispatcher):
-    await set_default_commands(dispatcher)
+async def main():
+    tasks = [
+        start_bot(),
+    ]
+    await asyncio.gather(*tasks)
 
 
 if __name__ == '__main__':
-    print('bot run')
-    executor.start_polling(dp)
+    print('WG-bot start')
+    asyncio.run(main())

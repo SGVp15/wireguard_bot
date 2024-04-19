@@ -1,7 +1,7 @@
 from aiogram import types
-from aiogram.dispatcher import FSMContext
+from aiogram.fsm.context import FSMContext
 
-from loader import dp, bot
+from Telegram.main import bot, dp
 
 
 @dp.callback_query_handler(state=['*', None])

@@ -3,7 +3,7 @@ from aiogram.fsm.context import FSMContext
 
 from Telegram import keybords
 from Telegram.config import USERS_ID
-from loader import dp
+from Telegram.main import dp
 
 
 @dp.message_handler(commands=['start', 'help']
