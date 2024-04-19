@@ -21,9 +21,10 @@ def create_user(name):
     name = re.sub(r'\s+', '_', name)
     name = transliterate(name) + datetime.today().strftime('_%Y-%m-%d')
 
-    wg_config_file = '/etc/wireguard/wg0.conf'
-
     path_wg = os.path.join('/', 'etc', 'wireguard')
+
+    wg_config_file = os.path.join(path_wg, 'wg0.conf')
+
     path_keys = os.path.join(path_wg, 'keys')
     path_confs = os.path.join(path_wg, 'confs')
     os.makedirs(path_confs, exist_ok=True)
