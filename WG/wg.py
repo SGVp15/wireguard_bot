@@ -51,11 +51,13 @@ def create_user(name):
     with open(f'{path_keys}{name}_public.key') as f:
         public_key = f.read()
 
-    s += f'\n\n[Peer]\n' \
-         f'#{name}_public.key {public_key}' \
-         f'PublicKey = {public_key}' \
-         f'AllowedIPs = {ip}/32'
-
+    s += (
+        f'\n\n' \
+        f'[Peer]\n' \
+        f'#{name}_public.key {public_key}' \
+        f'PublicKey = {public_key}' \
+        f'AllowedIPs = {ip}/32'
+    )
     with open(wg_config_file, 'w') as f:
         f.write(s)
 
