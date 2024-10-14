@@ -16,6 +16,6 @@ async def echo(callback_query: types.callback_query, state: FSMContext):
 @dp.message()
 async def echo(message: types.Message):
     await message.reply(
-        'Не понимаю, что это значит.'
+        'echo Не понимаю, что это значит.'
         'Воспользуйтесь командой /help',
     )

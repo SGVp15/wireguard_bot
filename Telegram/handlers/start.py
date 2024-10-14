@@ -3,10 +3,10 @@ from aiogram.filters import Command
 
 from Telegram import keybords
 from Telegram.config import ADMIN_ID
-from Telegram.main import router, dp
+from Telegram.main import dp
 
 
-@dp.message(F.command.in_({'start', 'help'}) & F.from_user.id.in_({*ADMIN_ID}))
+@dp.message(F.command.in_({'start', 'help'}) & F.from_user.id.in_({*ADMIN_ID, }))
 async def send_welcome_new_user(message: types.Message):
     text = f'Здравствуйте, {message.from_user.first_name}.'
     text += f'\n ❓/id - узнать ваш id'

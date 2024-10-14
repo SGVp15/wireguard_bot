@@ -1,16 +1,17 @@
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+from Telegram.Call_Back_Data import CallBackData
 
 users_menu = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='<< Назад', callback_data='main_menu'), ],
-    [InlineKeyboardButton(text='🌟 Создать пользователя >>', callback_data='create_user_menu'), ],
+    [InlineKeyboardButton(text='<< Назад', callback_data=CallBackData.main_menu), ],
+    [InlineKeyboardButton(text='🌟 Создать пользователя >>', callback_data=CallBackData.create_user_menu), ],
 ])
 
 user_create = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='<< Назад', callback_data='users_menu'), ],
-    [InlineKeyboardButton(text='Все верно :) создать', callback_data='create_user'), ],
+    [InlineKeyboardButton(text='<< Назад', callback_data=CallBackData.users_menu), ],
+    [InlineKeyboardButton(text='Все верно :) создать', callback_data=CallBackData.create_user), ],
 ])
 
 back_to_users_menu = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='<< Назад', callback_data='users_menu'), ]
+    [InlineKeyboardButton(text='<< Назад', callback_data=CallBackData.users_menu), ]
 ])
-
