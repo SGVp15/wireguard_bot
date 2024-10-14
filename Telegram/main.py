@@ -10,6 +10,8 @@ bot = Bot(token=config.BOT_TOKEN)
 
 loop = asyncio.get_event_loop()
 storage = MemoryStorage()
+from aiogram import Router
+router = Router(name=__name__)
 dp = Dispatcher(storage=storage, parse_mode=ParseMode.HTML)
 
 

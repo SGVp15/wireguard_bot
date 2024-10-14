@@ -1,16 +1,18 @@
+from aiogram import F
 from aiogram import types
 from aiogram.fsm.context import FSMContext
 
 from Telegram import keybords
-from Telegram.main import dp, bot
-from WG import wg
+from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID
-
+from Telegram.main import dp, bot
 from Telegram.states.Menu import Menu
+from WG import wg
 
 
-# @dp.callback_query_handler(lambda c: c.data == 'create_user', state=['*', None])
-@dp.callback_query_handler(lambda c: c.data == 'create_user', user_id=[*ADMIN_ID, ], state=Menu.create_user_menu)
+# @dp.callback_query_handler(lambda c: c.data == 'create_user', user_id=[*ADMIN_ID, ], state=Menu.create_user_menu)
+@dp.callback_query(
+    F.data.in_({CallBackData.create_user}) & F.from_user.id.in_({*ADMIN_ID, }) & F.frstate == Menu.create_user_menu)
 async def create_user(callback_query: types.callback_query, state: FSMContext):
     data = await state.get_data()
     user = data.get('contact')
