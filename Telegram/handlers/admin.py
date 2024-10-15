@@ -77,7 +77,7 @@ async def download_wg_dump(callback_query: types.callback_query, state: FSMConte
 
 async def send_document(file, filename, chat_id):
     if os.path.exists(file):
-        file = FSInputFile(file, filename=f'wg0.conf')
+        file = FSInputFile(file, filename=filename)
         await bot.send_document(
             chat_id=chat_id,
             document=file, reply_markup=k_menu_admin
