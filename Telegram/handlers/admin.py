@@ -12,7 +12,6 @@ from ..config import ADMIN_ID
 from ..keybords.inline import main_menu
 from ..keybords.menu_admin import k_menu_admin
 from ..main import dp, bot
-from ..menus.admin import admin_menu
 from ..states.Form import Form
 
 
