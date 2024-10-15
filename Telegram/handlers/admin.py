@@ -16,10 +16,12 @@ from ..states.Form import Form
 async def restart_service(callback_query: types.callback_query, state: FSMContext):
     await state.clear()
     restart_service()
-    await bot.send_message(text='restart service - ok',
-                           chat_id=callback_query.from_user.id,
-                           reply_markup=main_menu
-                           )
+    await bot.send_message(
+        text='restart service - ok',
+        chat_id=callback_query.from_user.id,
+        reply_markup=main_menu
+    )
+
 
 @dp.callback_query(Form.menu_restart_service_wg,
                    F.data.in_({CallBackData.restart_service_wg_ok, })
@@ -28,7 +30,8 @@ async def restart_service(callback_query: types.callback_query, state: FSMContex
 async def restart_service(callback_query: types.callback_query, state: FSMContext):
     await state.clear()
     restart_service()
-    await bot.send_message(text='restart service - ok',
-                           chat_id=callback_query.from_user.id,
-                           reply_markup=main_menu
-                           )
+    await bot.send_message(
+        text='restart service - ok',
+        chat_id=callback_query.from_user.id,
+        reply_markup=main_menu
+    )

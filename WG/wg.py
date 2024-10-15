@@ -99,6 +99,10 @@ def restart_service():
     os.system('systemctl restart wg-quick@wg0.service')
     log.info('[  OK  ] systemctl restart wg-quick@wg0.service')
 
+def restart_server():
+    log.info('[  OK  ] systemctl restart wg-quick@wg0.service')
+    os.system('reboot')
+
 
 def create_qr_code(input_file_path, output_file_path):
     os.system(f'qrencode -t png -o {output_file_path} -r {input_file_path}')

@@ -25,7 +25,7 @@ async def admin_menu(callback_query: types.callback_query, state: FSMContext):
 
 
 @dp.callback_query(
-    (F.data == CallBackData.menu_admin)
+    (F.data == CallBackData.menu_restart_service_wg)
     & (F.from_user.id.in_({*ADMIN_ID}))
 )
 async def menu_restart_service_wg(callback_query: types.callback_query, state: FSMContext):
@@ -40,7 +40,7 @@ async def menu_restart_service_wg(callback_query: types.callback_query, state: F
 
 
 @dp.callback_query(
-    (F.data == CallBackData.menu_admin)
+    (F.data == CallBackData.menu_reboot_server)
     & (F.from_user.id.in_({*ADMIN_ID}))
 )
 async def menu_reboot_server(callback_query: types.callback_query, state: FSMContext):

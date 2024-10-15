@@ -6,7 +6,6 @@ from Telegram.main import bot, dp
 
 @dp.callback_query()
 async def echo(callback_query: types.callback_query, state: FSMContext):
-    print(callback_query)
     await bot.send_message(
         chat_id=callback_query.from_user.id,
         text=f'Не понимаю, что это значит.\n'
