@@ -49,11 +49,9 @@ async def restart_service(callback_query: types.callback_query, state: FSMContex
                    & F.from_user.id.in_({*ADMIN_ID, })
                    )
 async def download_logs(callback_query: types.callback_query, state: FSMContext):
-    file = FSInputFile(SYSTEM_LOG, filename=f'log.txt')
-    await bot.send_document(
-        chat_id=callback_query.from_user.id,
-        document=file, reply_markup=k_menu_admin
-    )
+    file = SYSTEM_LOG
+    filename = f'log.txt'
+    await send_document(file, filename, callback_query.from_user.id)
 
 
 @dp.callback_query(Form.admin_menu,
@@ -62,14 +60,19 @@ async def download_logs(callback_query: types.callback_query, state: FSMContext)
                    )
 async def download_logs(callback_query: types.callback_query, state: FSMContext):
     file = WG_CONF
+    filename = f'wg0.conf'
+    await send_document(file, filename, callback_query.from_user.id)
+
+
+async def send_document(file, filename, chat_id):
     if os.path.exists(file):
-        file = FSInputFile(WG_CONF, filename=f'wg0.conf')
+        file = FSInputFile(file, filename=f'wg0.conf')
         await bot.send_document(
-            chat_id=callback_query.from_user.id,
+            chat_id=chat_id,
             document=file, reply_markup=k_menu_admin
         )
     else:
         await bot.send_message(
             text=f'File not found {file}',
-            chat_id=callback_query.from_user.id,
+            chat_id=chat_id,
         )
