@@ -23,6 +23,7 @@ def create_user(name: str) -> (str, str):
     name = transliterate(name) + datetime.today().strftime('_%Y-%m-%d')
 
     path_wg = os.path.join('/', 'etc', 'wireguard')
+    path_qr = os.path.join(path_wg, 'qr')
 
     wg_config_file = os.path.join(path_wg, 'wg0.conf')
     wg_public_key_file = os.path.join(path_wg, 'public.key')
@@ -82,13 +83,16 @@ def create_user(name: str) -> (str, str):
 
     print(config_string)
     time.sleep(0.1)
-    file_conf = os.path.join(path_confs, f'{name}.conf')
-    with open(file_conf, 'w') as f:
+    conf_file = os.path.join(path_confs, f'{name}.conf')
+    with open(conf_file, 'w') as f:
         f.write(config_string)
 
     restart_service()
 
-    return config_string, file_conf
+    qr_file = os.path.join(path_qr, f'{name}.png')
+    create_qr_code(input_file_path=conf_file, output_file_path=qr_file)
+
+    return config_string, conf_file, qr_file
 
 
 def restart_service():
@@ -96,6 +100,6 @@ def restart_service():
     log.info('[  OK  ] systemctl restart wg-quick@wg0.service')
 
 
-def reboot_server():
-    log.warning('reboot')
-    os.system('reboot')
+def create_qr_code(input_file_path, output_file_path):
+    os.system(f'qrencode -t png -o {output_file_path} -r {input_file_path}')
+    time.sleep(0.1)
