@@ -1,7 +1,7 @@
 from dotenv import dotenv_values, find_dotenv
 
-config = dotenv_values('./.env')
-print(config)
+config = dotenv_values(config = dotenv_values('./.env')())
+
 SERVER_IP = config['SERVER_IP']
 
 LOG_FILE = './data/.log.txt'
