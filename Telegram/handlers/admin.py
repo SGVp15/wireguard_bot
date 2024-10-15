@@ -2,7 +2,7 @@ from aiogram import F
 from aiogram import types
 from aiogram.fsm.context import FSMContext
 
-from WG import wg
+from wireguard.wg import WIREGUARD as wg
 from ..Call_Back_Data import CallBackData
 from ..config import ADMIN_ID
 from ..keybords.inline import main_menu
@@ -25,12 +25,12 @@ async def restart_service(callback_query: types.callback_query, state: FSMContex
 
 
 @dp.callback_query(Form.menu_restart_service_wg,
-                   F.data.in_({CallBackData.restart_service_wg_ok, })
+                   F.data.in_({CallBackData.reboot_server_ok, })
                    & F.from_user.id.in_({*ADMIN_ID, })
                    )
 async def restart_service(callback_query: types.callback_query, state: FSMContext):
     await state.clear()
-    wg.restart_service()
+    wg.reboot_server()
     await bot.send_message(
         text='restart service - ok',
         chat_id=callback_query.from_user.id,

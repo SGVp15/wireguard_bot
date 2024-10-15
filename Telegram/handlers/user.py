@@ -8,7 +8,7 @@ from ..config import ADMIN_ID
 from ..keybords.inline import main_menu
 from ..main import dp, bot
 from ..states.Form import Form
-from WG import wg
+from wireguard.wg import WIREGUARD as wg
 from utils.log import log
 
 
@@ -34,7 +34,6 @@ async def create_user(callback_query: types.callback_query, state: FSMContext):
         chat_id=callback_query.from_user.id,
         document=file, reply_markup=main_menu
     )
-
 
     file = FSInputFile(qr_code_file, filename=f'qr_{user}')
     await bot.send_message(

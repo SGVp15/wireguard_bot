@@ -31,7 +31,7 @@ async def admin_menu(callback_query: types.callback_query, state: FSMContext):
 async def menu_restart_service_wg(callback_query: types.callback_query, state: FSMContext):
     await state.set_state(Form.menu_restart_service_wg)
     await bot.edit_message_text(
-        text='<b>[ Перезагрузить службу WG ]</b>',
+        text='<b>[ Перезагрузить службу wireguard ]</b>',
         parse_mode=ParseMode.HTML,
         chat_id=callback_query.from_user.id,
         message_id=callback_query.message.message_id,
