@@ -11,7 +11,7 @@ from utils.translit import transliterate
 
 def create_user(name: str) -> (str, str):
     server_ip = SERVER_IP
-    SERVER_PORT = '443'
+    server_port = '443'
 
     allowed_ips = '0.0.0.0/0'
     dns = '8.8.8.8'
@@ -25,6 +25,7 @@ def create_user(name: str) -> (str, str):
     path_wg = os.path.join('/', 'etc', 'wireguard')
 
     wg_config_file = os.path.join(path_wg, 'wg0.conf')
+    wg_public_key_file = os.path.join(path_wg, 'public.key')
 
     path_keys = os.path.join(path_wg, 'keys')
     path_confs = os.path.join(path_wg, 'confs')
@@ -65,7 +66,7 @@ def create_user(name: str) -> (str, str):
     with open(wg_config_file, 'w') as f:
         f.write(s)
 
-    with open(f'{path_wg}/public.key') as f:
+    with open(wg_public_key_file) as f:
         wg_public_key = f.read()
 
     config_string = f'[Interface]\n' \
@@ -76,7 +77,7 @@ def create_user(name: str) -> (str, str):
                     f'[Peer]\n' \
                     f'PublicKey = {wg_public_key}\n' \
                     f'AllowedIPs = {allowed_ips}\n' \
-                    f'Endpoint = {server_ip}:{SERVER_PORT}\n' \
+                    f'Endpoint = {server_ip}:{server_port}\n' \
                     f'PersistentKeepalive = {persistent_keepalive}\n'
 
     print(config_string)
