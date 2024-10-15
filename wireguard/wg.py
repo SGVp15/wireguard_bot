@@ -108,5 +108,5 @@ class WIREGUARD:
         time.sleep(0.1)
 
     def get_dump(self):
-        os.system('wg show wg0 dump > {WG_DUMP}')
+        os.system(f'wg show wg0 dump > {WG_DUMP}')
         time.sleep(0.1)
