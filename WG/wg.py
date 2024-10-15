@@ -11,7 +11,7 @@ from utils.translit import transliterate
 
 def create_user(name: str) -> (str, str):
     server_ip = SERVER_IP
-    server_port = '443'
+    SERVER_PORT = '443'
 
     allowed_ips = '0.0.0.0/0'
     dns = '8.8.8.8'
@@ -45,15 +45,15 @@ def create_user(name: str) -> (str, str):
             break
     # print(f'{ip=}')
 
-    os.system(
-        f"wg genkey | tee {os.path.join(path_keys, f'{name}_private.key')} "
-        f"| wg pubkey | tee {os.path.join(path_keys, f'{name}_public.key')}"
-    )
+    path_user_private_key = os.path.join(path_keys, f'{name}_private.key')
+    path_user_public_key = os.path.join(path_keys, f'{name}_public.key')
+
+    os.system(f'wg genkey | tee {path_user_private_key} | wg pubkey | tee {path_user_public_key}')
     time.sleep(0.1)
 
-    with open(f'{path_keys}{name}_private.key') as f:
+    with open(path_user_private_key) as f:
         private_key = f.read()
-    with open(f'{path_keys}{name}_public.key') as f:
+    with open(path_user_public_key) as f:
         public_key = f.read()
 
     s += f'\n\n' \
@@ -65,7 +65,7 @@ def create_user(name: str) -> (str, str):
     with open(wg_config_file, 'w') as f:
         f.write(s)
 
-    with open(f'{path_wg}public.key') as f:
+    with open(f'{path_wg}/public.key') as f:
         wg_public_key = f.read()
 
     config_string = f'[Interface]\n' \
@@ -76,7 +76,7 @@ def create_user(name: str) -> (str, str):
                     f'[Peer]\n' \
                     f'PublicKey = {wg_public_key}\n' \
                     f'AllowedIPs = {allowed_ips}\n' \
-                    f'Endpoint = {server_ip}:{server_port}\n' \
+                    f'Endpoint = {server_ip}:{SERVER_PORT}\n' \
                     f'PersistentKeepalive = {persistent_keepalive}\n'
 
     print(config_string)
