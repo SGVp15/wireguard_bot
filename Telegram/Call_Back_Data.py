@@ -5,4 +5,4 @@ class CallBackData:
     menu_create_user = 'create_user_menu'
     menu_users = 'users_menu'
     menu_main = 'main_menu'
-    admin_menu = 'admin_menu'
+    menu_admin = 'admin_menu'
