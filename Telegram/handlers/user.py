@@ -8,7 +8,7 @@ from ..config import ADMIN_ID
 from ..keybords.menu_main import k_main_menu
 from ..main import dp, bot
 from ..states.Form import Form
-from wireguard.wg import WIREGUARD as wg
+from wireguard.wireguard_class import WIREGUARD as wg
 from utils.log import log
 
 

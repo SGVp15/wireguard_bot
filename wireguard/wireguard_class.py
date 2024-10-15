@@ -99,8 +99,8 @@ class WIREGUARD:
         os.system('systemctl restart wg-quick@wg0.service')
         log.info('[  OK  ] systemctl restart wg-quick@wg0.service')
 
-    def restart_server(self):
-        log.info('[  OK  ] systemctl restart wg-quick@wg0.service')
+    def reboot_server(self):
+        log.warning('[  OK  ] reboot')
         os.system('reboot')
 
     def create_qr_code(self, input_file_path, output_file_path):

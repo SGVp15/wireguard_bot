@@ -6,7 +6,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile
 
 from config import SYSTEM_LOG, WG_CONF, WG_DUMP
-from wireguard.wg import WIREGUARD as wg
+from wireguard.wireguard_class import WIREGUARD as wg
 from ..Call_Back_Data import CallBackData
 from ..config import ADMIN_ID
 from ..keybords.menu_main import k_main_menu
