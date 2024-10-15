@@ -2,6 +2,7 @@ from aiogram import F
 from aiogram import types
 from aiogram.fsm.context import FSMContext
 
+from WG import wg
 from ..Call_Back_Data import CallBackData
 from ..config import ADMIN_ID
 from ..keybords.inline import main_menu
@@ -15,7 +16,7 @@ from ..states.Form import Form
                    )
 async def restart_service(callback_query: types.callback_query, state: FSMContext):
     await state.clear()
-    restart_service()
+    wg.restart_service()
     await bot.send_message(
         text='restart service - ok',
         chat_id=callback_query.from_user.id,
@@ -29,7 +30,7 @@ async def restart_service(callback_query: types.callback_query, state: FSMContex
                    )
 async def restart_service(callback_query: types.callback_query, state: FSMContext):
     await state.clear()
-    restart_service()
+    wg.restart_service()
     await bot.send_message(
         text='restart service - ok',
         chat_id=callback_query.from_user.id,
