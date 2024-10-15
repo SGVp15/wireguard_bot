@@ -5,6 +5,7 @@ from datetime import datetime
 from ipaddress import IPv4Network, IPv4Address
 
 from config import SERVER_IP
+from utils.log import log
 from utils.translit import transliterate
 
 
@@ -92,8 +93,10 @@ def create_user(name: str) -> (str, str):
 
 
 def restart_service():
+    log.warning('restart_service')
     os.system('systemctl restart wg-quick@wg0.service')
 
 
 def reboot_server():
+    log.warning('reboot')
     os.system('reboot')
