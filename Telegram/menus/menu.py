@@ -10,7 +10,8 @@ from Telegram.states.Form import Form
 
 
 @dp.callback_query(
-    (F.data == CallBackData.menu_main) & (F.from_user.id.in_({*ADMIN_ID, *USERS_ID}))
+    (F.data == CallBackData.menu_main)
+    & (F.from_user.id.in_({*ADMIN_ID, *USERS_ID}))
 )
 async def back_to_main(callback_query: types.callback_query, state: FSMContext):
     await state.clear()
@@ -47,8 +48,8 @@ async def admin_menu(callback_query: types.callback_query):
 
 
 @dp.callback_query(
-    F.data == CallBackData.menu_create_user
-    and F.from_user.id.in_({*ADMIN_ID, })
+    (F.data == CallBackData.menu_create_user)
+    & (F.from_user.id.in_({*ADMIN_ID, }))
 )
 async def create_user_menu(callback_query: types.callback_query, state: FSMContext):
     await state.set_state(Form.create_user_menu)
@@ -69,3 +70,8 @@ async def user_create(message: types.Message, state: FSMContext):
         chat_id=message.chat.id, text=f'❔ Создать пользователя \n<b>{user}</b>',
         reply_markup=k_menu_user_create
     )
+
+
+
+
+

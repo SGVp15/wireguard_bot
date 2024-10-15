@@ -1,6 +1,7 @@
 import asyncio
 
 from Telegram.main import start_bot
+from utils.log import log
 
 
 async def main():
@@ -11,5 +12,5 @@ async def main():
 
 
 if __name__ == '__main__':
-    print('WG-bot start')
+    log('WG-bot start')
     asyncio.run(main())
