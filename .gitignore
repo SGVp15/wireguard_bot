@@ -1,0 +1,8 @@
+/.env
+/venv/
+.*
+/output
+*.pk
+/Category/
+/input/
+/data/
