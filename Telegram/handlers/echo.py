@@ -1,7 +1,6 @@
 from aiogram import types, F
 from aiogram.fsm.context import FSMContext
 
-from Telegram.config import ADMIN_ID
 from Telegram.main import bot, dp
 
 
@@ -16,13 +15,10 @@ async def echo(callback_query: types.callback_query, state: FSMContext):
     )
 
 
-@dp.message(F.text.in_({'start','help', '/help'}))
+@dp.message(F.text.in_({'start', 'help', '/help'}))
 async def echo(message: types.Message):
-    print(f'[{message.from_user.id}]')
-    print(f'{*ADMIN_ID,}')
-    print(f'{message}')
     await message.reply(
-        f'ADMIN_ID [{message.from_user.id}]\n Не понимаю, что это значит.'
+        f'ADMIN_ID\n Не понимаю, что это значит.'
         'Воспользуйтесь командой /help',
     )
 

@@ -16,5 +16,6 @@ k_menu_restart_service = InlineKeyboardMarkup(inline_keyboard=[
 
 k_menu_reboot_server = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='<< Назад', callback_data=CallBackData.menu_admin), ],
-    [InlineKeyboardButton(text='Все верно перезагрузить Server', callback_data=CallBackData.reboot_server_ok), ],
+    [InlineKeyboardButton(text='Все верно перезагрузить Server',
+                          callback_data=CallBackData.reboot_server_ok), ],
 ])
