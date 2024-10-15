@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 from ipaddress import IPv4Network, IPv4Address
 
-from config import SERVER_IP
+from config import SERVER_IP, WG_DUMP
 from utils.log import log
 from utils.translit import transliterate
 
