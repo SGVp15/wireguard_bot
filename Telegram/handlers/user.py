@@ -31,7 +31,6 @@ async def create_user(callback_query: types.callback_query, state: FSMContext):
         chat_id=callback_query.from_user.id,
     )
     await bot.send_document(
-        text='Config file code {user}',
         chat_id=callback_query.from_user.id,
         document=file, reply_markup=main_menu
     )
