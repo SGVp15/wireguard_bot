@@ -10,8 +10,7 @@ from Telegram.states.Form import Form
 
 
 @dp.callback_query(
-    F.data == CallBackData.menu_main
-    & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
+    (F.data == CallBackData.menu_main) & (F.from_user.id.in_({*ADMIN_ID, *USERS_ID}))
 )
 async def back_to_main(callback_query: types.callback_query, state: FSMContext):
     await state.clear()
@@ -23,8 +22,8 @@ async def back_to_main(callback_query: types.callback_query, state: FSMContext):
 
 
 @dp.callback_query(
-    F.data == CallBackData.menu_users
-    & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
+    (F.data == CallBackData.menu_users)
+    & (F.from_user.id.in_({*ADMIN_ID, *USERS_ID}))
 )
 async def user_menu(callback_query: types.callback_query, state: FSMContext):
     await state.set_state(Form.users_menu)
@@ -36,8 +35,8 @@ async def user_menu(callback_query: types.callback_query, state: FSMContext):
 
 
 @dp.callback_query(
-    F.data == CallBackData.menu_admin
-    & F.from_user.id.in_({*ADMIN_ID})
+    (F.data == CallBackData.menu_admin)
+    & (F.from_user.id.in_({*ADMIN_ID}))
 )
 async def admin_menu(callback_query: types.callback_query):
     await bot.edit_message_reply_markup(
@@ -61,7 +60,7 @@ async def create_user_menu(callback_query: types.callback_query, state: FSMConte
     )
 
 
-@dp.message(Form.create_user_menu)
+@dp.message(Form.create_user_menu, F.from_user.id.in_({*ADMIN_ID, }))
 async def user_create(message: types.Message, state: FSMContext):
     user = message.text
     await state.update_data(name=message.text)
