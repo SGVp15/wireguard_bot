@@ -1,3 +1,5 @@
+import os.path
+
 from aiogram import F
 from aiogram import types
 from aiogram.fsm.context import FSMContext
@@ -59,8 +61,15 @@ async def download_logs(callback_query: types.callback_query, state: FSMContext)
                    & F.from_user.id.in_({*ADMIN_ID, })
                    )
 async def download_logs(callback_query: types.callback_query, state: FSMContext):
-    file = FSInputFile(WG_CONF, filename=f'wg0.conf')
-    await bot.send_document(
-        chat_id=callback_query.from_user.id,
-        document=file, reply_markup=k_menu_admin
-    )
+    file = WG_CONF
+    if os.path.exists(file):
+        file = FSInputFile(WG_CONF, filename=f'wg0.conf')
+        await bot.send_document(
+            chat_id=callback_query.from_user.id,
+            document=file, reply_markup=k_menu_admin
+        )
+    else:
+        await bot.send_message(
+            text=f'File not found {file}',
+            chat_id=callback_query.from_user.id,
+        )
