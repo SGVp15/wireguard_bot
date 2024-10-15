@@ -5,7 +5,7 @@ from aiogram.types import FSInputFile
 
 from ..Call_Back_Data import CallBackData
 from ..config import ADMIN_ID
-from ..keybords.inline import main_menu
+from ..keybords.menu_main import main_menu
 from ..main import dp, bot
 from ..states.Form import Form
 from wireguard.wg import WIREGUARD as wg

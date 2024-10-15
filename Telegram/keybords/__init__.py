@@ -1,4 +1,4 @@
 from . import menu_admin
 from . import menu_user
-from . import inline
+from . import menu_main
 from . import reply

@@ -9,7 +9,7 @@ from utils.log import log
 from utils.translit import transliterate
 
 
-class WIREGUARD():
+class WIREGUARD:
     def create_user(self, name: str) -> (str, str):
         server_ip = SERVER_IP
         server_port = '443'
@@ -105,4 +105,8 @@ class WIREGUARD():
 
     def create_qr_code(self, input_file_path, output_file_path):
         os.system(f'qrencode -t png -o {output_file_path} -r {input_file_path}')
+        time.sleep(0.1)
+
+    def get_dump(self):
+        os.system('wg show wg0 dump > {WG_DUMP}')
         time.sleep(0.1)

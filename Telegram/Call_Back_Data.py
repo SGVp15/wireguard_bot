@@ -1,4 +1,5 @@
 class CallBackData:
+    download_wg_dump = 'download_wg_dump'
     download_wg_conf = 'download_wg_conf'
     download_logs = 'download_logs'
     get_log = 'get_log'

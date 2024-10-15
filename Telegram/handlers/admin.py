@@ -5,11 +5,11 @@ from aiogram import types
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile
 
-from config import SYSTEM_LOG, WG_CONF
+from config import SYSTEM_LOG, WG_CONF, WG_DUMP
 from wireguard.wg import WIREGUARD as wg
 from ..Call_Back_Data import CallBackData
 from ..config import ADMIN_ID
-from ..keybords.inline import main_menu
+from ..keybords.menu_main import main_menu
 from ..keybords.menu_admin import k_menu_admin
 from ..main import dp, bot
 from ..states.Form import Form
@@ -61,6 +61,18 @@ async def download_logs(callback_query: types.callback_query, state: FSMContext)
     file = WG_CONF
     filename = f'wg0.conf'
     await send_document(file, filename, callback_query.from_user.id)
+
+
+@dp.callback_query(Form.admin_menu,
+                   F.data.in_({CallBackData.download_wg_dump, })
+                   & F.from_user.id.in_({*ADMIN_ID, })
+                   )
+async def download_logs(callback_query: types.callback_query, state: FSMContext):
+    wg.get_dump()
+    file = WG_DUMP
+    filename = f'wg_dump.txt'
+    await send_document(file, filename, callback_query.from_user.id)
+
 
 
 async def send_document(file, filename, chat_id):
