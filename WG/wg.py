@@ -44,7 +44,10 @@ def create_user(name: str) -> (str, str):
             break
     # print(f'{ip=}')
 
-    os.system(f'wg genkey | tee {path_keys}{name}_private.key | wg pubkey | tee {path_keys}{name}_public.key')
+    os.system(
+        f'wg genkey | tee {os.path.join(path_keys, f'{name}_private.key')} '
+        f'| wg pubkey | tee {os.path.join(path_keys, f'{name}_public.key')}'
+    )
     time.sleep(0.1)
 
     with open(f'{path_keys}{name}_private.key') as f:
