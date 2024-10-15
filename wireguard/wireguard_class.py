@@ -107,7 +107,7 @@ class WIREGUARD:
         os.system(f'qrencode -t png -o {output_file_path} -r {input_file_path}')
         time.sleep(0.1)
 
-    def get_dump(self):
+    @staticmethod
+    def get_dump():
         os.system(f'wg show wg0 dump > {WG_DUMP}')
-        # os.system(f'wg show wg0 dump > ./wg_dump.txt')
-        time.sleep(0.1)
+        time.sleep(0.5)
