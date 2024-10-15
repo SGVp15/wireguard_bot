@@ -6,7 +6,7 @@ from aiogram.fsm.context import FSMContext
 from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.keybords.inline import main_menu
-from Telegram.keybords.users import users_menu, back_to_users_menu, user_create_menu
+from Telegram.keybords.users import k_menu_users, k_back_to_menu_users, k_menu_user_create
 from Telegram.main import dp, bot
 from Telegram.states.Form import Form
 
@@ -17,7 +17,7 @@ async def user_menu(callback_query: types.callback_query, state: FSMContext):
     await state.set_state(Form.users_menu)
     await bot.edit_message_reply_markup(chat_id=callback_query.from_user.id,
                                         message_id=callback_query.message.message_id,
-                                        reply_markup=users_menu)
+                                        reply_markup=k_menu_users)
 
 
 @dp.callback_query(
@@ -39,19 +39,19 @@ async def create_user_menu(callback_query: types.callback_query, state: FSMConte
     await bot.send_message(chat_id=callback_query.from_user.id,
                            text=f'<b>Введите имя пользователя</b>\n'
                                 f'Пример: Иванов Иван',
-                           reply_markup=back_to_users_menu
+                           reply_markup=k_back_to_menu_users
                            )
 
 
 @dp.message(Form.create_user_menu)
 async def user_create(message: types.Message, state: FSMContext):
     user = message.text
-    await bot.send_message(chat_id=message.chat.id, text=f'❔ Создать пользователя \n<b>{user}</b>',
-                           reply_markup=user_create_menu
-                           )
-
     await state.update_data(name=message.text)
     await state.set_state(Form.create_user)
+    await bot.send_message(chat_id=message.chat.id, text=f'❔ Создать пользователя \n<b>{user}</b>',
+                           reply_markup=k_menu_user_create
+                           )
+
 
 
 @dp.callback_query(

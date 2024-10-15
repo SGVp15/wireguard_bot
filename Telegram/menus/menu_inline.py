@@ -13,7 +13,7 @@ async def users_menu(callback_query: types.callback_query):
     await Form.users_menu.set()
     await bot.edit_message_reply_markup(chat_id=callback_query.from_user.id,
                                         message_id=callback_query.message.message_id,
-                                        reply_markup=keybords.users.users_menu)
+                                        reply_markup=keybords.users.k_menu_users)
 
 
 @dp.callback_query(F.data == CallBackData.menu_create_user and F.from_user.id.in_({*ADMIN_ID, }))
@@ -22,7 +22,7 @@ async def create_user_menu(callback_query: types.callback_query, state: FSMConte
     await bot.send_message(chat_id=callback_query.from_user.id,
                            text=f'<b>Введите имя пользователя</b>\n'
                                 f'Пример: Иванов Иван',
-                           reply_markup=keybords.users.back_to_users_menu
+                           reply_markup=keybords.users.k_back_to_menu_users
                            )
 
 
@@ -31,7 +31,7 @@ async def user_create(message: types.Message, state: FSMContext):
     user = message.text
     await state.update_data(contact=user)
     await bot.send_message(chat_id=message.chat.id, text=f'❔ Создать пользователя <b>{user}</b>',
-                           reply_markup=keybords.users.user_create_menu)
+                           reply_markup=keybords.users.k_menu_user_create)
 
 
 @dp.callback_query(F.data == 'main_menu', state=['*', None])

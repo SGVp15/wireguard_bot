@@ -21,6 +21,7 @@ from WG import wg
 async def create_user(callback_query: types.callback_query, state: FSMContext):
     data = await state.get_data()
     user = data.get('name')
+    print(f'{user}')
     text, file = wg.create_user(user)
     await state.clear()
     with open(file, "rb") as f:
