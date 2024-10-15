@@ -12,5 +12,5 @@ async def main():
 
 
 if __name__ == '__main__':
-    log('WG-bot start')
+    log.info('WG-bot start')
     asyncio.run(main())

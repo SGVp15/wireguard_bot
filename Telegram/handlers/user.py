@@ -23,7 +23,7 @@ async def create_user(callback_query: types.callback_query, state: FSMContext):
     user = data.get('name')
     print(f'{user}')
     text, file = wg.create_user(user)
-    log('create_user {user}')
+    log.info('create_user {user}')
     await state.clear()
     with open(file, "rb") as f:
         await bot.send_document(chat_id=callback_query.from_user.id, document=f,
