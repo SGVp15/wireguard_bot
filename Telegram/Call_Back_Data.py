@@ -6,3 +6,9 @@ class CallBackData:
     menu_users = 'users_menu'
     menu_main = 'main_menu'
     menu_admin = 'admin_menu'
+
+    menu_restart_service_wg = 'menu_restart_service_wg'
+    restart_service_wg_ok = 'restart_service_wg_ok'
+
+    menu_reboot_server = 'menu_reboot_server'
+    reboot_server_ok = 'reboot_server_ok'

@@ -85,7 +85,15 @@ def create_user(name: str) -> (str, str):
         f.write(config_string)
 
     print('[  START  ] systemctl restart wg-quick@wg0.service')
-    os.system('systemctl restart wg-quick@wg0.service')
+    restart_service()
     print('[  OK  ] systemctl restart wg-quick@wg0.service')
 
     return config_string, file_conf
+
+
+def restart_service():
+    os.system('systemctl restart wg-quick@wg0.service')
+
+
+def reboot_server():
+    os.system('reboot')
