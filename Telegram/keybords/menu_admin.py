@@ -10,10 +10,11 @@ k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
 
 k_menu_restart_service = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='<< Назад', callback_data=CallBackData.menu_admin), ],
-    [InlineKeyboardButton(text='Все верно перезагрузить службу WG', callback_data=CallBackData.restart_service_wg_ok), ],
+    [InlineKeyboardButton(text='Все верно перезагрузить службу WG',
+                          callback_data=CallBackData.restart_service_wg_ok), ],
 ])
 
 k_menu_restart_server = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='<< Назад', callback_data=CallBackData.menu_admin), ],
-    [InlineKeyboardButton(text='Все верно перезагрузить Server', callback_data=CallBackData.restart_server_ok), ],
+    [InlineKeyboardButton(text='Все верно перезагрузить Server', callback_data=CallBackData.reboot_server_ok), ],
 ])
