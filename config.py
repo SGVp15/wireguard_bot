@@ -1,6 +1,6 @@
 from dotenv import dotenv_values, find_dotenv
 
-config = dotenv_values(find_dotenv())
+config = dotenv_values('./.env')
 
 SERVER_IP = config['SERVER_IP']
 
