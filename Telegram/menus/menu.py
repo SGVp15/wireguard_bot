@@ -1,4 +1,5 @@
 from aiogram import types, F
+from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 
 from Telegram.Call_Back_Data import CallBackData
@@ -28,7 +29,9 @@ async def back_to_main(callback_query: types.callback_query, state: FSMContext):
 )
 async def user_menu(callback_query: types.callback_query, state: FSMContext):
     await state.set_state(Form.users_menu)
-    await bot.edit_message_reply_markup(
+    await bot.edit_message_text(
+        text='<b>[ Пользователи ]</b>',
+        parse_mode=ParseMode.HTML,
         chat_id=callback_query.from_user.id,
         message_id=callback_query.message.message_id,
         reply_markup=k_menu_users
@@ -40,7 +43,9 @@ async def user_menu(callback_query: types.callback_query, state: FSMContext):
     & (F.from_user.id.in_({*ADMIN_ID}))
 )
 async def admin_menu(callback_query: types.callback_query):
-    await bot.edit_message_reply_markup(
+    await bot.edit_message_text(
+        text='<b>[ ADMIN ]</b>',
+        parse_mode=ParseMode.HTML,
         chat_id=callback_query.from_user.id,
         message_id=callback_query.message.message_id,
         reply_markup=main_menu
@@ -55,8 +60,9 @@ async def create_user_menu(callback_query: types.callback_query, state: FSMConte
     await state.set_state(Form.create_user_menu)
     await bot.send_message(
         chat_id=callback_query.from_user.id,
-        text=f'<b>Введите имя пользователя</b>\n'
+        text=f'Введите имя пользователя\n'
              f'Пример: Иванов Иван',
+        parse_mode=ParseMode.HTML,
         reply_markup=k_back_to_menu_users
     )
 
@@ -68,10 +74,6 @@ async def user_create(message: types.Message, state: FSMContext):
     await state.set_state(Form.create_user)
     await bot.send_message(
         chat_id=message.chat.id, text=f'❔ Создать пользователя \n<b>{user}</b>',
+        parse_mode=ParseMode.HTML,
         reply_markup=k_menu_user_create
     )
-
-
-
-
-
