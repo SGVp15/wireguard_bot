@@ -67,7 +67,7 @@ async def download_logs(callback_query: types.callback_query, state: FSMContext)
                    F.data.in_({CallBackData.download_wg_dump, })
                    & F.from_user.id.in_({*ADMIN_ID, })
                    )
-async def download_logs(callback_query: types.callback_query, state: FSMContext):
+async def download_wg_dump(callback_query: types.callback_query, state: FSMContext):
     wg.get_dump()
     file = WG_DUMP
     filename = f'wg_dump.txt'
