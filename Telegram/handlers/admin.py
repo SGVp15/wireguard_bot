@@ -7,12 +7,12 @@ from aiogram.types import FSInputFile
 
 from config import SYSTEM_LOG, WG_CONF, WG_DUMP
 from wireguard.wireguard_class import WIREGUARD as wg
-from ..Call_Back_Data import CallBackData
-from ..config import ADMIN_ID
-from ..keybords.menu_main import k_main_menu
-from ..keybords.menu_admin import k_menu_admin
-from ..main import dp, bot
-from ..states.Form import Form
+from Telegram.Call_Back_Data import CallBackData
+from Telegram.config import ADMIN_ID
+from Telegram.keybords.menu_main import k_main_menu
+from Telegram.keybords.menu_admin import k_menu_admin
+from Telegram.main import dp, bot
+from Telegram.states.Form import Form
 
 
 @dp.callback_query(Form.menu_restart_service_wg,
