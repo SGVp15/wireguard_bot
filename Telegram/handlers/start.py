@@ -6,10 +6,11 @@ from Telegram.config import ADMIN_ID
 from Telegram.main import dp
 
 
-@dp.message(F.command.in_({'start', 'help'}) & F.from_user.id.in_({*ADMIN_ID, }))
+@dp.message(F.text.in_({'/start', '/help'}) & F.from_user.id.in_({*ADMIN_ID, }))
 async def send_welcome_new_user(message: types.Message):
     text = f'Здравствуйте, {message.from_user.first_name}.'
     text += f'\n ❓/id - узнать ваш id'
+    # message.text
     await message.answer(text=text, reply_markup=keybords.inline.main_menu)
 
 
@@ -17,7 +18,7 @@ async def send_welcome_new_user(message: types.Message):
 async def send_welcome_new_user(message: types.Message):
     text = f'Здравствуйте, {message.from_user.first_name}.'
     text += f'\n ❓/id - узнать ваш id'
-    await message.answer(text=text, reply_markup=keybords.inline.main_menu)
+    await message.answer(text=text)
 
 
 @dp.message(Command('id'))
