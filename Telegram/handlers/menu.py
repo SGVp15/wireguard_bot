@@ -15,9 +15,11 @@ from Telegram.states.Form import Form
                    & (F.from_user.id.in_({*ADMIN_ID, *USERS_ID})))
 async def user_menu(callback_query: types.callback_query, state: FSMContext):
     await state.set_state(Form.users_menu)
-    await bot.edit_message_reply_markup(chat_id=callback_query.from_user.id,
-                                        message_id=callback_query.message.message_id,
-                                        reply_markup=k_menu_users)
+    await bot.edit_message_reply_markup(
+        chat_id=callback_query.from_user.id,
+        message_id=callback_query.message.message_id,
+        reply_markup=k_menu_users
+    )
 
 
 @dp.callback_query(
@@ -25,9 +27,11 @@ async def user_menu(callback_query: types.callback_query, state: FSMContext):
     & (F.from_user.id.in_({*ADMIN_ID}))
 )
 async def admin_menu(callback_query: types.callback_query):
-    await bot.edit_message_reply_markup(chat_id=callback_query.from_user.id,
-                                        message_id=callback_query.message.message_id,
-                                        reply_markup=main_menu)
+    await bot.edit_message_reply_markup(
+        chat_id=callback_query.from_user.id,
+        message_id=callback_query.message.message_id,
+        reply_markup=main_menu
+    )
 
 
 @dp.callback_query(
@@ -36,11 +40,12 @@ async def admin_menu(callback_query: types.callback_query):
 )
 async def create_user_menu(callback_query: types.callback_query, state: FSMContext):
     await state.set_state(Form.create_user_menu)
-    await bot.send_message(chat_id=callback_query.from_user.id,
-                           text=f'<b>Введите имя пользователя</b>\n'
-                                f'Пример: Иванов Иван',
-                           reply_markup=k_back_to_menu_users
-                           )
+    await bot.send_message(
+        chat_id=callback_query.from_user.id,
+        text=f'<b>Введите имя пользователя</b>\n'
+             f'Пример: Иванов Иван',
+        reply_markup=k_back_to_menu_users
+    )
 
 
 @dp.message(Form.create_user_menu)
@@ -48,10 +53,10 @@ async def user_create(message: types.Message, state: FSMContext):
     user = message.text
     await state.update_data(name=message.text)
     await state.set_state(Form.create_user)
-    await bot.send_message(chat_id=message.chat.id, text=f'❔ Создать пользователя \n<b>{user}</b>',
-                           reply_markup=k_menu_user_create
-                           )
-
+    await bot.send_message(
+        chat_id=message.chat.id, text=f'❔ Создать пользователя \n<b>{user}</b>',
+        reply_markup=k_menu_user_create
+    )
 
 
 @dp.callback_query(
@@ -60,6 +65,8 @@ async def user_create(message: types.Message, state: FSMContext):
 )
 async def back_to_main(callback_query: types.callback_query, state: FSMContext):
     await state.clear()
-    await bot.edit_message_reply_markup(chat_id=callback_query.from_user.id,
-                                        message_id=callback_query.message.message_id,
-                                        reply_markup=main_menu)
+    await bot.edit_message_reply_markup(
+        chat_id=callback_query.from_user.id,
+        message_id=callback_query.message.message_id,
+        reply_markup=main_menu
+    )

@@ -1,0 +1,1 @@
+python3 /root/wg_bot/main.py

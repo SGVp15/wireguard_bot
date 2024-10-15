@@ -12,13 +12,12 @@ from Telegram.states.Form import Form
 from WG import wg
 
 
-# @dp.callback_query_handler(lambda c: c.data == 'create_user', user_id=[*ADMIN_ID, ], state=Menu.create_user_menu)
-@dp.callback_query(
+@dp.callback_query(Form.create_user,
     F.data.in_({CallBackData.create_user_ok, })
     & F.from_user.id.in_({*ADMIN_ID, })
-    , Form.create_user
 )
 async def create_user(callback_query: types.callback_query, state: FSMContext):
+    print('create_user')
     data = await state.get_data()
     user = data.get('name')
     print(f'{user}')
