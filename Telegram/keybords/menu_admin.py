@@ -7,6 +7,7 @@ k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🌟 Перезагрузить службу wireguard >>', callback_data=CallBackData.menu_restart_service_wg), ],
     [InlineKeyboardButton(text='💀 Перезагрузить сервер >>', callback_data=CallBackData.menu_reboot_server), ],
     [InlineKeyboardButton(text='📒 Скачать логи >>', callback_data=CallBackData.download_logs), ],
+    [InlineKeyboardButton(text='📒 Скачать WG_CONF>>', callback_data=CallBackData.download_wg_conf), ],
 ])
 
 k_menu_restart_service = InlineKeyboardMarkup(inline_keyboard=[

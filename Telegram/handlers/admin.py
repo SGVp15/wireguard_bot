@@ -3,7 +3,7 @@ from aiogram import types
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile
 
-from config import SYSTEM_LOG
+from config import SYSTEM_LOG, WG_CONF
 from wireguard.wg import WIREGUARD as wg
 from ..Call_Back_Data import CallBackData
 from ..config import ADMIN_ID
@@ -48,6 +48,18 @@ async def restart_service(callback_query: types.callback_query, state: FSMContex
                    )
 async def download_logs(callback_query: types.callback_query, state: FSMContext):
     file = FSInputFile(SYSTEM_LOG, filename=f'log.txt')
+    await bot.send_document(
+        chat_id=callback_query.from_user.id,
+        document=file, reply_markup=k_menu_admin
+    )
+
+
+@dp.callback_query(Form.admin_menu,
+                   F.data.in_({CallBackData.download_wg_conf, })
+                   & F.from_user.id.in_({*ADMIN_ID, })
+                   )
+async def download_logs(callback_query: types.callback_query, state: FSMContext):
+    file = FSInputFile(WG_CONF, filename=f'wg0.conf')
     await bot.send_document(
         chat_id=callback_query.from_user.id,
         document=file, reply_markup=k_menu_admin
