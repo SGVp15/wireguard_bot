@@ -58,7 +58,7 @@ def create_user(name: str) -> (str, str):
 
     s += f'\n\n' \
          f'[Peer]\n' \
-         f'#{name}_public.key {public_key}' \
+         f'# {name}_public.key {public_key}' \
          f'PublicKey = {public_key}' \
          f'AllowedIPs = {ip}/32'
 
@@ -85,16 +85,14 @@ def create_user(name: str) -> (str, str):
     with open(file_conf, 'w') as f:
         f.write(config_string)
 
-    print('[  START  ] systemctl restart wg-quick@wg0.service')
     restart_service()
-    print('[  OK  ] systemctl restart wg-quick@wg0.service')
 
     return config_string, file_conf
 
 
 def restart_service():
-    log.warning('restart_service')
     os.system('systemctl restart wg-quick@wg0.service')
+    log.info('[  OK  ] systemctl restart wg-quick@wg0.service')
 
 
 def reboot_server():
