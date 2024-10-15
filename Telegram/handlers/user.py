@@ -27,7 +27,7 @@ async def create_user(callback_query: types.callback_query, state: FSMContext):
 
     file = FSInputFile(file, filename=user)
     await bot.send_message(
-        text='Config file code {user}',
+        text=f'Config file code {user}',
         chat_id=callback_query.from_user.id,
     )
     await bot.send_document(
@@ -38,7 +38,7 @@ async def create_user(callback_query: types.callback_query, state: FSMContext):
 
     file = FSInputFile(qr_code_file, filename=f'qr_{user}')
     await bot.send_message(
-        text='QR code {user}',
+        text=f'QR code {user}',
         chat_id=callback_query.from_user.id,
     )
     await bot.send_document(
