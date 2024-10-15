@@ -5,7 +5,7 @@ from aiogram.types import FSInputFile
 
 from ..Call_Back_Data import CallBackData
 from ..config import ADMIN_ID
-from ..keybords.menu_main import main_menu
+from ..keybords.menu_main import k_main_menu
 from ..main import dp, bot
 from ..states.Form import Form
 from wireguard.wg import WIREGUARD as wg
@@ -32,7 +32,7 @@ async def create_user(callback_query: types.callback_query, state: FSMContext):
     )
     await bot.send_document(
         chat_id=callback_query.from_user.id,
-        document=file, reply_markup=main_menu
+        document=file, reply_markup=k_main_menu
     )
 
     file = FSInputFile(qr_code_file, filename=f'qr_{user}')
@@ -42,5 +42,5 @@ async def create_user(callback_query: types.callback_query, state: FSMContext):
     )
     await bot.send_document(
         chat_id=callback_query.from_user.id,
-        document=file, reply_markup=main_menu
+        document=file, reply_markup=k_main_menu
     )

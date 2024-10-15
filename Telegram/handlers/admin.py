@@ -9,7 +9,7 @@ from config import SYSTEM_LOG, WG_CONF, WG_DUMP
 from wireguard.wg import WIREGUARD as wg
 from ..Call_Back_Data import CallBackData
 from ..config import ADMIN_ID
-from ..keybords.menu_main import main_menu
+from ..keybords.menu_main import k_main_menu
 from ..keybords.menu_admin import k_menu_admin
 from ..main import dp, bot
 from ..states.Form import Form
@@ -25,7 +25,7 @@ async def restart_service(callback_query: types.callback_query, state: FSMContex
     await bot.send_message(
         text='restart service - ok',
         chat_id=callback_query.from_user.id,
-        reply_markup=main_menu
+        reply_markup=k_main_menu
     )
 
 
@@ -39,7 +39,7 @@ async def restart_service(callback_query: types.callback_query, state: FSMContex
     await bot.send_message(
         text='restart service - ok',
         chat_id=callback_query.from_user.id,
-        reply_markup=main_menu
+        reply_markup=k_main_menu
     )
 
 

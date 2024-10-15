@@ -1,8 +1,8 @@
 from aiogram import types, F
 from aiogram.filters import Command
 
-from Telegram import keybords
 from Telegram.config import ADMIN_ID
+from Telegram.keybords.menu_main import k_main_menu
 from Telegram.main import dp
 
 
@@ -11,7 +11,7 @@ async def send_welcome_new_user(message: types.Message):
     text = f'Здравствуйте, {message.from_user.first_name}.'
     text += f'\n ❓/id - узнать ваш id'
     # message.text
-    await message.answer(text=text, reply_markup=keybords.inline.main_menu)
+    await message.answer(text=text, reply_markup=k_main_menu)
 
 
 @dp.message(F.command.in_({'start', 'help'}))

@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 
 from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
-from Telegram.keybords.menu_main import main_menu
+from Telegram.keybords.menu_main import k_main_menu
 from Telegram.main import dp, bot
 
 
@@ -19,5 +19,5 @@ async def back_to_main(callback_query: types.callback_query, state: FSMContext):
         parse_mode=ParseMode.HTML,
         chat_id=callback_query.from_user.id,
         message_id=callback_query.message.message_id,
-        reply_markup=main_menu
+        reply_markup=k_main_menu
     )
