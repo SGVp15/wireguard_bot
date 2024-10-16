@@ -4,11 +4,11 @@ from Telegram.Call_Back_Data import CallBackData
 
 k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='<< Назад', callback_data=CallBackData.menu_main), ],
-    [InlineKeyboardButton(text='🌟 Перезагрузить службу wireguard >>', callback_data=CallBackData.menu_restart_service_wg), ],
-    [InlineKeyboardButton(text='💀 Перезагрузить сервер >>', callback_data=CallBackData.menu_reboot_server), ],
-    [InlineKeyboardButton(text='📒 Скачать логи >>', callback_data=CallBackData.download_logs), ],
-    [InlineKeyboardButton(text='📒 Скачать WG_CONF>>', callback_data=CallBackData.download_wg_conf), ],
-    [InlineKeyboardButton(text='📒 Скачать WG_DUMP>>', callback_data=CallBackData.download_wg_dump), ],
+    [InlineKeyboardButton(text='🌟 Перезагрузить службу wireguard', callback_data=CallBackData.menu_restart_service_wg), ],
+    [InlineKeyboardButton(text='💀 Перезагрузить сервер', callback_data=CallBackData.menu_reboot_server), ],
+    [InlineKeyboardButton(text='📒 Скачать логи', callback_data=CallBackData.download_logs), ],
+    [InlineKeyboardButton(text='📒 Скачать WG_CONF', callback_data=CallBackData.download_wg_conf), ],
+    [InlineKeyboardButton(text='📒 Скачать WG_DUMP', callback_data=CallBackData.download_wg_dump), ],
 ])
 
 k_menu_restart_service = InlineKeyboardMarkup(inline_keyboard=[
