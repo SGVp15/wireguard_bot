@@ -75,6 +75,16 @@ async def download_logs(callback_query: types.callback_query, state: FSMContext)
 
 
 @router.callback_query(
+    # AdminState.admin_menu,
+    F.data.in_({CallBackData.clear_log, })
+    & F.from_user.id.in_({*ADMIN_ID, })
+)
+async def clear_log(callback_query: types.callback_query, state: FSMContext):
+    with open(SYSTEM_LOG, 'w') as f:
+        f.write('')
+
+
+@router.callback_query(
     F.data.in_({CallBackData.download_wg_dump, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )

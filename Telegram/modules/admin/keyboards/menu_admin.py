@@ -10,6 +10,7 @@ k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='📒 Скачать WG_CONF', callback_data=CallBackData.download_wg_conf), ],
     [InlineKeyboardButton(text='📒 Скачать WG_DUMP', callback_data=CallBackData.download_wg_dump), ],
     [InlineKeyboardButton(text='♻️ Обновить Bot', callback_data=CallBackData.update_bot), ],
+    [InlineKeyboardButton(text='Удалить логи', callback_data=CallBackData.clear_log), ],
     [InlineKeyboardButton(text='🔙 Назад', callback_data=CallBackData.menu_main), ]
 ])
 
