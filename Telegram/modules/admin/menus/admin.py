@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 
 from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID
-from Telegram.keybords.menu_admin import k_menu_admin, k_menu_restart_service, k_menu_reboot_server
+from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin, k_menu_restart_service, k_menu_reboot_server
 from Telegram.main import dp, bot
 from Telegram.states.Form import Form
 

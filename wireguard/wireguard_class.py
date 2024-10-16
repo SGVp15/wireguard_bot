@@ -10,7 +10,8 @@ from utils.translit import transliterate
 
 
 class WIREGUARD:
-    def create_user(self, name: str) -> (str, str):
+    @staticmethod
+    def create_user(name: str) -> (str, str):
         server_ip = SERVER_IP
         server_port = '443'
 
@@ -88,17 +89,19 @@ class WIREGUARD:
         with open(conf_file, 'w') as f:
             f.write(config_string)
 
-        self.restart_service()
+        WIREGUARD.restart_service()
 
         qr_file = os.path.join(path_qr, f'{name}.png')
-        self.create_qr_code(input_file_path=conf_file, output_file_path=qr_file)
+        WIREGUARD.create_qr_code(input_file_path=conf_file, output_file_path=qr_file)
 
         return config_string, conf_file, qr_file
 
+    @staticmethod
     def restart_service(self):
         os.system('systemctl restart wg-quick@wg0.service')
         log.info('[  OK  ] systemctl restart wg-quick@wg0.service')
 
+    @staticmethod
     def reboot_server(self):
         log.warning('[  OK  ] reboot')
         os.system('reboot')

@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from ..Call_Back_Data import CallBackData
+from Telegram.Call_Back_Data import CallBackData
 
 k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='<< Назад', callback_data=CallBackData.menu_main), ],
