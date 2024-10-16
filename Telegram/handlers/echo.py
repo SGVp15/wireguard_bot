@@ -1,7 +1,7 @@
 from aiogram import types, F, Router
 from aiogram.fsm.context import FSMContext
 
-from Telegram.main import bot, dp
+from Telegram.loader import bot
 
 router = Router()
 

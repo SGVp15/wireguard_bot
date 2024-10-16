@@ -6,7 +6,7 @@ from aiogram.types import FSInputFile
 from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID
 from Telegram.keyboards.menu_main import k_main_menu
-from Telegram.main import bot
+from Telegram.loader import bot
 from Telegram.modules.user.states.mashine_state import UserState
 from utils.log import log
 from wireguard.wireguard_class import WIREGUARD as wg

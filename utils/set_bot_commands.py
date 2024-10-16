@@ -1,8 +1,10 @@
 from aiogram import types
 
+import Telegram.loader
+
 
 async def set_default_commands(dp):
-    await dp.bot.set_my_commands(
+    await Telegram.loader.bot.set_my_commands(
         [
             types.BotCommand('start', 'Запуcтить бота'),
             types.BotCommand('help', 'Вывести справку'),

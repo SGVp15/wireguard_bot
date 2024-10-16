@@ -8,7 +8,7 @@ from aiogram.types import FSInputFile
 from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID
 from Telegram.keyboards.menu_main import k_main_menu
-from Telegram.main import bot
+from Telegram.loader import bot
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from config import WG_CONF, WG_DUMP, SYSTEM_LOG
 from wireguard.wireguard_class import WIREGUARD as wg
