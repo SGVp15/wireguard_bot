@@ -13,14 +13,14 @@ k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
 ])
 
 k_menu_restart_service = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Все верно перезагрузить службу wireguard',
+    [InlineKeyboardButton(text='🛑 Все верно перезагрузить службу wireguard!',
                           callback_data=CallBackData.restart_service_wg_ok), ],
     [InlineKeyboardButton(text='🔙 Назад', callback_data=CallBackData.menu_admin), ],
 
 ])
 
 k_menu_reboot_server = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Все верно перезагрузить Server',
+    [InlineKeyboardButton(text='🛑 Все верно перезагрузить Server!',
                           callback_data=CallBackData.reboot_server_ok), ],
     [InlineKeyboardButton(text='🔙 Назад', callback_data=CallBackData.menu_admin), ],
 
