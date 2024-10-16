@@ -115,3 +115,7 @@ class WIREGUARD:
     def get_dump():
         os.system(f'wg show wg0 dump > {WG_DUMP}')
         time.sleep(0.5)
+
+    @classmethod
+    def update_bot(cls):
+        os.system('systemctl restart wg_bot')

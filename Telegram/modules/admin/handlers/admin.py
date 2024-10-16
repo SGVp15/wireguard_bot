@@ -15,6 +15,16 @@ from wireguard.wireguard_class import WIREGUARD as wg
 
 router = Router()
 
+@router.callback_query(
+    F.data.in_({CallBackData.update_bot, })
+    & F.from_user.id.in_({*ADMIN_ID, })
+)
+async def restart_service(callback_query: types.callback_query, state: FSMContext):
+    wg.update_bot()
+
+
+
+
 
 @router.callback_query(
     F.data.in_({CallBackData.restart_service_wg_ok, })
