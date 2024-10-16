@@ -6,13 +6,15 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile
 
 from Telegram.keyboards.menu_main import k_main_menu
+from Telegram.config import ADMIN_ID
+from Telegram.Call_Back_Data import CallBackData
+from Telegram.main import dp, bot
+
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from Telegram.modules.admin.states.mashine_state import AdminState
+
 from config import WG_CONF, WG_DUMP
 from wireguard.wireguard_class import WIREGUARD as wg
-from Telegram.Call_Back_Data import CallBackData
-from Telegram.config import ADMIN_ID
-from Telegram.main import dp, bot
 
 
 @dp.callback_query(AdminState.menu_restart_service_wg,

@@ -97,16 +97,17 @@ class WIREGUARD:
         return config_string, conf_file, qr_file
 
     @staticmethod
-    def restart_service(self):
+    def restart_service():
         os.system('systemctl restart wg-quick@wg0.service')
         log.info('[  OK  ] systemctl restart wg-quick@wg0.service')
 
     @staticmethod
-    def reboot_server(self):
+    def reboot_server():
         log.warning('[  OK  ] reboot')
         os.system('reboot')
 
-    def create_qr_code(self, input_file_path, output_file_path):
+    @staticmethod
+    def create_qr_code(input_file_path, output_file_path):
         os.system(f'qrencode -t png -o {output_file_path} -r {input_file_path}')
         time.sleep(0.1)
 
