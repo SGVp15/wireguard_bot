@@ -1,4 +1,4 @@
-from aiogram import F
+from aiogram import F, Router
 from aiogram import types
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile
@@ -6,18 +6,18 @@ from aiogram.types import FSInputFile
 from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID
 from Telegram.keyboards.menu_main import k_main_menu
-
-from Telegram.main import dp, bot
+from Telegram.main import bot
 from Telegram.modules.user.states.mashine_state import UserState
-
-from wireguard.wireguard_class import WIREGUARD as wg
 from utils.log import log
+from wireguard.wireguard_class import WIREGUARD as wg
+
+router = Router()
 
 
-@dp.callback_query(UserState.create_user,
-                   F.data.in_({CallBackData.create_user_ok, })
-                   & F.from_user.id.in_({*ADMIN_ID, })
-                   )
+@router.callback_query(UserState.create_user,
+                       F.data.in_({CallBackData.create_user_ok, })
+                       & F.from_user.id.in_({*ADMIN_ID, })
+                       )
 async def create_user(callback_query: types.callback_query, state: FSMContext):
     print('create_user')
     data = await state.get_data()
