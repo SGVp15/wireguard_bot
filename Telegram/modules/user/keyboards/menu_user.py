@@ -9,7 +9,7 @@ k_menu_users = InlineKeyboardMarkup(inline_keyboard=[
 ])
 
 k_menu_user_create = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Все верно :) создать', callback_data=CallBackData.create_user_ok), ],
+    [InlineKeyboardButton(text='✅ Cоздать', callback_data=CallBackData.create_user_ok), ],
     [InlineKeyboardButton(text='🔙 Назад', callback_data=CallBackData.menu_users), ],
 
 ])
