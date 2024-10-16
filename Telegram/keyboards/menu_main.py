@@ -6,7 +6,7 @@ from Telegram.Call_Back_Data import CallBackData
 
 k_main_menu = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🙂 Пользователи >>', callback_data=CallBackData.menu_users), ],
-    [InlineKeyboardButton(text=' ADMIN >>', callback_data=CallBackData.menu_admin), ],
+    [InlineKeyboardButton(text='⚙️ ADMIN >>', callback_data=CallBackData.menu_admin), ],
 ])
 
 
