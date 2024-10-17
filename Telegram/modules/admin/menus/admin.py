@@ -1,12 +1,12 @@
-from aiogram import F, types
+from aiogram import F
 from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
 from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID
-from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin, k_menu_restart_service, k_menu_reboot_server
 from Telegram.loader import bot, dp
+from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin, k_menu_restart_service, k_menu_reboot_server
 from Telegram.states.Form import Form
 
 
@@ -16,8 +16,7 @@ from Telegram.states.Form import Form
 )
 async def admin_menu(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(Form.admin_menu)
-    await bot.answer_callback_query(
-        callback_query_id=callback_query.id,
+    await bot.edit_message_text(
         text='<b>[ ADMIN ]</b>',
         parse_mode=ParseMode.HTML,
         chat_id=callback_query.from_user.id,
@@ -26,12 +25,11 @@ async def admin_menu(callback_query: CallbackQuery, state: FSMContext):
     )
 
 
-
 @dp.callback_query(
     (F.data == CallBackData.menu_restart_service_wg)
     & (F.from_user.id.in_({*ADMIN_ID}))
 )
-async def menu_restart_service_wg(callback_query: types.callback_query, state: FSMContext):
+async def menu_restart_service_wg(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(Form.menu_restart_service_wg)
     await bot.edit_message_text(
         text='<b>[ Перезагрузить службу wireguard ]</b>',
@@ -46,7 +44,7 @@ async def menu_restart_service_wg(callback_query: types.callback_query, state: F
     (F.data == CallBackData.menu_reboot_server)
     & (F.from_user.id.in_({*ADMIN_ID}))
 )
-async def menu_reboot_server(callback_query: types.callback_query, state: FSMContext):
+async def menu_reboot_server(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(Form.menu_reboot_server)
     await bot.edit_message_text(
         text='<b>[ Перезагрузить сервер ]</b>',

@@ -1,9 +1,8 @@
 import os.path
 
 from aiogram import F, Router
-from aiogram import types
 from aiogram.fsm.context import FSMContext
-from aiogram.types import FSInputFile
+from aiogram.types import FSInputFile, CallbackQuery
 
 from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID
@@ -20,7 +19,7 @@ router = Router()
     F.data.in_({CallBackData.update_bot, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
-async def update_bot(callback_query: types.callback_query, state: FSMContext):
+async def update_bot(callback_query: CallbackQuery, state: FSMContext):
     wg.update_bot()
 
 
@@ -28,7 +27,7 @@ async def update_bot(callback_query: types.callback_query, state: FSMContext):
     F.data.in_({CallBackData.restart_service_wg_ok, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
-async def restart_service(callback_query: types.callback_query, state: FSMContext):
+async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     await state.clear()
     wg.restart_service()
     await bot.send_message(
@@ -42,7 +41,7 @@ async def restart_service(callback_query: types.callback_query, state: FSMContex
     F.data.in_({CallBackData.reboot_server_ok, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
-async def restart_service(callback_query: types.callback_query, state: FSMContext):
+async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     await state.clear()
     wg.reboot_server()
     await bot.send_message(
@@ -56,7 +55,7 @@ async def restart_service(callback_query: types.callback_query, state: FSMContex
     F.data.in_({CallBackData.download_wg_conf, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
-async def download_wg_conf(callback_query: types.callback_query, state: FSMContext):
+async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
     file = WG_CONF
     filename = f'wg0.conf'
     await send_document(file, filename, callback_query.from_user.id)
@@ -67,7 +66,7 @@ async def download_wg_conf(callback_query: types.callback_query, state: FSMConte
     F.data.in_({CallBackData.download_logs, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
-async def download_logs(callback_query: types.callback_query, state: FSMContext):
+async def download_logs(callback_query: CallbackQuery, state: FSMContext):
     file = SYSTEM_LOG
     filename = f'log.log'
     print(state)
@@ -79,7 +78,7 @@ async def download_logs(callback_query: types.callback_query, state: FSMContext)
     F.data.in_({CallBackData.clear_log, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
-async def clear_log(callback_query: types.callback_query, state: FSMContext):
+async def clear_log(callback_query: CallbackQuery, state: FSMContext):
     with open(SYSTEM_LOG, 'w') as f:
         f.write('')
 
@@ -88,7 +87,7 @@ async def clear_log(callback_query: types.callback_query, state: FSMContext):
     F.data.in_({CallBackData.download_wg_dump, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
-async def download_wg_dump(callback_query: types.callback_query, state: FSMContext):
+async def download_wg_dump(callback_query: CallbackQuery, state: FSMContext):
     wg.get_dump()
     file = WG_DUMP
     filename = f'wg_dump.txt'
