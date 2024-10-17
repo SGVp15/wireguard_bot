@@ -24,6 +24,7 @@ async def admin_menu(callback_query: types.callback_query, state: FSMContext):
     )
 
 
+
 @dp.callback_query(
     (F.data == CallBackData.menu_restart_service_wg)
     & (F.from_user.id.in_({*ADMIN_ID}))
