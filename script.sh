@@ -1,3 +1,3 @@
-git reset --hard origin/master
+git pull
 pip install -r requirements.txt
 python3 /root/wireguard_bot/main.py
