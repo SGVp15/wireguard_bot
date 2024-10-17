@@ -1,6 +1,7 @@
 from aiogram import F, types
 from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
+from aiogram.types import CallbackQuery
 
 from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID
@@ -28,9 +29,9 @@ async def admin_menu(callback_query: types.callback_query, state: FSMContext):
     (F.data == CallBackData.menu_restart_service_wg)
     & (F.from_user.id.in_({*ADMIN_ID}))
 )
-async def menu_restart_service_wg(callback_query: types.callback_query, state: FSMContext):
+async def menu_restart_service_wg(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(Form.menu_restart_service_wg)
-    await bot.edit_message_text(
+    await callback_query.answer(
         text='<b>[ Перезагрузить службу wireguard ]</b>',
         parse_mode=ParseMode.HTML,
         chat_id=callback_query.from_user.id,
