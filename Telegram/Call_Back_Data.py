@@ -1,4 +1,5 @@
 class CallBackData:
+    show_version = 'show_version'
     clear_log = 'clear_log'
     update_bot = 'update_bot'
     download_wg_dump = 'download_wg_dump'

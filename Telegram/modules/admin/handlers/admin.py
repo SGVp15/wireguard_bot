@@ -1,6 +1,7 @@
 import os.path
 
 from aiogram import F, Router
+from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, CallbackQuery
 
@@ -9,7 +10,7 @@ from Telegram.config import ADMIN_ID
 from Telegram.keyboards.menu_main import k_main_menu
 from Telegram.loader import bot
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
-from config import WG_CONF, WG_DUMP, SYSTEM_LOG
+from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION
 from wireguard.wireguard_class import WIREGUARD as wg
 
 router = Router()
@@ -21,6 +22,20 @@ router = Router()
 )
 async def update_bot(callback_query: CallbackQuery, state: FSMContext):
     wg.update_bot()
+
+
+@router.callback_query(
+    F.data.in_({CallBackData.show_version, })
+    & F.from_user.id.in_({*ADMIN_ID, })
+)
+async def show_version(callback_query: CallbackQuery, state: FSMContext):
+    await bot.edit_message_text(
+        text=f'<b>{VERSION}</b>',
+        parse_mode=ParseMode.HTML,
+        chat_id=callback_query.from_user.id,
+        message_id=callback_query.message.message_id,
+        reply_markup=k_menu_admin
+    )
 
 
 @router.callback_query(
