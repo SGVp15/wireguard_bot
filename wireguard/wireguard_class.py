@@ -24,16 +24,16 @@ class WIREGUARD:
         name = re.sub(r'\s+', '_', name)
         name = transliterate(name) + datetime.today().strftime('_%Y-%m-%d')
 
-        path_wg = os.path.join('/', 'etc', 'wireguard')
-        path_qr = os.path.join(path_wg, 'qr')
+        PATH_WG = os.path.join('/', 'etc', 'wireguard')
+        PATH_QR = os.path.join(PATH_WG, 'qr')
 
-        wg_config_file = os.path.join(path_wg, 'wg0.conf')
-        wg_public_key_file = os.path.join(path_wg, 'public.key')
+        wg_config_file = os.path.join(PATH_WG, 'wg0.conf')
+        wg_public_key_file = os.path.join(PATH_WG, 'public.key')
 
-        path_keys = os.path.join(path_wg, 'keys')
-        path_confs = os.path.join(path_wg, 'confs')
-        os.makedirs(path_confs, exist_ok=True)
-        os.makedirs(path_keys, exist_ok=True)
+        PATH_KEYS = os.path.join(PATH_WG, 'keys')
+        PATH_CONFS = os.path.join(PATH_WG, 'confs')
+        os.makedirs(PATH_CONFS, exist_ok=True)
+        os.makedirs(PATH_KEYS, exist_ok=True)
 
         with open(wg_config_file, 'r') as f:
             s = f.read()
@@ -49,8 +49,8 @@ class WIREGUARD:
                 break
         # print(f'{ip=}')
 
-        path_user_private_key = os.path.join(path_keys, f'{name}_private.key')
-        path_user_public_key = os.path.join(path_keys, f'{name}_public.key')
+        path_user_private_key = os.path.join(PATH_KEYS, f'{name}_private.key')
+        path_user_public_key = os.path.join(PATH_KEYS, f'{name}_public.key')
 
         os.system(f'wg genkey | tee {path_user_private_key} | wg pubkey | tee {path_user_public_key}')
         time.sleep(0.1)
@@ -85,16 +85,16 @@ class WIREGUARD:
 
         print(config_string)
         time.sleep(0.1)
-        conf_file = os.path.join(path_confs, f'{name}.conf')
-        with open(conf_file, 'w') as f:
+        full_path_conf_file = os.path.join(PATH_CONFS, f'{name}.conf')
+        with open(full_path_conf_file, 'w') as f:
             f.write(config_string)
 
         WIREGUARD.restart_service()
 
-        qr_file = os.path.join(path_qr, f'{name}.png')
-        WIREGUARD.create_qr_code(input_file_path=conf_file, output_file_path=qr_file)
+        full_path_qr_file = os.path.join(PATH_QR, f'{name}.png')
+        WIREGUARD.create_qr_code(input_file_path=full_path_conf_file, output_file_path=full_path_qr_file)
 
-        return config_string, conf_file, qr_file
+        return config_string, full_path_conf_file, full_path_qr_file
 
     @staticmethod
     def restart_service():

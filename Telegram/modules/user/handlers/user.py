@@ -1,3 +1,5 @@
+import os
+
 from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, CallbackQuery
@@ -22,11 +24,11 @@ async def create_user(callback_query: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     user = data.get('name')
     print(f'{user}')
-    text, file, qr_code_file = wg.create_user(user)
+    text, config_file, qr_code_file = wg.create_user(user)
     log.info('create_user {user}')
     await state.clear()
 
-    file = FSInputFile(file, filename=user)
+    file = FSInputFile(config_file, filename=os.path.basename(config_file))
     await bot.send_message(
         text=f'Config file code {user}',
         chat_id=callback_query.from_user.id,
@@ -36,7 +38,7 @@ async def create_user(callback_query: CallbackQuery, state: FSMContext):
         document=file, reply_markup=k_main_menu
     )
 
-    file = FSInputFile(qr_code_file, filename=f'qr_{user}')
+    file = FSInputFile(qr_code_file, filename=os.path.basename(qr_code_file))
     await bot.send_message(
         text=f'QR code {user}',
         chat_id=callback_query.from_user.id,
