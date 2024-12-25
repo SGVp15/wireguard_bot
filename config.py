@@ -10,4 +10,4 @@ WG_DUMP = './wg_dump.txt'
 
 PATTERN_USER = r'\s*([А-Я][а-я]+\s+[А-Я][а-я]+)\s*'
 
-VERSION = '1.3'
+VERSION = '1.3.1'
