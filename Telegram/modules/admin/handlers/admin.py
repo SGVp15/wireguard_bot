@@ -158,7 +158,7 @@ async def download_config_file(callback_query: CallbackQuery):
 
 @router.callback_query(
     F.data.in_({CallBackData.show_config_files, })
-    & F.from_user.id.in_({*ADMIN_ID, })
+    # & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def show_config_list_files(callback_query: CallbackQuery):
     await bot.send_message(
