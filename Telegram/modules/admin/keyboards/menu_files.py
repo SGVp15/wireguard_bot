@@ -34,4 +34,4 @@ def get_config_list_files_keyboard() -> [InlineKeyboardButton]:
                     # InlineKeyboardButton(text=f'🗑 {file}', callback_data=f'{CallBackData.FILE_DELETE_}{file}'),
                 ]
             )
-    return InlineKeyboardMarkup(inline_keyboard=[*out_buttons])
+    return InlineKeyboardMarkup(inline_keyboard=[*out_buttons,[InlineKeyboardButton(text='🔙 Назад', callback_data=CallBackData.menu_admin), ]])
