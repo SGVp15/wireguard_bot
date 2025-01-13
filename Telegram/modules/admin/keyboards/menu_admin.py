@@ -13,7 +13,6 @@ k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='❌ Удалить логи', callback_data=CallBackData.clear_log), ],
     [InlineKeyboardButton(text=' Показать версию', callback_data=CallBackData.show_version), ],
     [InlineKeyboardButton(text='🔖 Показать Configs', callback_data=CallBackData.show_config_files), ],
-    [InlineKeyboardButton(text='🔳 Показать QR codes', callback_data=CallBackData.show_qr_files), ],
     [InlineKeyboardButton(text='🔙 Назад', callback_data=CallBackData.menu_main), ]
 ])
 

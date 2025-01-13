@@ -7,7 +7,6 @@ class CallBackData:
     download_logs = 'download_logs'
     get_log = 'get_log'
 
-    show_qr_files = 'show_qr_files'
     show_config_files = 'show_config_files'
 
     create_user_ok = 'create_user'
