@@ -1,4 +1,5 @@
 class CallBackData:
+
     show_version = 'show_version'
     clear_log = 'clear_log'
     update_bot = 'update_bot'
@@ -6,6 +7,9 @@ class CallBackData:
     download_wg_conf = 'download_wg_conf'
     download_logs = 'download_logs'
     get_log = 'get_log'
+
+    show_qr_files = 'show_qr_files'
+    show_config_files = 'show_config_files'
 
     create_user_ok = 'create_user'
     menu_create_user = 'create_user_menu'
