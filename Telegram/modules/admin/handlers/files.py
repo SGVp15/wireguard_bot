@@ -2,7 +2,7 @@ import os
 import os.path
 
 from aiogram import F, types, Router
-from aiogram.types import FSInputFile
+from aiogram.types import FSInputFile, CallbackQuery
 
 from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID
@@ -18,7 +18,7 @@ router = Router(name=__name__)
     F.data.startswith(CallBackData.file_download_)
     & F.from_user.id.in_({*ADMIN_ID, })
 )
-async def download_qr_file(callback_query: types.callback_query):
+async def download_qr_file(callback_query: CallbackQuery):
     query = callback_query.data
     file_name = str(query).replace(CallBackData.file_download_, '')
     path = os.path.join(PATH_QR, file_name)
@@ -29,3 +29,28 @@ async def download_qr_file(callback_query: types.callback_query):
         await bot.send_message(chat_id=callback_query.from_user.id, text='Файла не существует',
                                reply_markup=k_menu_admin())
 
+
+@router.callback_query(
+    F.data.in_({CallBackData.show_qr_files, })
+    # & F.from_user.id.in_({*ADMIN_ID, })
+)
+async def show_qr_list_files(callback_query: CallbackQuery):
+    print(__name__)
+    await bot.send_message(
+        chat_id=callback_query.from_user.id,
+        text='Список QR code',
+        reply_markup=get_qr_list_files_keyboard()
+    )
+
+
+@router.callback_query(
+    F.data.in_({CallBackData.show_config_files, })
+    # & F.from_user.id.in_({*ADMIN_ID, })
+)
+async def show_config_list_files(callback_query: CallbackQuery):
+    print(__name__)
+    await bot.send_message(
+        chat_id=callback_query.from_user.id,
+        text='Список Configs',
+        reply_markup=get_config_list_files_keyboard()
+    )

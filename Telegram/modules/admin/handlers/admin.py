@@ -124,28 +124,3 @@ async def send_document(file, filename, chat_id):
         )
 
 
-
-@router.callback_query(
-    F.data.in_({CallBackData.show_qr_files, })
-    # & F.from_user.id.in_({*ADMIN_ID, })
-)
-async def show_qr_list_files(callback_query: CallbackQuery):
-    print(__name__)
-    await bot.send_message(
-        chat_id=callback_query.from_user.id,
-        text='Список QR code',
-        reply_markup=get_qr_list_files_keyboard()
-    )
-
-
-@router.callback_query(
-    F.data.in_({CallBackData.show_config_files,})
-    # & F.from_user.id.in_({*ADMIN_ID, })
-)
-async def show_config_list_files(callback_query: CallbackQuery):
-    print(__name__)
-    await bot.send_message(
-        chat_id=callback_query.from_user.id,
-        text='Список Configs',
-        reply_markup=get_config_list_files_keyboard()
-    )
