@@ -8,8 +8,8 @@ SYSTEM_LOG = './.log.txt'
 WG_CONF = '/etc/wireguard/wg0.conf'
 WG_DUMP = './wg_dump.txt'
 
-PATH_CONFIG = '/etc/wireguard/confs/'
-PATH_QR = '/etc/wireguard/qr/'
+PATH_CONFIG = '/etc/wireguard/confs'
+PATH_QR = '/etc/wireguard/qr'
 
 PATTERN_USER = r'\s*([А-Я][а-я]+\s+[А-Я][а-я]+)\s*'
 
