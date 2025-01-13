@@ -10,6 +10,7 @@ from Telegram.config import ADMIN_ID
 from Telegram.keyboards.menu_main import k_main_menu
 from Telegram.loader import bot
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
+from Telegram.modules.admin.keyboards.menu_files import get_config_list_files_keyboard, get_qr_list_files_keyboard
 from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION
 from wireguard.wireguard_class import WIREGUARD as wg
 
@@ -121,3 +122,30 @@ async def send_document(file, filename, chat_id):
             text=f'File not found {file}',
             chat_id=chat_id,
         )
+
+
+
+@router.callback_query(
+    F.data.in_({CallBackData.show_qr_files, })
+    # & F.from_user.id.in_({*ADMIN_ID, })
+)
+async def show_qr_list_files(callback_query: CallbackQuery):
+    print(__name__)
+    await bot.send_message(
+        chat_id=callback_query.from_user.id,
+        text='Список QR code',
+        reply_markup=get_qr_list_files_keyboard()
+    )
+
+
+@router.callback_query(
+    F.data.in_({CallBackData.show_config_files,})
+    # & F.from_user.id.in_({*ADMIN_ID, })
+)
+async def show_config_list_files(callback_query: CallbackQuery):
+    print(__name__)
+    await bot.send_message(
+        chat_id=callback_query.from_user.id,
+        text='Список Configs',
+        reply_markup=get_config_list_files_keyboard()
+    )

@@ -29,28 +29,3 @@ async def download_qr_file(callback_query: types.callback_query):
         await bot.send_message(chat_id=callback_query.from_user.id, text='Файла не существует',
                                reply_markup=k_menu_admin())
 
-
-@router.callback_query(
-    F.data.in_({CallBackData.show_qr_files, })
-    # & F.from_user.id.in_({*ADMIN_ID, })
-)
-async def show_qr_list_files(callback_query: types.callback_query):
-    print(__name__)
-    await bot.send_message(
-        chat_id=callback_query.from_user.id,
-        text='Список QR code',
-        reply_markup=get_qr_list_files_keyboard()
-    )
-
-
-@router.callback_query(
-    F.data == CallBackData.show_config_files
-    # & F.from_user.id.in_({*ADMIN_ID, })
-)
-async def show_config_list_files(callback_query: types.callback_query):
-    print(__name__)
-    await bot.send_message(
-        chat_id=callback_query.from_user.id,
-        text='Список Configs',
-        reply_markup=get_config_list_files_keyboard()
-    )
