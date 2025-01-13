@@ -19,9 +19,10 @@ def get_config_list_files_keyboard() -> [InlineKeyboardButton]:
             [
                 # InlineKeyboardButton(text=f'⏬ {file}', callback_data=f'{CallBackData.file_download_config_}{config_file}'),
                 # InlineKeyboardButton(text=f'⏬ {file}', callback_data=f'{CallBackData.file_download_config_}{config_file}'),
-                # InlineKeyboardButton(text=f'⏬ {config_file}', callback_data=f'{CallBackData.file_download_config_}{config_file}'),
+                InlineKeyboardButton(text=f'{file}', callback_data=f'{file}'),
+                [
                 InlineKeyboardButton(text=f'⏬ {config_file}', callback_data=f'{CallBackData.file_download_config_}{config_file}'),
-                InlineKeyboardButton(text=f'🔳 ', callback_data=f'{CallBackData.file_download_qr_}{file}.png'),
+                InlineKeyboardButton(text=f'🔳 qrcode', callback_data=f'{CallBackData.file_download_qr_}{file}.png'),]
                 # InlineKeyboardButton(text=f'🗑 {file}', callback_data=f'{CallBackData.FILE_DELETE_}{file}'),
             ]
         )
