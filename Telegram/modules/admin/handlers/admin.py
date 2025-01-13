@@ -20,7 +20,7 @@ router = Router()
     F.data.in_({CallBackData.update_bot, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
-async def update_bot(callback_query: CallbackQuery, state: FSMContext):
+async def update_bot():
     wg.update_bot()
 
 
