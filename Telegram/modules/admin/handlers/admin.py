@@ -13,7 +13,7 @@ from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION
 from wireguard.wireguard_class import WIREGUARD as wg
 
-router = Router()
+router = Router(name=__name__)
 
 
 @router.callback_query(
