@@ -17,7 +17,7 @@ def get_config_list_files_keyboard() -> [InlineKeyboardButton]:
         if f'{file}.png' in qrcodes:
             out_buttons.append(
                 [
-                    InlineKeyboardButton(text=f'{file}', callback_data=f'{file}'),
+                    InlineKeyboardButton(text=f'{file}', callback_data=f'{CallBackData.file_download_config_}{config_file}'),
                     InlineKeyboardButton(text=f'⏬ config',
                                          callback_data=f'{CallBackData.file_download_config_}{config_file}'),
                     InlineKeyboardButton(text=f'🔳 qrcode', callback_data=f'{CallBackData.file_download_qr_}{file}.png'),
@@ -27,7 +27,7 @@ def get_config_list_files_keyboard() -> [InlineKeyboardButton]:
         else:
             out_buttons.append(
                 [
-                    InlineKeyboardButton(text=f'{file}', callback_data=f'{file}'),
+                    InlineKeyboardButton(text=f'{file}', callback_data=f'{CallBackData.file_download_config_}{config_file}'),
                     InlineKeyboardButton(text=f'⏬ config',
                                          callback_data=f'{CallBackData.file_download_config_}{config_file}'),
                     # InlineKeyboardButton(text=f'🔳 qrcode', callback_data=f'{CallBackData.file_download_qr_}{file}.png'),
