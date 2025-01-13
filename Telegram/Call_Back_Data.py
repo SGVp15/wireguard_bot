@@ -22,5 +22,7 @@ class CallBackData:
     menu_reboot_server = 'menu_reboot_server'
     reboot_server_ok = 'reboot_server_ok'
 
-    file_download_ = 'file_download_'
-    file_delete_ = 'file_delete_'
+    file_download_qr_ = 'file_download_qr_'
+    file_download_config_ = 'file_download_config_'
+    file_delete_qr_ = 'file_delete_qr_'
+    file_delete_config_ = 'file_delete_config_'

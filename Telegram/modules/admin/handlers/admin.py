@@ -125,12 +125,12 @@ async def send_document(file, filename, chat_id):
 
 
 @router.callback_query(
-    F.data.startswith(CallBackData.file_download_)
+    F.data.startswith(CallBackData.file_download_qr_)
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def download_qr_file(callback_query: CallbackQuery):
     query = callback_query.data
-    file_name = str(query).replace(CallBackData.file_download_, '')
+    file_name = str(query).replace(CallBackData.file_download_qr_, '')
     path = os.path.join(PATH_QR, file_name)
     if os.path.exists(path):
         file = FSInputFile(path, file_name)
@@ -141,12 +141,12 @@ async def download_qr_file(callback_query: CallbackQuery):
 
 
 @router.callback_query(
-    F.data.startswith(CallBackData.file_download_)
+    F.data.startswith(CallBackData.file_download_qr_)
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def download_config_file(callback_query: CallbackQuery):
     query = callback_query.data
-    file_name = str(query).replace(CallBackData.file_download_, '')
+    file_name = str(query).replace(CallBackData.file_download_qr_, '')
     path = os.path.join(PATH_CONFIG, file_name)
     if os.path.exists(path):
         file = FSInputFile(path, file_name)
@@ -158,10 +158,9 @@ async def download_config_file(callback_query: CallbackQuery):
 
 @router.callback_query(
     F.data.in_({CallBackData.show_qr_files, })
-    # & F.from_user.id.in_({*ADMIN_ID, })
+    & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def show_qr_list_files(callback_query: CallbackQuery):
-    print(__name__)
     await bot.send_message(
         chat_id=callback_query.from_user.id,
         text='Список QR code',
@@ -171,10 +170,9 @@ async def show_qr_list_files(callback_query: CallbackQuery):
 
 @router.callback_query(
     F.data.in_({CallBackData.show_config_files, })
-    # & F.from_user.id.in_({*ADMIN_ID, })
+    & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def show_config_list_files(callback_query: CallbackQuery):
-    print(__name__)
     await bot.send_message(
         chat_id=callback_query.from_user.id,
         text='Список Configs',
