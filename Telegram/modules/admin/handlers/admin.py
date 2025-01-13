@@ -135,7 +135,7 @@ async def download_qr_file(callback_query: CallbackQuery):
     if os.path.exists(path):
         file = FSInputFile(path, file_name)
         await bot.send_document(chat_id=callback_query.from_user.id, document=file)
-        await bot.send_message(chat_id=callback_query.from_user.id, text='[ Admin ] ',
+        await bot.send_message(chat_id=callback_query.from_user.id, text='[ ADMIN ] ',
                                reply_markup=k_menu_admin)
     else:
         await bot.send_message(chat_id=callback_query.from_user.id, text='Файла не существует',
@@ -154,7 +154,7 @@ async def download_config_file(callback_query: CallbackQuery):
     if os.path.exists(path):
         file = FSInputFile(path, file_name)
         await bot.send_document(chat_id=callback_query.from_user.id, document=file)
-        await bot.send_message(chat_id=callback_query.from_user.id, text='[ Admin ] ',
+        await bot.send_message(chat_id=callback_query.from_user.id, text='[ ADMIN ] ',
                                reply_markup=k_menu_admin)
     else:
         await bot.send_message(chat_id=callback_query.from_user.id, text='Файла не существует',
