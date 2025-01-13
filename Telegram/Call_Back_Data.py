@@ -1,5 +1,4 @@
 class CallBackData:
-
     show_version = 'show_version'
     clear_log = 'clear_log'
     update_bot = 'update_bot'
@@ -22,3 +21,6 @@ class CallBackData:
 
     menu_reboot_server = 'menu_reboot_server'
     reboot_server_ok = 'reboot_server_ok'
+
+    FILE_DOWNLOAD_ = 'file_download_'
+    FILE_DELETE_ = 'file_delete_'
