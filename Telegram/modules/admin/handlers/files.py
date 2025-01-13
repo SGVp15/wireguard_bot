@@ -11,16 +11,16 @@ from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from Telegram.modules.admin.keyboards.menu_files import get_qr_list_files_keyboard, get_config_list_files_keyboard
 from config import PATH_QR
 
-router = Router()
+router = Router(name=__name__)
 
 
 @router.callback_query(
-    F.data.startswith(CallBackData.FILE_DOWNLOAD_)
+    F.data.startswith(CallBackData.file_download_)
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def download_qr_file(callback_query: types.callback_query):
     query = callback_query.data
-    file_name = str(query).replace(CallBackData.FILE_DOWNLOAD_, '')
+    file_name = str(query).replace(CallBackData.file_download_, '')
     path = os.path.join(PATH_QR, file_name)
     if os.path.exists(path):
         file = FSInputFile(path, file_name)
@@ -35,6 +35,7 @@ async def download_qr_file(callback_query: types.callback_query):
     # & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def show_qr_list_files(callback_query: types.callback_query):
+    print(__name__)
     await bot.send_message(
         chat_id=callback_query.from_user.id,
         text='Список QR code',
@@ -47,6 +48,7 @@ async def show_qr_list_files(callback_query: types.callback_query):
     # & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def show_config_list_files(callback_query: types.callback_query):
+    print(__name__)
     await bot.send_message(
         chat_id=callback_query.from_user.id,
         text='Список Configs',

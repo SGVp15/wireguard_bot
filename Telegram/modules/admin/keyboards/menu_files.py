@@ -12,7 +12,7 @@ def get_config_list_files_keyboard(path=PATH_CONFIG) -> [InlineKeyboardButton]:
     for file in files:
         out_buttons.append(
             [
-                InlineKeyboardButton(text=f'⏬ {file}', callback_data=f'{CallBackData.FILE_DOWNLOAD_}{file}'),
+                InlineKeyboardButton(text=f'⏬ {file}', callback_data=f'{CallBackData.file_download_}{file}'),
                 # InlineKeyboardButton(text=f'🗑 {file}', callback_data=f'{CallBackData.FILE_DELETE_}{file}'),
             ]
         )
@@ -25,7 +25,7 @@ def get_qr_list_files_keyboard(path=PATH_QR) -> [InlineKeyboardButton]:
     for file in files:
         out_buttons.append(
             [
-                InlineKeyboardButton(text=f'⏬ {file}', callback_data=f'{CallBackData.FILE_DOWNLOAD_}{file}'),
+                InlineKeyboardButton(text=f'⏬ {file}', callback_data=f'{CallBackData.file_download_}{file}'),
                 # InlineKeyboardButton(text=f'🗑 {file}', callback_data=f'{CallBackData.FILE_DELETE_}{file}'),
             ]
         )
