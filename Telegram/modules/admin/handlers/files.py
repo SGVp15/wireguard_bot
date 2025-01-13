@@ -16,7 +16,7 @@ router = Router()
 @router.callback_query(
     F.data.startswith(CallBackData.FILE_DOWNLOAD_)
 )
-async def download_qr_file(callback_query: types.callback_query):
+async def download_qr_file(callback_query):
     query = callback_query.data
     file_name = str(query).replace(CallBackData.FILE_DOWNLOAD_, '')
     path = os.path.join(PATH_QR, file_name)
@@ -29,7 +29,7 @@ async def download_qr_file(callback_query: types.callback_query):
 
 
 @router.callback_query(F.data.in_({CallBackData.show_qr_files}))
-async def show_qr_list_files(callback_query: types.callback_query):
+async def show_qr_list_files(callback_query):
     await bot.send_message(
         chat_id=callback_query.from_user.id,
         text='Список QR code',
