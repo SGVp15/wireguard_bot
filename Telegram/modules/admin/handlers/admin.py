@@ -11,7 +11,7 @@ from Telegram.keyboards.menu_main import k_main_menu
 from Telegram.loader import bot
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from Telegram.modules.admin.keyboards.menu_files import get_config_list_files_keyboard, get_qr_list_files_keyboard
-from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION
+from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION, PATH_QR, PATH_CONFIG
 from wireguard.wireguard_class import WIREGUARD as wg
 
 router = Router(name=__name__)
@@ -124,7 +124,6 @@ async def send_document(file, filename, chat_id):
         )
 
 
-
 @router.callback_query(
     F.data.startswith(CallBackData.file_download_)
     & F.from_user.id.in_({*ADMIN_ID, })
@@ -133,6 +132,22 @@ async def download_qr_file(callback_query: CallbackQuery):
     query = callback_query.data
     file_name = str(query).replace(CallBackData.file_download_, '')
     path = os.path.join(PATH_QR, file_name)
+    if os.path.exists(path):
+        file = FSInputFile(path, file_name)
+        await bot.send_document(chat_id=callback_query.from_user.id, document=file, reply_markup=k_menu_admin)
+    else:
+        await bot.send_message(chat_id=callback_query.from_user.id, text='Файла не существует',
+                               reply_markup=k_menu_admin())
+
+
+@router.callback_query(
+    F.data.startswith(CallBackData.file_download_)
+    & F.from_user.id.in_({*ADMIN_ID, })
+)
+async def download_config_file(callback_query: CallbackQuery):
+    query = callback_query.data
+    file_name = str(query).replace(CallBackData.file_download_, '')
+    path = os.path.join(PATH_CONFIG, file_name)
     if os.path.exists(path):
         file = FSInputFile(path, file_name)
         await bot.send_document(chat_id=callback_query.from_user.id, document=file, reply_markup=k_menu_admin)
