@@ -138,6 +138,7 @@ async def download_qr_file(callback_query: CallbackQuery):
     else:
         await bot.send_message(chat_id=callback_query.from_user.id, text='Файла не существует',
                                reply_markup=k_menu_admin)
+        print(path)
 
 
 @router.callback_query(
@@ -154,6 +155,7 @@ async def download_config_file(callback_query: CallbackQuery):
     else:
         await bot.send_message(chat_id=callback_query.from_user.id, text='Файла не существует',
                                reply_markup=k_menu_admin)
+        print(path)
 
 
 @router.callback_query(
