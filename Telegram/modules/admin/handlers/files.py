@@ -32,7 +32,7 @@ async def download_qr_file(callback_query: types.callback_query):
 
 @router.callback_query(
     F.data.in_({CallBackData.show_qr_files, })
-    & F.from_user.id.in_({*ADMIN_ID, })
+    # & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def show_qr_list_files(callback_query: types.callback_query):
     await bot.send_message(
@@ -44,6 +44,7 @@ async def show_qr_list_files(callback_query: types.callback_query):
 
 @router.callback_query(
     F.data == CallBackData.show_config_files
+    # & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def show_config_list_files(callback_query: types.callback_query):
     await bot.send_message(
