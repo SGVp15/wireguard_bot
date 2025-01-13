@@ -9,6 +9,7 @@ from config import PATH_CONFIG, PATH_QR
 def get_config_list_files_keyboard() -> [InlineKeyboardButton]:
     out_buttons = []
     config_files = os.listdir(PATH_CONFIG)
+    config_files = sorted(config_files)
     qrcodes = os.listdir(PATH_QR)
     for config_file in config_files:
         file = config_file.replace('.conf', '')
