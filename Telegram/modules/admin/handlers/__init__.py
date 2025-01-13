@@ -1,2 +1,3 @@
-from . import admin
-from . import files
+from . import *
+# from . import admin
+# from . import files
