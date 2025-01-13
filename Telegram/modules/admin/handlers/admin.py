@@ -141,7 +141,7 @@ async def download_qr_file(callback_query: CallbackQuery):
 
 
 @router.callback_query(
-    F.data.startswith(CallBackData.file_download_qr_)
+    F.data.startswith(CallBackData.file_download_config_)
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def download_config_file(callback_query: CallbackQuery):

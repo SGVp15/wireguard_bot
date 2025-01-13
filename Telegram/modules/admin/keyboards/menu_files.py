@@ -12,9 +12,6 @@ def get_config_list_files_keyboard() -> [InlineKeyboardButton]:
     qrcodes = os.listdir(PATH_QR)
     for config_file in config_files:
         file = config_file.replace('.conf', '')
-
-        print(config_file)
-        # if config_file.endswith('.conf')
         if f'{file}.png' in qrcodes:
             out_buttons.append(
                 [
