@@ -1,7 +1,7 @@
 import os
 import os.path
 
-from aiogram import F, Router, types
+from aiogram import F, types
 from aiogram.types import FSInputFile
 
 from Telegram.Call_Back_Data import CallBackData
@@ -26,7 +26,7 @@ async def download_qr_file(callback_query: types.callback_query):
                                reply_markup=k_menu_admin())
 
 
-@router.callback_query(F.data.in_({CallBackData.show_qr_files}))
+@router.callback_query(F.data.in_({CallBackData.show_qr_files, }))
 async def show_qr_list_files(callback_query: types.callback_query):
     await bot.send_message(
         chat_id=callback_query.from_user.id,
@@ -35,8 +35,7 @@ async def show_qr_list_files(callback_query: types.callback_query):
     )
 
 
-
-@router.callback_query(F.data.in_({CallBackData.show_qr_files}))
+@router.callback_query(F.data.in_({CallBackData.show_config_files, }))
 async def show_config_list_files(callback_query: types.callback_query):
     await bot.send_message(
         chat_id=callback_query.from_user.id,
