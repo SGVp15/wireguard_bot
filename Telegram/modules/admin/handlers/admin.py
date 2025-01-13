@@ -147,7 +147,7 @@ async def download_qr_file(callback_query: CallbackQuery):
 )
 async def download_config_file(callback_query: CallbackQuery):
     query = callback_query.data
-    file_name = str(query).replace(CallBackData.file_download_qr_, '')
+    file_name = str(query).replace(CallBackData.file_download_config_, '')
     path = os.path.join(PATH_CONFIG, file_name)
     if os.path.exists(path):
         file = FSInputFile(path, file_name)
