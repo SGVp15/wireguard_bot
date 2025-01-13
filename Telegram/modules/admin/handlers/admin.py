@@ -163,8 +163,10 @@ async def download_config_file(callback_query: CallbackQuery):
     # & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def show_config_list_files(callback_query: CallbackQuery):
-    await bot.send_message(
-        chat_id=callback_query.from_user.id,
+    await bot.edit_message_text(
         text='Список Configs',
+        parse_mode=ParseMode.HTML,
+        chat_id=callback_query.from_user.id,
+        message_id=callback_query.message.message_id,
         reply_markup=get_config_list_files_keyboard()
     )
