@@ -1,6 +1,7 @@
 import os
 
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.utils.formatting import sizeof
 
 from Telegram.Call_Back_Data import CallBackData
 from config import PATH_CONFIG, PATH_QR
@@ -16,8 +17,8 @@ def get_config_list_files_keyboard() -> [InlineKeyboardButton]:
         if f'{file}.png' in qrcodes:
             out_buttons.append(
                 [
-                    InlineKeyboardButton(text=f'{file}', callback_data=f'{file}'),
-                    InlineKeyboardButton(text=f'⏬ config',
+                    # InlineKeyboardButton(text=f'{file}', callback_data=f'{file}'),
+                    InlineKeyboardButton(text=f'⏬ {config_file}',
                                          callback_data=f'{CallBackData.file_download_config_}{config_file}'),
                     InlineKeyboardButton(text=f'🔳 qrcode', callback_data=f'{CallBackData.file_download_qr_}{file}.png'),
                     # InlineKeyboardButton(text=f'🗑 {file}', callback_data=f'{CallBackData.FILE_DELETE_}{file}'),
@@ -26,8 +27,8 @@ def get_config_list_files_keyboard() -> [InlineKeyboardButton]:
         else:
             out_buttons.append(
                 [
-                    InlineKeyboardButton(text=f'{file}', callback_data=f'{file}'),
-                    InlineKeyboardButton(text=f'⏬ config',
+                    # InlineKeyboardButton(text=f'{file}', callback_data=f'{file}'),
+                    InlineKeyboardButton(text=f'⏬ {file}',
                                          callback_data=f'{CallBackData.file_download_config_}{config_file}'),
                     # InlineKeyboardButton(text=f'🔳 qrcode', callback_data=f'{CallBackData.file_download_qr_}{file}.png'),
                     # InlineKeyboardButton(text=f'🗑 {file}', callback_data=f'{CallBackData.FILE_DELETE_}{file}'),
