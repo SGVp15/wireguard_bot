@@ -8,12 +8,12 @@ from config import PATH_CONFIG, PATH_QR
 
 def get_config_list_files_keyboard() -> [InlineKeyboardButton]:
     out_buttons = []
-    configs = os.listdir(PATH_CONFIG)
+    config_files = os.listdir(PATH_CONFIG)
     qrcodes = os.listdir(PATH_QR)
-    for config_file in configs:
+    for config_file in config_files:
         file = config_file.replace('.conf', '')
 
-        print(f'\n\n\n{file}\n\n\n')
+        print(config_file)
         # if config_file.endswith('.conf')
         if f'{file}.png' in qrcodes:
             out_buttons.append(
