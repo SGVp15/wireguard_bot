@@ -34,18 +34,24 @@ async def download_config_file(callback_query: CallbackQuery,
                                callback_data: DOWNLOAD_CONFIG_FILE):
     await bot.send_message(chat_id=callback_query.from_user.id, text=f'{callback_data.name}',
                            reply_markup=k_menu_admin)
-    # query = callback_query.data
-    # file_name = str(query).replace(CallBackData.file_download_config_, '')
-    # path = os.path.join(PATH_CONFIG, file_name)
-    # if os.path.exists(path):
-    #     file = FSInputFile(path, file_name)
-    #     await bot.send_document(chat_id=callback_query.from_user.id, document=file)
-    #     await bot.send_message(chat_id=callback_query.from_user.id, text='[ ADMIN ] ',
-    #                            reply_markup=k_menu_admin)
-    # else:
-    #     await bot.send_message(chat_id=callback_query.from_user.id, text='Файла не существует',
-    #                            reply_markup=k_menu_admin)
-    #     print(path)
+    conf_name = callback_data.name
+    qr_name = conf_name.replace('.conf', 'png')
+    path_conf_file = os.path.join(PATH_CONFIG, conf_name)
+    path_qr_file = os.path.join(PATH_QR, qr_name)
+
+    if os.path.exists(path_conf_file):
+        file = FSInputFile(path_conf_file, conf_name)
+        await bot.send_document(chat_id=callback_query.from_user.id, document=file)
+    else:
+        await bot.send_message(chat_id=callback_query.from_user.id, text=f'[ {conf_name} ] Файла не существует')
+
+    if os.path.exists(path_qr_file):
+        file = FSInputFile(path_qr_file, qr_name)
+        await bot.send_document(chat_id=callback_query.from_user.id, document=file)
+    else:
+        await bot.send_message(chat_id=callback_query.from_user.id, text=f'[ {qr_name} ] Файла не существует')
+    await bot.send_message(chat_id=callback_query.from_user.id, text='[ ADMIN ] ',
+                           reply_markup=k_menu_admin)
 
 
 @router.callback_query(
