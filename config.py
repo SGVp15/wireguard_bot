@@ -1,16 +1,28 @@
+import os
+
 from dotenv import dotenv_values, find_dotenv
 
 config = dotenv_values(find_dotenv())
 
 SERVER_IP = config['SERVER_IP']
 
+IPV4NETWORK = '172.26.10.0/24'
+
+WG_SERVER_PORT = 443
+
 SYSTEM_LOG = './.log.txt'
-WG_CONF = '/etc/wireguard/wg0.conf'
+
+PATH_WG = os.path.join('/', 'etc', 'wireguard')
+
+WG_CONF = os.path.join(PATH_WG, 'wg0.conf')
 WG_DUMP = './wg_dump.txt'
 
-PATH_CONFIG = '/etc/wireguard/confs'
-PATH_QR = '/etc/wireguard/qr'
+PATH_CONFIG = os.path.join(PATH_WG, 'confs')
+PATH_QR = os.path.join(PATH_WG, 'qr')
+PATH_KEYS = os.path.join(PATH_WG, 'keys')
 
 PATTERN_USER = r'\s*([А-Я][а-я]+\s+[А-Я][а-я]+)\s*'
 
 VERSION = '1.5'
+for path in (PATH_CONFIG, PATH_QR, PATH_KEYS):
+    os.makedirs(path, exist_ok=True)

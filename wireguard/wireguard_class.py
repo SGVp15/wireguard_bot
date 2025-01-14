@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 from ipaddress import IPv4Network, IPv4Address
 
-from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG
+from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG, WG_CONF, IPV4NETWORK, WG_SERVER_PORT, PATH_WG, PATH_KEYS
 from utils.log import log
 from utils.translit import transliterate
 
@@ -13,29 +13,20 @@ class WIREGUARD:
     @staticmethod
     def create_user(name: str) -> (str, str):
         server_ip = SERVER_IP
-        server_port = '443'
+        server_port = WG_SERVER_PORT
 
         allowed_ips = '0.0.0.0/0'
         dns = '8.8.8.8'
         persistent_keepalive = 20
-        net = IPv4Network('172.26.10.0/24')
+        net = IPv4Network(IPV4NETWORK)
 
         name = name.strip()
         name = re.sub(r'\s+', '_', name)
         name = transliterate(name) + datetime.today().strftime('_%Y-%m-%d')
 
-        PATH_WG = os.path.join('/', 'etc', 'wireguard')
-        PATH_QR = os.path.join(PATH_WG, 'qr')
-
-        wg_config_file = os.path.join(PATH_WG, 'wg0.conf')
         wg_public_key_file = os.path.join(PATH_WG, 'public.key')
 
-        PATH_KEYS = os.path.join(PATH_WG, 'keys')
-        PATH_CONFS = PATH_CONFIG
-        os.makedirs(PATH_CONFS, exist_ok=True)
-        os.makedirs(PATH_KEYS, exist_ok=True)
-
-        with open(wg_config_file, 'r') as f:
+        with open(WG_CONF, 'r') as f:
             s = f.read()
 
         # IP
@@ -47,7 +38,6 @@ class WIREGUARD:
             if ip_net not in ips_current:
                 ip = ip_net
                 break
-        # print(f'{ip=}')
 
         path_user_private_key = os.path.join(PATH_KEYS, f'{name}_private.key')
         path_user_public_key = os.path.join(PATH_KEYS, f'{name}_public.key')
@@ -66,7 +56,7 @@ class WIREGUARD:
              f'PublicKey = {public_key}' \
              f'AllowedIPs = {ip}/32'
 
-        with open(wg_config_file, 'w') as f:
+        with open(WG_CONF, 'w') as f:
             f.write(s)
 
         with open(wg_public_key_file) as f:
@@ -85,7 +75,7 @@ class WIREGUARD:
 
         print(config_string)
         time.sleep(0.1)
-        full_path_conf_file = os.path.join(PATH_CONFS, f'{name}.conf')
+        full_path_conf_file = os.path.join(PATH_CONFIG, f'{name}.conf')
         with open(full_path_conf_file, 'w') as f:
             f.write(config_string)
 
