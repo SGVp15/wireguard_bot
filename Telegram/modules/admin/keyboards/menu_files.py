@@ -59,5 +59,5 @@ def builder_config_list_files_keyboard() -> InlineKeyboardMarkup:
     #             ]
     #         )
     # out_buttons.append([InlineKeyboardButton(text='🔙 Назад', callback_data=CallBackData.menu_admin)])
-    builder.adjust(1)
+    builder.adjust(3)
     return builder.as_markup()
