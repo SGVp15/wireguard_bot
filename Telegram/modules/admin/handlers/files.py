@@ -29,10 +29,7 @@ async def show_config_list_files(callback_query: CallbackQuery):
     )
 
 
-@router.callback_query(
-    DOWNLOAD_CONFIG_FILE.filter()
-    & F.from_user.id.in_({*ADMIN_ID, })
-)
+@router.callback_query(DOWNLOAD_CONFIG_FILE.filter())
 async def download_config_file(callback_query: CallbackQuery,
                                callback_data: DOWNLOAD_CONFIG_FILE):
     await bot.send_message(chat_id=callback_query.from_user.id, text=f'{callback_data.path}',
