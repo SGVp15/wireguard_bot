@@ -14,7 +14,6 @@ k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='♻️ Обновить Bot', callback_data=CALL_BACK_DATA.update_bot), ],
     [InlineKeyboardButton(text='❌ Удалить логи', callback_data=CALL_BACK_DATA.clear_log), ],
     [InlineKeyboardButton(text='? Показать версию', callback_data=CALL_BACK_DATA.show_version), ],
-    [InlineKeyboardButton(text='🔖 Показать Configs', callback_data=CALL_BACK_DATA.show_config_files), ],
     [InlineKeyboardButton(text='🔙 Назад', callback_data=CALL_BACK_DATA.menu_main), ]
 ])
 

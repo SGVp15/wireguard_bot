@@ -4,6 +4,7 @@ from Telegram.Call_Back_Data import CALL_BACK_DATA
 
 k_menu_users = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🌟 Создать пользователя >>', callback_data=CALL_BACK_DATA.menu_create_user), ],
+    [InlineKeyboardButton(text='🔖 Показать Configs', callback_data=CALL_BACK_DATA.show_config_files), ],
     [InlineKeyboardButton(text='🔙 Назад', callback_data=CALL_BACK_DATA.menu_main), ],
 
 ])
