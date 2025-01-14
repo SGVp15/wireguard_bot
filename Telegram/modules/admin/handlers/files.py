@@ -1,5 +1,6 @@
 import os
 import os.path
+import re
 
 from aiogram import F, Router
 from aiogram.enums import ParseMode
@@ -35,7 +36,7 @@ async def download_config_file(callback_query: CallbackQuery,
     await bot.send_message(chat_id=callback_query.from_user.id, text=f'{callback_data.name}',
                            reply_markup=k_menu_admin)
     conf_name = callback_data.name
-    qr_name = conf_name.replace('.conf', 'png')
+    qr_name = re.sub(r'\.conf$', '.png', conf_name)
     path_conf_file = os.path.join(PATH_CONFIG, conf_name)
     path_qr_file = os.path.join(PATH_QR, qr_name)
 
