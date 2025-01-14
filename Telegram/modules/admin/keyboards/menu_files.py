@@ -31,5 +31,6 @@ def builder_config_list_files_keyboard() -> InlineKeyboardMarkup:
     builder.button(text='🔙 Назад', callback_data=CALL_BACK_DATA.menu_admin)
     for config_file in config_files:
         builder.button(text=f'⏬{config_file}', callback_data=DOWNLOAD_CONFIG_FILE(name=config_file).pack())
+    builder.button(text='🔙 Назад', callback_data=CALL_BACK_DATA.menu_admin)
     builder.adjust(1)
     return builder.as_markup()
