@@ -1,9 +1,10 @@
 import os
 
 from aiogram.filters.callback_data import CallbackData
-from aiogram.types import InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
+from Telegram.Call_Back_Data import CALL_BACK_DATA
 from config import PATH_CONFIG, PATH_QR
 
 
@@ -33,31 +34,8 @@ def builder_config_list_files_keyboard() -> InlineKeyboardMarkup:
 
     builder = InlineKeyboardBuilder()
     for config_file in config_files:
-        # file = config_file.replace('.conf', '')
-        # if f'{file}.png' in qrcodes:
-        builder.button(text=f'{config_file}',
+        builder.button(text=f'⏬{config_file}',
                        callback_data=DOWNLOAD_CONFIG_FILE(name=config_file).pack())
-    #         out_buttons.append(
-    #             [
-    #                 InlineKeyboardButton(text=f'{file}',
-    #                                      callback_data=f'{CallBackData.file_download_config_}{config_file}'),
-    #                 InlineKeyboardButton(text=f'⏬ config',
-    #                                      callback_data=f'{CallBackData.file_download_config_}{config_file}'),
-    #                 InlineKeyboardButton(text=f'🔳 qrcode', callback_data=f'{CallBackData.file_download_qr_}{file}.png'),
-    #                 # InlineKeyboardButton(text=f'🗑 {file}', callback_data=f'{CallBackData.FILE_DELETE_}{file}'),
-    #             ]
-    #         )
-    #     else:
-    #         out_buttons.append(
-    #             [
-    #                 InlineKeyboardButton(text=f'{file}',
-    #                                      callback_data=f'{CallBackData.file_download_config_}{config_file}'),
-    #                 InlineKeyboardButton(text=f'⏬ config',
-    #                                      callback_data=f'{CallBackData.file_download_config_}{config_file}'),
-    #                 # InlineKeyboardButton(text=f'🔳 qrcode', callback_data=f'{CallBackData.file_download_qr_}{file}.png'),
-    #                 # InlineKeyboardButton(text=f'🗑 {file}', callback_data=f'{CallBackData.FILE_DELETE_}{file}'),
-    #             ]
-    #         )
-    # out_buttons.append([InlineKeyboardButton(text='🔙 Назад', callback_data=CallBackData.menu_admin)])
+    builder.append([InlineKeyboardButton(text='🔙 Назад', callback_data=CALL_BACK_DATA.menu_admin)])
     builder.adjust(3)
     return builder.as_markup()

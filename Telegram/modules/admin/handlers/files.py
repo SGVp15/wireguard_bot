@@ -5,7 +5,7 @@ from aiogram import F, Router
 from aiogram.enums import ParseMode
 from aiogram.types import FSInputFile, CallbackQuery
 
-from Telegram.Call_Back_Data import CallBackData
+from Telegram.Call_Back_Data import CALL_BACK_DATA
 from Telegram.config import ADMIN_ID
 from Telegram.loader import bot
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
@@ -16,7 +16,7 @@ router = Router(name=__name__)
 
 
 @router.callback_query(
-    F.data.in_({CallBackData.show_config_files, })
+    F.data.in_({CALL_BACK_DATA.show_config_files, })
     # & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def show_config_list_files(callback_query: CallbackQuery):
@@ -49,12 +49,12 @@ async def download_config_file(callback_query: CallbackQuery,
 
 
 @router.callback_query(
-    F.data.startswith(CallBackData.file_download_qr_)
+    F.data.startswith(CALL_BACK_DATA.file_download_qr_)
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def download_qr_file(callback_query: CallbackQuery):
     query = callback_query.data
-    file_name = str(query).replace(CallBackData.file_download_qr_, '')
+    file_name = str(query).replace(CALL_BACK_DATA.file_download_qr_, '')
     path = os.path.join(PATH_QR, file_name)
     if os.path.exists(path):
         file = FSInputFile(path, file_name)
