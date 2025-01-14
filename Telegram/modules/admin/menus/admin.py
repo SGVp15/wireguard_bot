@@ -16,7 +16,7 @@ from Telegram.states.Form import Form
 )
 async def show_admin_menu(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(Form.admin_menu)
-    await bot.edit_message_text(
+    await bot.send_message(
         text='<b>[ ADMIN ]</b>',
         parse_mode=ParseMode.HTML,
         chat_id=callback_query.from_user.id,
