@@ -35,7 +35,7 @@ def builder_config_list_files_keyboard() -> InlineKeyboardMarkup:
     for config_file in config_files:
         # file = config_file.replace('.conf', '')
         # if f'{file}.png' in qrcodes:
-        builder.button(text='',
+        builder.button(text=f'{config_file}',
                        callback_data=DOWNLOAD_CONFIG_FILE(name=config_file).pack())
     #         out_buttons.append(
     #             [
