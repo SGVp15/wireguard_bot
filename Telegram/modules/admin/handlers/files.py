@@ -32,7 +32,7 @@ async def show_config_list_files(callback_query: CallbackQuery):
 @router.callback_query(DOWNLOAD_CONFIG_FILE.filter())
 async def download_config_file(callback_query: CallbackQuery,
                                callback_data: DOWNLOAD_CONFIG_FILE):
-    await bot.send_message(chat_id=callback_query.from_user.id, text=f'{callback_data.path}',
+    await bot.send_message(chat_id=callback_query.from_user.id, text=f'{callback_data.name}',
                            reply_markup=k_menu_admin)
     # query = callback_query.data
     # file_name = str(query).replace(CallBackData.file_download_config_, '')
