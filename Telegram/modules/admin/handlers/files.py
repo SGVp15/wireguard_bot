@@ -41,7 +41,6 @@ async def download_config_file(callback_query: CallbackQuery,
 
     await send_document(chat_id=callback_query.from_user.id, filename=conf_name, file=path_conf_file)
     await send_document(chat_id=callback_query.from_user.id, filename=qr_name, file=path_qr_file)
-    await show_admin_menu(callback_query, state)
 
 
 async def send_document(file, filename, chat_id):
