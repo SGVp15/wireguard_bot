@@ -8,12 +8,10 @@ from config import PATH_CONFIG, PATH_QR
 
 
 class DOWNLOAD_CONFIG_FILE(CallbackData, prefix='download_conf_file'):
-    path: str
-    name: str
+    name:str
 
 
 class DOWNLOAD_QR_FILE(CallbackData, prefix='download_qr_file'):
-    path: str
     name: str
 
 
@@ -38,8 +36,7 @@ def builder_config_list_files_keyboard() -> InlineKeyboardMarkup:
         # file = config_file.replace('.conf', '')
         # if f'{file}.png' in qrcodes:
         builder.button(text='',
-                       callback_data=DOWNLOAD_CONFIG_FILE(name=config_file,
-                                                          path=os.path.join(PATH_CONFIG, config_file)).pack())
+                       callback_data=DOWNLOAD_CONFIG_FILE(name=config_file).pack())
     #         out_buttons.append(
     #             [
     #                 InlineKeyboardButton(text=f'{file}',
