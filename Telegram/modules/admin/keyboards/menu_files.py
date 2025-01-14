@@ -16,12 +16,10 @@ class DOWNLOAD_QR_FILE(CallbackData, prefix='download_qr_file'):
 
 
 class DELETE_CONFIG_FILE(CallbackData, prefix='delete_conf_file'):
-    path: str
     name: str
 
 
 class DELETE_QR_FILE(CallbackData, prefix='delete_qr_file'):
-    path: str
     name: str
 
 
