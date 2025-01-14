@@ -12,9 +12,6 @@ from utils.translit import transliterate
 class WIREGUARD:
     @staticmethod
     def create_user(name: str) -> (str, str):
-        server_ip = SERVER_IP
-        server_port = WG_SERVER_PORT
-
         allowed_ips = '0.0.0.0/0'
         dns = '8.8.8.8'
         persistent_keepalive = 20
@@ -70,7 +67,7 @@ class WIREGUARD:
                         f'[Peer]\n' \
                         f'PublicKey = {wg_public_key}\n' \
                         f'AllowedIPs = {allowed_ips}\n' \
-                        f'Endpoint = {server_ip}:{server_port}\n' \
+                        f'Endpoint = {SERVER_IP}:{WG_SERVER_PORT}\n' \
                         f'PersistentKeepalive = {persistent_keepalive}\n'
 
         print(config_string)

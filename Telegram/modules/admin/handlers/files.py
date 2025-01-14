@@ -10,6 +10,7 @@ from Telegram.Call_Back_Data import CALL_BACK_DATA
 from Telegram.loader import bot
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from Telegram.modules.admin.keyboards.menu_files import builder_config_list_files_keyboard, DOWNLOAD_CONFIG_FILE
+from Telegram.modules.admin.menus.admin import show_admin_menu
 from config import PATH_QR, PATH_CONFIG
 
 router = Router(name=__name__)
@@ -41,14 +42,28 @@ async def download_config_file(callback_query: CallbackQuery,
 
     if os.path.exists(path_conf_file):
         file = FSInputFile(path_conf_file, conf_name)
-        await bot.send_document(chat_id=callback_query.from_user.id, document=file)
+        await send_document(chat_id=callback_query.from_user.id, document=file)
     else:
         await bot.send_message(chat_id=callback_query.from_user.id, text=f'[ {conf_name} ] Файла не существует')
 
     if os.path.exists(path_qr_file):
         file = FSInputFile(path_qr_file, qr_name)
-        await bot.send_document(chat_id=callback_query.from_user.id, document=file)
+        await send_document(chat_id=callback_query.from_user.id, document=file)
     else:
         await bot.send_message(chat_id=callback_query.from_user.id, text=f'[ {qr_name} ] Файла не существует')
-    await bot.send_message(chat_id=callback_query.from_user.id, text='[ ADMIN ] ',
-                           reply_markup=k_menu_admin)
+    await show_admin_menu()
+
+
+async def send_document(file, filename, chat_id):
+    if os.path.exists(file):
+        file = FSInputFile(file, filename=filename)
+        await bot.send_document(
+            chat_id=chat_id,
+            document=file
+        )
+    else:
+        await bot.send_message(
+            text=f'File not found {file}',
+            chat_id=chat_id,
+        )
+    await show_admin_menu()
