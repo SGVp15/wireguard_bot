@@ -32,4 +32,4 @@ def builder_config_list_files_keyboard() -> InlineKeyboardMarkup:
     for config_file in config_files:
         builder.button(text=f'⏬{config_file}', callback_data=DOWNLOAD_CONFIG_FILE(name=config_file).pack())
     builder.adjust(1)
-    return InlineKeyboardMarkup()
+    return builder.as_markup()
