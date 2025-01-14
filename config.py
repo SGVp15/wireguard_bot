@@ -13,4 +13,4 @@ PATH_QR = '/etc/wireguard/qr'
 
 PATTERN_USER = r'\s*([А-Я][а-я]+\s+[А-Я][а-я]+)\s*'
 
-VERSION = '1.4.1'
+VERSION = '1.5'
