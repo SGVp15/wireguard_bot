@@ -16,12 +16,22 @@ from Telegram.states.Form import Form
 )
 async def show_admin_menu(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(Form.admin_menu)
-    await bot.send_message(
-        chat_id=callback_query.from_user.id,
-        text='<b>[ ADMIN ]</b>',
-        parse_mode=ParseMode.HTML,
-        reply_markup=k_menu_admin
-    )
+    try:
+        await bot.edit_message_text(
+            text='<b>[ ADMIN ]</b>',
+            parse_mode=ParseMode.HTML,
+            chat_id=callback_query.from_user.id,
+            message_id=callback_query.message.message_id,
+            reply_markup=k_menu_admin
+        )
+    except Exception as e:
+        print(e)
+        await bot.send_message(
+            chat_id=callback_query.from_user.id,
+            text='<b>[ ADMIN ]</b>',
+            parse_mode=ParseMode.HTML,
+            reply_markup=k_menu_admin
+        )
 
 
 @dp.callback_query(

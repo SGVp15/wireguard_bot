@@ -9,7 +9,6 @@ from aiogram.types import FSInputFile, CallbackQuery
 
 from Telegram.Call_Back_Data import CALL_BACK_DATA
 from Telegram.loader import bot
-from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from Telegram.modules.admin.keyboards.menu_files import builder_config_list_files_keyboard, DOWNLOAD_CONFIG_FILE
 from Telegram.modules.admin.menus.admin import show_admin_menu
 from config import PATH_QR, PATH_CONFIG
