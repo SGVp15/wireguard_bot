@@ -35,8 +35,6 @@ async def show_config_list_files(callback_query: CallbackQuery):
 async def download_config_file(callback_query: CallbackQuery,
                                callback_data: DOWNLOAD_CONFIG_FILE,
                                state: FSMContext):
-    await bot.send_message(chat_id=callback_query.from_user.id, text=f'{callback_data.name}',
-                           reply_markup=k_menu_admin)
     conf_name = callback_data.name
     qr_name = re.sub(r'\.conf$', '.png', conf_name)
     path_conf_file = os.path.join(PATH_CONFIG, conf_name)
