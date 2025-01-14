@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 from ipaddress import IPv4Network, IPv4Address
 
-from config import SERVER_IP, WG_DUMP
+from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG
 from utils.log import log
 from utils.translit import transliterate
 
@@ -31,7 +31,7 @@ class WIREGUARD:
         wg_public_key_file = os.path.join(PATH_WG, 'public.key')
 
         PATH_KEYS = os.path.join(PATH_WG, 'keys')
-        PATH_CONFS = os.path.join(PATH_WG, 'confs')
+        PATH_CONFS = PATH_CONFIG
         os.makedirs(PATH_CONFS, exist_ok=True)
         os.makedirs(PATH_KEYS, exist_ok=True)
 
@@ -100,6 +100,14 @@ class WIREGUARD:
     def restart_service():
         os.system('systemctl restart wg-quick@wg0.service')
         log.info('[  OK  ] systemctl restart wg-quick@wg0.service')
+
+    @staticmethod
+    def create_all_qrcodes():
+        for file in os.listdir():
+            full_path_conf_file = os.path.join(PATH_CONFIG, file)
+            qr = re.sub(r'\.conf$', '.png', file)
+            full_path_qr_file = os.path.join(PATH_QR, qr)
+            WIREGUARD.create_qr_code(input_file_path=full_path_conf_file, output_file_path=full_path_qr_file)
 
     @staticmethod
     def reboot_server():
