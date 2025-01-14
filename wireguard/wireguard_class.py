@@ -103,7 +103,7 @@ class WIREGUARD:
 
     @staticmethod
     def create_all_qrcodes():
-        for file in os.listdir():
+        for file in os.listdir(PATH_CONFIG):
             full_path_conf_file = os.path.join(PATH_CONFIG, file)
             qr = re.sub(r'\.conf$', '.png', file)
             full_path_qr_file = os.path.join(PATH_QR, qr)
