@@ -40,15 +40,8 @@ async def download_config_file(callback_query: CallbackQuery,
     path_conf_file = os.path.join(PATH_CONFIG, conf_name)
     path_qr_file = os.path.join(PATH_QR, qr_name)
 
-    if os.path.exists(path_conf_file):
-        await send_document(chat_id=callback_query.from_user.id, filename=conf_name, file=path_conf_file)
-    else:
-        await bot.send_message(chat_id=callback_query.from_user.id, text=f'[ {conf_name} ] Файла не существует')
-
-    if os.path.exists(path_qr_file):
-        await send_document(chat_id=callback_query.from_user.id, filename=qr_name, file=path_qr_file)
-    else:
-        await bot.send_message(chat_id=callback_query.from_user.id, text=f'[ {qr_name} ] Файла не существует')
+    await send_document(chat_id=callback_query.from_user.id, filename=conf_name, file=path_conf_file)
+    await send_document(chat_id=callback_query.from_user.id, filename=qr_name, file=path_qr_file)
     await show_admin_menu()
 
 
