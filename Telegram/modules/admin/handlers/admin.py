@@ -45,7 +45,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     await state.clear()
     wg.restart_service()
     await bot.send_message(text='restart service - ok', chat_id=callback_query.from_user.id, )
-    await show_admin_menu()
+    await show_admin_menu(callback_query, state)
 
 
 @router.callback_query(
@@ -59,7 +59,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
         text='restart service - ok',
         chat_id=callback_query.from_user.id
     )
-    await show_admin_menu()
+    await show_admin_menu(callback_query, state)
 
 
 @router.callback_query(
@@ -70,7 +70,7 @@ async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
     file = WG_CONF
     filename = f'wg0.conf'
     await send_document(file, filename, callback_query.from_user.id)
-    await show_admin_menu()
+    await show_admin_menu(callback_query, state)
 
 
 @router.callback_query(
@@ -82,7 +82,7 @@ async def download_logs(callback_query: CallbackQuery, state: FSMContext):
     file = SYSTEM_LOG
     filename = f'log.log'
     await send_document(file, filename, callback_query.from_user.id)
-    await show_admin_menu()
+    await show_admin_menu(callback_query, state)
 
 
 @router.callback_query(
@@ -94,7 +94,7 @@ async def clear_log(callback_query: CallbackQuery, state: FSMContext):
     with open(SYSTEM_LOG, 'w') as f:
         f.write('')
     await bot.send_message(text='clear log - ok', chat_id=callback_query.from_user.id)
-    await show_admin_menu()
+    await show_admin_menu(callback_query, state)
 
 
 @router.callback_query(
@@ -106,4 +106,4 @@ async def download_wg_dump(callback_query: CallbackQuery, state: FSMContext):
     file = WG_DUMP
     filename = f'wg_dump.txt'
     await send_document(file, filename, callback_query.from_user.id)
-    await show_admin_menu()
+    await show_admin_menu(callback_query, state)

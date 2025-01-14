@@ -4,6 +4,7 @@ import re
 
 from aiogram import F, Router
 from aiogram.enums import ParseMode
+from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, CallbackQuery
 
 from Telegram.Call_Back_Data import CALL_BACK_DATA
@@ -32,7 +33,8 @@ async def show_config_list_files(callback_query: CallbackQuery):
 
 @router.callback_query(DOWNLOAD_CONFIG_FILE.filter())
 async def download_config_file(callback_query: CallbackQuery,
-                               callback_data: DOWNLOAD_CONFIG_FILE):
+                               callback_data: DOWNLOAD_CONFIG_FILE,
+                               state: FSMContext):
     await bot.send_message(chat_id=callback_query.from_user.id, text=f'{callback_data.name}',
                            reply_markup=k_menu_admin)
     conf_name = callback_data.name
@@ -42,7 +44,7 @@ async def download_config_file(callback_query: CallbackQuery,
 
     await send_document(chat_id=callback_query.from_user.id, filename=conf_name, file=path_conf_file)
     await send_document(chat_id=callback_query.from_user.id, filename=qr_name, file=path_qr_file)
-    await show_admin_menu()
+    await show_admin_menu(callback_query, state)
 
 
 async def send_document(file, filename, chat_id):
@@ -57,4 +59,3 @@ async def send_document(file, filename, chat_id):
             text=f'File not found {file}',
             chat_id=chat_id,
         )
-    await show_admin_menu()
