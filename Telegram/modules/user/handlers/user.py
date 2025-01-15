@@ -7,7 +7,7 @@ from aiogram.types import FSInputFile, CallbackQuery
 import Telegram.modules.user.handlers.files
 from Telegram.Call_Back_Data import CALL_BACK_DATA
 from Telegram.config import ADMIN_ID
-from Telegram.keyboards.menu_main import k_main_menu
+from Telegram.modules.main.keyboards.menu_main import k_main_menu
 from Telegram.loader import bot
 from Telegram.modules.user.states.mashine_state import UserState
 from utils.log import log
