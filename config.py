@@ -1,5 +1,7 @@
 import os
 
+VERSION = '1.5.2'
+
 from dotenv import dotenv_values, find_dotenv
 
 config = dotenv_values(find_dotenv())
@@ -23,6 +25,5 @@ PATH_KEYS = os.path.join(PATH_WG, 'keys')
 
 PATTERN_USER = r'\s*([А-Я][а-я]+\s+[А-Я][а-я]+)\s*'
 
-VERSION = '1.5'
 for path in (PATH_CONFIG, PATH_QR, PATH_KEYS):
     os.makedirs(path, exist_ok=True)
