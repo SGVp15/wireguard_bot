@@ -2,7 +2,13 @@ from aiogram import types, F, Router
 from aiogram.fsm.context import FSMContext
 
 from Telegram.loader import bot
+from config import DEBUG
 from utils.log import log
+
+
+if DEBUG:
+    print(f'import {__name__}')
+
 
 router = Router()
 

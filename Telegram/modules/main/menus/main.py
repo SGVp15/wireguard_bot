@@ -6,6 +6,11 @@ from Telegram.Call_Back_Data import CALL_BACK_DATA
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.modules.main.keyboards.menu_main import k_main_menu
 from Telegram.loader import bot, dp
+from config import DEBUG
+
+if DEBUG:
+    print(f'import {__name__}')
+
 
 
 @dp.callback_query(

@@ -1,6 +1,10 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from Telegram.Call_Back_Data import CALL_BACK_DATA
+from config import DEBUG
+
+if DEBUG:
+    print(f'import {__name__}')
 
 button_menu_admin = InlineKeyboardButton(text='🔙 Назад', callback_data=CALL_BACK_DATA.menu_admin)
 

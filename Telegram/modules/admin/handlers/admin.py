@@ -9,8 +9,11 @@ from Telegram.loader import bot
 from Telegram.modules.user.handlers.files import send_document
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from Telegram.modules.admin.menus.admin import show_admin_menu
-from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION
+from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION, DEBUG
 from wireguard.wireguard_class import WIREGUARD as wg
+
+if DEBUG:
+    print(f'import {__name__}')
 
 router = Router(name=__name__)
 

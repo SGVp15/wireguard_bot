@@ -8,6 +8,10 @@ from Telegram.config import ADMIN_ID
 from Telegram.loader import bot, dp
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin, k_menu_restart_service, k_menu_reboot_server
 from Telegram.modules.main.states.Form import Form
+from config import DEBUG
+
+if DEBUG:
+    print(f'import {__name__}')
 
 
 @dp.callback_query(
