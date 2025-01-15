@@ -11,7 +11,10 @@ from Telegram.Call_Back_Data import CALL_BACK_DATA
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.loader import bot
 from Telegram.modules.user.keyboards.menu_files import builder_config_list_files_keyboard, DOWNLOAD_CONFIG_FILE
-from config import PATH_QR, PATH_CONFIG
+from config import PATH_QR, PATH_CONFIG, DEBUG
+
+if DEBUG:
+    print(f'import {__name__}')
 
 router = Router(name=__name__)
 
