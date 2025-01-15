@@ -1,2 +1,1 @@
-from . import user
-from . import files
+from . import *

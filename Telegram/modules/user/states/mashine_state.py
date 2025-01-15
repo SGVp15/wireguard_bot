@@ -1,5 +1,9 @@
 from aiogram.fsm.state import State, StatesGroup
 
+from config import DEBUG
+
+if DEBUG:
+    print(f'import {__name__}')
 
 class UserState(StatesGroup):
     users_menu = State()
