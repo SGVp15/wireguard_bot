@@ -15,7 +15,6 @@ from Telegram.modules.user.states.mashine_state import UserState
     & (F.from_user.id.in_({*ADMIN_ID, *USERS_ID}))
 )
 async def user_menu(callback_query: CallbackQuery, state: FSMContext):
-    await state.set_state(UserState.users_menu)
     await bot.edit_message_text(
         text='<b>[ Пользователи ]</b>',
         parse_mode=ParseMode.HTML,
@@ -23,6 +22,7 @@ async def user_menu(callback_query: CallbackQuery, state: FSMContext):
         message_id=callback_query.message.message_id,
         reply_markup=k_menu_users
     )
+    await state.set_state(UserState.users_menu)
 
 
 @dp.callback_query(

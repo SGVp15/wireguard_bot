@@ -25,8 +25,7 @@ class DELETE_QR_FILE(CallbackData, prefix='delete_qr_file'):
 
 
 def builder_config_list_files_keyboard() -> InlineKeyboardMarkup:
-    config_files = os.listdir(PATH_CONFIG)
-    config_files = sorted(config_files)
+    config_files = sorted(os.listdir(PATH_CONFIG))
     builder = InlineKeyboardBuilder()
     builder.button(text='🔙 Назад', callback_data=CALL_BACK_DATA.menu_users)
     for config_file in config_files:
