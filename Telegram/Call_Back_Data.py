@@ -9,9 +9,9 @@ class CALL_BACK_DATA:
 
     show_config_files = 'show_config_files'
 
-    create_user_ok = 'create_user'
-    menu_create_user = 'create_user_menu'
-    menu_users = 'users_menu'
+    create_user_ok = 'create_user_ok'
+    menu_create_user = 'menu_create_user'
+    menu_users = 'menu_users'
     menu_main = 'main_menu'
     menu_admin = 'admin_menu'
 
