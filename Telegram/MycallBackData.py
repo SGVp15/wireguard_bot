@@ -1,4 +1,4 @@
-class CALL_BACK_DATA:
+class MycallBackData:
     show_version = 'show_version'
     clear_log = 'clear_log'
     update_bot = 'update_bot'
