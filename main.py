@@ -13,6 +13,6 @@ async def main():
 
 
 if __name__ == '__main__':
-    WIREGUARD().create_all_qrcodes()
+    # WIREGUARD().create_all_qrcodes()
     log.info('wireguard-bot start')
     asyncio.run(main())
