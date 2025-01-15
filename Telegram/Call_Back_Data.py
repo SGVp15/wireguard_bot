@@ -12,8 +12,8 @@ class CALL_BACK_DATA:
     create_user_ok = 'create_user_ok'
     menu_create_user = 'menu_create_user'
     menu_users = 'menu_users'
-    menu_main = 'main_menu'
-    menu_admin = 'admin_menu'
+    menu_main = 'menu_main'
+    menu_admin = 'menu_admin'
 
     menu_restart_service_wg = 'menu_restart_service_wg'
     restart_service_wg_ok = 'restart_service_wg_ok'
