@@ -3,7 +3,7 @@ from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
-from Telegram.MycallBackData import MycallBackData
+from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID
 from Telegram.loader import bot
 from Telegram.modules.user.handlers.files import send_document
@@ -19,7 +19,7 @@ router = Router(name=__name__)
 
 
 @router.callback_query(
-    F.data.in_({MycallBackData.update_bot, })
+    F.data.in_({MyCallBackData.update_bot, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def update_bot(callback_query: CallbackQuery, state: FSMContext):
@@ -27,7 +27,7 @@ async def update_bot(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(
-    F.data.in_({MycallBackData.show_version, })
+    F.data.in_({MyCallBackData.show_version, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def show_version(callback_query: CallbackQuery, state: FSMContext):
@@ -41,7 +41,7 @@ async def show_version(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(
-    F.data.in_({MycallBackData.restart_service_wg_ok, })
+    F.data.in_({MyCallBackData.restart_service_wg_ok, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def restart_service(callback_query: CallbackQuery, state: FSMContext):
@@ -52,7 +52,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(
-    F.data.in_({MycallBackData.reboot_server_ok, })
+    F.data.in_({MyCallBackData.reboot_server_ok, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def restart_service(callback_query: CallbackQuery, state: FSMContext):
@@ -66,7 +66,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(
-    F.data.in_({MycallBackData.download_wg_conf, })
+    F.data.in_({MyCallBackData.download_wg_conf, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
@@ -78,7 +78,7 @@ async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
 
 @router.callback_query(
     # AdminState.admin_menu,
-    F.data.in_({MycallBackData.download_logs, })
+    F.data.in_({MyCallBackData.download_logs, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def download_logs(callback_query: CallbackQuery, state: FSMContext):
@@ -90,7 +90,7 @@ async def download_logs(callback_query: CallbackQuery, state: FSMContext):
 
 @router.callback_query(
     # AdminState.admin_menu,
-    F.data.in_({MycallBackData.clear_log, })
+    F.data.in_({MyCallBackData.clear_log, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def clear_log(callback_query: CallbackQuery, state: FSMContext):
@@ -101,7 +101,7 @@ async def clear_log(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(
-    F.data.in_({MycallBackData.download_wg_dump, })
+    F.data.in_({MyCallBackData.download_wg_dump, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def download_wg_dump(callback_query: CallbackQuery, state: FSMContext):

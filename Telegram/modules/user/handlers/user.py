@@ -5,7 +5,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, CallbackQuery
 
 import Telegram.modules.user.handlers.files
-from Telegram.MycallBackData import MycallBackData
+from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID
 from Telegram.loader import bot
 from Telegram.keyboards.menu_main import k_main_menu
@@ -21,7 +21,7 @@ router = Router()
 
 
 @router.callback_query(UserState.create_user,
-                       F.data.in_({MycallBackData.create_user_ok, })
+                       F.data.in_({MyCallBackData.create_user_ok, })
                        & F.from_user.id.in_({*ADMIN_ID, })
                        )
 async def create_user(callback_query: CallbackQuery, state: FSMContext):
