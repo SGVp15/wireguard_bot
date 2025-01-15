@@ -18,7 +18,6 @@ if DEBUG:
 router = Router(name=__name__)
 
 
-
 @router.callback_query(
     F.data.in_({CALL_BACK_DATA.update_bot, })
     & F.from_user.id.in_({*ADMIN_ID, })

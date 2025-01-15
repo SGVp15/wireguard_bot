@@ -3,7 +3,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
 from Telegram.config import ADMIN_ID
-from Telegram.modules.main.keyboards.menu_main import k_main_menu
+from Telegram.keyboards.menu_main import k_main_menu
 from config import DEBUG
 
 if DEBUG:
