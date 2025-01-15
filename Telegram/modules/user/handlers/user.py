@@ -4,7 +4,7 @@ from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, CallbackQuery
 
-import Telegram.modules.admin.handlers.files
+import Telegram.modules.user.handlers.files
 from Telegram.Call_Back_Data import CALL_BACK_DATA
 from Telegram.config import ADMIN_ID
 from Telegram.keyboards.menu_main import k_main_menu
@@ -34,7 +34,7 @@ async def create_user(callback_query: CallbackQuery, state: FSMContext):
         text=f'Config file code {user}',
         chat_id=callback_query.from_user.id,
     )
-    await Telegram.modules.admin.handlers.files.send_document(
+    await Telegram.modules.user.handlers.files.send_document(
         chat_id=callback_query.from_user.id,
         document=file, reply_markup=k_main_menu
     )
@@ -44,7 +44,7 @@ async def create_user(callback_query: CallbackQuery, state: FSMContext):
         text=f'QR code {user}',
         chat_id=callback_query.from_user.id,
     )
-    await Telegram.modules.admin.handlers.files.send_document(
+    await Telegram.modules.user.handlers.files.send_document(
         chat_id=callback_query.from_user.id,
         document=file, reply_markup=k_main_menu
     )

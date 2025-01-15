@@ -6,7 +6,7 @@ from aiogram.types import CallbackQuery
 from Telegram.Call_Back_Data import CALL_BACK_DATA
 from Telegram.config import ADMIN_ID
 from Telegram.loader import bot
-from Telegram.modules.admin.handlers.files import send_document
+from Telegram.modules.user.handlers.files import send_document
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from Telegram.modules.admin.menus.admin import show_admin_menu
 from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION
