@@ -1,1 +1,1 @@
-from . import *
+from . import menu_admin
