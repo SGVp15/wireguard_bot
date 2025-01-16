@@ -8,7 +8,7 @@ async def ping_ip(ip: str = '195.91.139.50'):
     await asyncio.sleep(10)
     down = []
     while True:
-        command = f'ping -c 1 -w2 {ip} > /dev/null 2>&1'
+        command = f'ping -c 1 -w2 {ip} '#> /dev/null 2>&1'
         response = os.system(command)
 
         if response == 0 and down:
