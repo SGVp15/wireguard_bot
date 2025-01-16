@@ -42,19 +42,19 @@ async def download_config_file(callback_query: CallbackQuery,
     path_conf_file = os.path.join(PATH_CONFIG, conf_name)
     path_qr_file = os.path.join(PATH_QR, qr_name)
 
-    await send_document(chat_id=callback_query.from_user.id, filename=conf_name, file=path_conf_file)
-    await send_document(chat_id=callback_query.from_user.id, filename=qr_name, file=path_qr_file)
+    await my_send_document(chat_id=callback_query.from_user.id, filename=conf_name, full_path=path_conf_file)
+    await my_send_document(chat_id=callback_query.from_user.id, filename=qr_name, full_path=path_qr_file)
 
 
-async def send_document(file, filename, chat_id):
-    if os.path.exists(file):
-        file = FSInputFile(file, filename=filename)
-        await bot.send_document(
+async def my_send_document(full_path, filename, chat_id):
+    if os.path.exists(full_path):
+        full_path = FSInputFile(full_path, filename=filename)
+        await bot.my_send_document(
             chat_id=chat_id,
-            document=file
+            document=full_path
         )
     else:
         await bot.send_message(
-            text=f'File not found {file}',
+            text=f'File not found {full_path}',
             chat_id=chat_id,
         )

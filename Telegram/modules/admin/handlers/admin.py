@@ -6,7 +6,7 @@ from aiogram.types import CallbackQuery
 from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID
 from Telegram.loader import bot
-from Telegram.modules.user.handlers.files import send_document
+from Telegram.modules.user.handlers.files import my_send_document
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from Telegram.modules.admin.menus.admin import show_admin_menu
 from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION, DEBUG
@@ -72,7 +72,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
 async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
     file = WG_CONF
     filename = f'wg0.conf'
-    await send_document(file, filename, callback_query.from_user.id)
+    await my_send_document(file, filename, callback_query.from_user.id)
     await show_admin_menu(callback_query, state)
 
 
@@ -84,7 +84,7 @@ async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
 async def download_logs(callback_query: CallbackQuery, state: FSMContext):
     file = SYSTEM_LOG
     filename = f'log.log'
-    await send_document(file, filename, callback_query.from_user.id)
+    await my_send_document(file, filename, callback_query.from_user.id)
     await show_admin_menu(callback_query, state)
 
 
@@ -108,5 +108,5 @@ async def download_wg_dump(callback_query: CallbackQuery, state: FSMContext):
     wg.get_dump()
     file = WG_DUMP
     filename = f'wg_dump.txt'
-    await send_document(file, filename, callback_query.from_user.id)
+    await my_send_document(file, filename, callback_query.from_user.id)
     await show_admin_menu(callback_query, state)
