@@ -21,8 +21,8 @@ async def ping_ip(ip: str = '195.91.139.50'):
         if process.returncode == 0:
             print("Команда выполнена успешно")
         else:
-            print("Ошибка при выполнении команды:", error)
-        # process.kill()
+            print("Ошибка при выполнении команды:", stderr)
+        process.kill()
 
 
         response = stdout
