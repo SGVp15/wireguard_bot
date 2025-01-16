@@ -2,13 +2,11 @@ import os
 
 from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
-from aiogram.types import FSInputFile, CallbackQuery
+from aiogram.types import CallbackQuery
 
 from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID
 from Telegram.modules.user.handlers.files import my_send_document
-from Telegram.keyboards.menu_main import k_main_menu
-from Telegram.loader import bot
 from Telegram.modules.user.states.mashine_state import UserState
 from config import DEBUG
 from utils.log import log
