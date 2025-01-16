@@ -9,7 +9,7 @@ from wireguard.wireguard_class import WIREGUARD
 async def main():
     tasks = [
         start_bot(),
-        # ping_ip(),
+        ping_ip(),
     ]
     await asyncio.gather(*tasks)
 
