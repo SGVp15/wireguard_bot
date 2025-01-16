@@ -11,7 +11,7 @@ async def ping_ip_with_cancellation(cancellation_event):
     """Continuously pings the IP address until cancellation is requested."""
     while True:
         try:
-            await asyncio.wait_for(ping_ip(), timeout=60)  # Ping every 60 seconds
+            await asyncio.wait_for(ping_ip(), timeout=20)  # Ping every 60 seconds
         except asyncio.TimeoutError:
             log.warning("Ping timed out.")
         except asyncio.CancelledError:
