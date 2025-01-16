@@ -1,4 +1,5 @@
 import asyncio
+import subprocess
 
 from pythonping import ping
 
@@ -11,9 +12,10 @@ async def ping_ip(ip: str = '195.91.139.50'):
     while True:
         command = f'ping -c 1 -w2 {ip} '  # > /dev/null 2>&1'
         # response = os.system(command)
-        # response = subprocess.run(["ping", "-c", "1", ip]).returncode
-        response = ping(ip, count=1)
-        response = response.stats_packets_lost
+        response = subprocess.Popen(["ping", "-c", "1", ip], shell=True)
+        print(response)
+        # response = ping(ip, count=1)
+        # response = response.stats_packets_lost
         if response == 0 and down:
             await send_message_to_admins(text=f"{ip} is UP!")
             print(f"{ip} is UP!")
