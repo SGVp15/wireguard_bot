@@ -12,7 +12,7 @@ async def ping_host(host: str = '195.91.139.50'):
         param = '-n' if os.name == 'nt' else '-c'
         hostname = '195.91.139.50'
         response = os.system(f"ping {param} 1 {hostname}")
-        if response is None and down:
+        if response == 0 and down:
             await send_message_to_admins(text=f"{host} is UP!")
             print(f"{host} is UP!")
             down = []
