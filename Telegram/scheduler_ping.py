@@ -15,6 +15,7 @@ async def ping_ip(ip: str = '195.91.139.50'):
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output, error = process.communicate(timeout=10)
         process.kill()
+
         if process.returncode == 0:
             print("Команда выполнена успешно")
         else:
@@ -22,6 +23,7 @@ async def ping_ip(ip: str = '195.91.139.50'):
 
 
         response = output
+        print(response)
         if response == 0 and down:
             await send_message_to_admins(text=f"{ip} is UP!")
             print(f"{ip} is UP!")
