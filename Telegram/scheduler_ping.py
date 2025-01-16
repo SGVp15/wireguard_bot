@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 
 from Telegram.utils.admin import send_message_to_admins
+from utils.log import log
 
 
 async def ping_host(host: str = '195.91.139.50'):
@@ -16,7 +17,7 @@ async def ping_host(host: str = '195.91.139.50'):
 
         if response == 0 and down:
             await send_message_to_admins(text=f"{datetime.now()} - {host} is UP!")
-            print(f"{host} is UP!")
+            log.error(f"{host} is UP!")
             down = []
 
         if response != 0:
@@ -24,6 +25,6 @@ async def ping_host(host: str = '195.91.139.50'):
 
         if len(down) == 2 and all(down):
             await send_message_to_admins(text=f"{datetime.now()} - {host} is DOWN!")
-            print(f"{host} is DOWN!")
+            log.error(f"{host} is DOWN!")
 
         await asyncio.sleep(10)
