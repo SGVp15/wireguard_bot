@@ -1,8 +1,6 @@
 import asyncio
 import os
 
-import ping3
-
 from Telegram.utils.admin import send_message_to_admins
 
 
