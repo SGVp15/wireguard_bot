@@ -9,7 +9,8 @@ from wireguard.wireguard_class import WIREGUARD
 async def main():
     tasks = [
         start_bot(),
-        ping_host(),
+        ping_host('195.91.139.50'),
+        ping_host('82.142.155.191'),
     ]
     # await asyncio.gather(*tasks)
 
