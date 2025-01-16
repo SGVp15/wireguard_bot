@@ -13,7 +13,7 @@ async def ping_ip(ip: str = '195.91.139.50'):
         command = f'ping -c 1 -w2 {ip} '  # > /dev/null 2>&1'
 
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        output, error = process.communicate(timeout=10)
+        output, error = process.communicate(timeout=1)
         process.kill()
 
         if process.returncode == 0:
@@ -36,4 +36,4 @@ async def ping_ip(ip: str = '195.91.139.50'):
             await send_message_to_admins(text=f"{ip} is DOWN!")
             print(f"{ip} is DOWN!")
 
-        await asyncio.sleep(10)
+        await asyncio.sleep(3)
