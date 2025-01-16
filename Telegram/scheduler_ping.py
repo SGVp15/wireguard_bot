@@ -1,5 +1,5 @@
 import asyncio
-import os
+import subprocess
 
 from Telegram.utils.admin import send_message_to_admins
 
@@ -9,8 +9,8 @@ async def ping_ip(ip: str = '195.91.139.50'):
     down = []
     while True:
         command = f'ping -c 1 -w2 {ip} '#> /dev/null 2>&1'
-        response = os.system(command)
-
+        # response = os.system(command)
+        response = subprocess.run(["ping", "-c", "1", ip]).returncode
         if response == 0 and down:
             await send_message_to_admins(text=f"{ip} is UP!")
             print(f"{ip} is UP!")
