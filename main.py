@@ -13,12 +13,9 @@ async def main():
     ]
     # await asyncio.gather(*tasks)
 
-
     done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
     for task in pending:
         task.cancel()
-    print("Первая задача завершена, остальные отменены")
-
 
 
 if __name__ == '__main__':
