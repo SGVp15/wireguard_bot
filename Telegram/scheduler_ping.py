@@ -6,9 +6,6 @@ from Telegram.utils.admin import send_message_to_admins
 
 async def ping_ip(ip: str = '195.91.139.50'):
     await asyncio.sleep(10)
-    param = '-c'
-    if os.name == 'nt':
-        param = '-n'
     down = []
     while True:
         command = f'ping -c 1 -w2 {ip} > /dev/null 2>&1'
