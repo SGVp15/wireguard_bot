@@ -49,7 +49,7 @@ async def download_config_file(callback_query: CallbackQuery,
 async def my_send_document(full_path, filename, chat_id):
     if os.path.exists(full_path):
         full_path = FSInputFile(full_path, filename=filename)
-        await bot.my_send_document(
+        await bot.send_document(
             chat_id=chat_id,
             document=full_path
         )
