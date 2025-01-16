@@ -12,18 +12,14 @@ async def ping_ip(ip: str = '195.91.139.50'):
     while True:
         command = f'ping -c 1 -w2 {ip} '  # > /dev/null 2>&1'
 
-        try:
-            process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            output, error = process.communicate(timeout=10)
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, error = process.communicate(timeout=10)
+        process.kill()
+        if process.returncode == 0:
+            print("Команда выполнена успешно")
+        else:
+            print("Ошибка при выполнении команды:", error)
 
-            if process.returncode == 0:
-                print("Команда выполнена успешно")
-            else:
-                print("Ошибка при выполнении команды:", error)
-
-        except subprocess.TimeoutExpired:
-            process.kill()
-            print("Процесс был прерван по таймауту")
 
         response = output
         if response == 0 and down:
