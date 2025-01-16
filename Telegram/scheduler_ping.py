@@ -11,7 +11,8 @@ async def ping_ip(ip: str = '195.91.139.50'):
         param = '-n'
     down = []
     while True:
-        response = os.system(f"ping {param} 1 {ip}")
+        command = f'ping -c 1 -w2 {ip} > /dev/null 2>&1'
+        response = os.system(command)
 
         if response == 0 and down:
             await send_message_to_admins(text=f"{ip} is UP!")
