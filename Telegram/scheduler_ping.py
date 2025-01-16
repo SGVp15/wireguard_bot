@@ -26,4 +26,4 @@ async def ping_ip(ip: str = '195.91.139.50'):
             await send_message_to_admins(text=f"{ip} is DOWN!")
             print(f"{ip} is DOWN!")
 
-        await asyncio.sleep(10)
+        await asyncio.sleep(5)
