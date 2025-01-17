@@ -8,6 +8,7 @@ from utils.log import log
 
 async def ping_host(host: str = '195.91.139.50', hostname=''):
     down = []
+    host_is_down = False
     while True:
         param = '-n' if os.name == 'nt' else '-c'
 
@@ -15,16 +16,18 @@ async def ping_host(host: str = '195.91.139.50', hostname=''):
 
         response = os.system(command)
 
-        if response == 0 and down:
-            await send_message_to_admins(text=f"✅ {datetime.now()} - {hostname} {host} is UP! ✅")
-            log.error(f"{hostname} {host} is UP!")
+        if response == 0 and host_is_down:
+            await send_message_to_admins(text=f'✅ {datetime.now()} - {hostname} {host} is UP! ✅')
+            log.error(f'{hostname} {host} is UP!')
             down = []
+            host_is_down = False
 
         if response != 0:
             down.append(True)
 
-        if len(down) == 2 and all(down):
-            await send_message_to_admins(text=f"❌ {datetime.now()} - {hostname} {host} is DOWN! ❌")
-            log.error(f"{hostname} {host} is DOWN!")
+        if len(down) == 3 and all(down):
+            host_is_down = True
+            await send_message_to_admins(text=f'❌ {datetime.now()} - {hostname} {host} is DOWN! ❌')
+            log.error(f'{hostname} {host} is DOWN!')
 
         await asyncio.sleep(10)
