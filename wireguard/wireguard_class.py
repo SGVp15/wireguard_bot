@@ -69,7 +69,6 @@ class WIREGUARD:
                         f'Endpoint = {SERVER_IP}:{WG_SERVER_PORT}\n' \
                         f'PersistentKeepalive = {persistent_keepalive}\n'
 
-        print(config_string)
         time.sleep(0.1)
         full_path_conf_file = os.path.join(PATH_CONFIG, f'{name}.conf')
         with open(full_path_conf_file, 'w') as f:
