@@ -41,11 +41,8 @@ async def show_admin_menu(callback_query: CallbackQuery, state: FSMContext):
 )
 async def menu_restart_service_wg(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(Form.menu_restart_service_wg)
-    await bot.edit_message_text(
+    await callback_query.message.edit_text(
         text='<b>[ Перезагрузить службу wireguard ]</b>',
-        parse_mode=ParseMode.HTML,
-        chat_id=callback_query.from_user.id,
-        message_id=callback_query.message.message_id,
         reply_markup=k_menu_restart_service
     )
 
@@ -56,10 +53,7 @@ async def menu_restart_service_wg(callback_query: CallbackQuery, state: FSMConte
 )
 async def menu_reboot_server(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(Form.menu_reboot_server)
-    await bot.edit_message_text(
+    await callback_query.message.edit_text(
         text='<b>[ Перезагрузить сервер ]</b>',
-        parse_mode=ParseMode.HTML,
-        chat_id=callback_query.from_user.id,
-        message_id=callback_query.message.message_id,
         reply_markup=k_menu_reboot_server
     )
