@@ -23,6 +23,7 @@ router = Router(name=__name__)
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def update_bot(callback_query: CallbackQuery, state: FSMContext):
+    await callback_query.answer()
     wg.update_bot()
 
 
@@ -31,6 +32,7 @@ async def update_bot(callback_query: CallbackQuery, state: FSMContext):
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def show_version(callback_query: CallbackQuery, state: FSMContext):
+    await callback_query.answer()
     await bot.edit_message_text(
         text=f'<b>{VERSION}</b>',
         parse_mode=ParseMode.HTML,
@@ -46,9 +48,11 @@ async def show_version(callback_query: CallbackQuery, state: FSMContext):
 )
 async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     await state.clear()
-    wg.restart_service()
+    await callback_query.answer()
     await bot.send_message(text='restart service - ok', chat_id=callback_query.from_user.id, )
     await show_admin_menu(callback_query, state)
+    wg.restart_service()
+
 
 
 @router.callback_query(
@@ -57,12 +61,13 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
 )
 async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     await state.clear()
-    wg.reboot_server()
+    await callback_query.answer()
     await bot.send_message(
         text='restart service - ok',
         chat_id=callback_query.from_user.id
     )
     await show_admin_menu(callback_query, state)
+    wg.reboot_server()
 
 
 @router.callback_query(
@@ -72,6 +77,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
 async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
     file = WG_CONF
     filename = f'wg0.conf'
+    await callback_query.answer()
     await my_send_document(file, filename, callback_query.from_user.id)
     await show_admin_menu(callback_query, state)
 
@@ -84,19 +90,19 @@ async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
 async def download_logs(callback_query: CallbackQuery, state: FSMContext):
     file = SYSTEM_LOG
     filename = f'log.log'
+    await callback_query.answer()
     await my_send_document(file, filename, callback_query.from_user.id)
     await show_admin_menu(callback_query, state)
 
 
 @router.callback_query(
-    # AdminState.admin_menu,
     F.data.in_({MyCallBackData.clear_log, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def clear_log(callback_query: CallbackQuery, state: FSMContext):
     with open(SYSTEM_LOG, 'w') as f:
         f.write('')
-    await bot.send_message(text='clear log - ok', chat_id=callback_query.from_user.id)
+    await callback_query.message.edit_text(text='clear log - ok')
     await show_admin_menu(callback_query, state)
 
 
