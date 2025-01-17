@@ -48,8 +48,7 @@ class WIREGUARD:
             public_key = f.read()
 
         s += f'\n\n' \
-             f'[Peer]\n' \
-             f'# {name}_public.key {public_key}' \
+             f'[Peer] # {name}\n' \
              f'PublicKey = {public_key}' \
              f'AllowedIPs = {ip}/32'
 
