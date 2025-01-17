@@ -21,11 +21,11 @@ if DEBUG:
 async def show_admin_menu(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(Form.admin_menu)
     try:
-        await bot.edit_message_text(
+        await callback_query.message.edit_text(
             text='<b>[ ADMIN ]</b>',
             parse_mode=ParseMode.HTML,
-            chat_id=callback_query.from_user.id,
-            message_id=callback_query.message.message_id,
+            # chat_id=callback_query.from_user.id,
+            # message_id=callback_query.message.message_id,
             reply_markup=k_menu_admin
         )
     except Exception as e:
