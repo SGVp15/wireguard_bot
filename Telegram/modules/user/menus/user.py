@@ -19,9 +19,8 @@ if DEBUG:
     & (F.from_user.id.in_({*ADMIN_ID, *USERS_ID}))
 )
 async def user_menu(callback_query: CallbackQuery, state: FSMContext):
-    await callback_query.message.edit_message_text(
+    await callback_query.message.edit_text(
         text='<b>[ Пользователи ]</b>',
-        parse_mode=ParseMode.HTML,
         reply_markup=k_menu_users
     )
     await state.set_state(UserState.users_menu)
