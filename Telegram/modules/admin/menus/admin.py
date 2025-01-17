@@ -1,5 +1,4 @@
 from aiogram import F
-from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
@@ -22,6 +21,7 @@ async def show_admin_menu(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(Form.admin_menu)
     text = '<b>[ ADMIN ]</b>'
     kb = k_menu_admin
+    await callback_query.answer()
     try:
         await callback_query.message.edit_text(
             text=text,
