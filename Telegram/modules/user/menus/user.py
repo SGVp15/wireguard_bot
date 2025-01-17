@@ -1,11 +1,10 @@
 from aiogram import F, types
-from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
 from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
-from Telegram.loader import bot, dp
+from Telegram.loader import dp
 from Telegram.modules.user.keyboards.menu_user import k_menu_user_create, k_back_to_menu_users, k_menu_users
 from Telegram.modules.user.states.mashine_state import UserState
 from config import DEBUG
@@ -46,5 +45,5 @@ async def user_create(message: types.Message, state: FSMContext):
     await state.update_data(name=message.text)
     await state.set_state(UserState.create_user)
     await message.answer(text=f'❔ Создать пользователя \n<b>{user}</b>',
-        reply_markup=k_menu_user_create
-    )
+                         reply_markup=k_menu_user_create
+                         )

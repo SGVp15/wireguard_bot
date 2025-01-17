@@ -1,28 +1,24 @@
-from aiogram import types, F
-from aiogram.enums import ParseMode
+from aiogram import F
 from aiogram.fsm.context import FSMContext
+from aiogram.types import CallbackQuery
 
 from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.keyboards.menu_main import k_main_menu
-from Telegram.loader import bot, dp
+from Telegram.loader import dp
 from config import DEBUG
 
 if DEBUG:
     print(f'import {__name__}')
 
 
-
 @dp.callback_query(
     (F.data == MyCallBackData.menu_main)
     & (F.from_user.id.in_({*ADMIN_ID, *USERS_ID}))
 )
-async def back_to_main(callback_query: types.callback_query, state: FSMContext):
+async def back_to_main(callback_query: CallbackQuery, state: FSMContext):
     await state.clear()
-    await bot.edit_message_text(
+    await callback_query.message.edit_text(
         text='<b>[ MAIN ]</b>',
-        parse_mode=ParseMode.HTML,
-        chat_id=callback_query.from_user.id,
-        message_id=callback_query.message.message_id,
         reply_markup=k_main_menu
     )

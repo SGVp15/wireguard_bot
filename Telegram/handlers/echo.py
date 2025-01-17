@@ -3,19 +3,17 @@ from aiogram.fsm.context import FSMContext
 
 from Telegram.loader import bot
 from config import DEBUG
-from utils.log import log
-
 
 if DEBUG:
     print(f'import {__name__}')
-
 
 router = Router()
 
 
 @router.callback_query()
 async def echo(callback_query: types.callback_query, state: FSMContext):
-    print(f'{callback_query=}')
+    if DEBUG:
+        print(f'{callback_query=}')
 
     await bot.send_message(
         chat_id=callback_query.from_user.id,
@@ -35,7 +33,8 @@ async def echo(message: types.Message):
 
 @router.message()
 async def echo(message: types.Message):
-    print(f'{message=}')
+    if DEBUG:
+        print(f'{message=}')
     await message.reply(
         f'[{message.text}] --- Не понимаю, что это значит.'
         'Воспользуйтесь командой /help',
