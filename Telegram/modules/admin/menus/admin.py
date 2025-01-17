@@ -20,18 +20,18 @@ if DEBUG:
 )
 async def show_admin_menu(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(Form.admin_menu)
+    text = '<b>[ ADMIN ]</b>'
+    kb = k_menu_admin
     try:
         await callback_query.message.edit_text(
-            text='<b>[ ADMIN ]</b>',
-            parse_mode=ParseMode.HTML,
-            reply_markup=k_menu_admin
+            text=text,
+            reply_markup=kb
         )
     except Exception as e:
         await bot.send_message(
             chat_id=callback_query.from_user.id,
-            text='<b>[ ADMIN ]</b>',
-            parse_mode=ParseMode.HTML,
-            reply_markup=k_menu_admin
+            text=text,
+            reply_markup=kb
         )
 
 
