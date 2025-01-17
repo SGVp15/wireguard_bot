@@ -47,10 +47,10 @@ class WIREGUARD:
         with open(path_user_public_key) as f:
             public_key = f.read()
 
-        s += f'\n\n' \
+        s += f'\n' \
              f'[Peer] # {name}\n' \
-             f'PublicKey = {public_key}' \
-             f'AllowedIPs = {ip}/32'
+             f'PublicKey = {public_key}\n' \
+             f'AllowedIPs = {ip}/32\n'
 
         with open(WG_CONF, 'w') as f:
             f.write(s)
