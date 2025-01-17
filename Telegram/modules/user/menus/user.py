@@ -35,11 +35,10 @@ async def user_menu(callback_query: CallbackQuery, state: FSMContext):
 )
 async def create_user_menu(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(UserState.create_user_menu)
-    await bot.send_message(
-        chat_id=callback_query.from_user.id,
+    await callback_query.answer()
+    await callback_query.message.edit_text(
         text=f'Введите имя пользователя\n'
              f'Пример: Иванов Иван',
-        parse_mode=ParseMode.HTML,
         reply_markup=k_back_to_menu_users
     )
 
@@ -49,8 +48,6 @@ async def user_create(message: types.Message, state: FSMContext):
     user = message.text
     await state.update_data(name=message.text)
     await state.set_state(UserState.create_user)
-    await bot.send_message(
-        chat_id=message.chat.id, text=f'❔ Создать пользователя \n<b>{user}</b>',
-        parse_mode=ParseMode.HTML,
+    await message.answer(text=f'❔ Создать пользователя \n<b>{user}</b>',
         reply_markup=k_menu_user_create
     )
