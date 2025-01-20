@@ -5,7 +5,7 @@ from datetime import datetime
 from ipaddress import IPv4Network, IPv4Address
 
 from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG, WG_CONF, IPV4NETWORK, WG_SERVER_PORT, PATH_WG, PATH_KEYS, \
-    WG_PRIVATE_KEY
+    WG_PRIVATE_KEY, DEBUG
 from utils.log import log
 from utils.translit import transliterate
 from wireguard.user_config import UserConfig
@@ -14,6 +14,8 @@ from wireguard.user_config import UserConfig
 class WIREGUARD:
     @staticmethod
     def create_user(name: str) -> (str, str):
+        if DEBUG:
+            print(f'run  create_user {__name__}')
         allowed_ips = '0.0.0.0/0'
         dns = '8.8.8.8'
         persistent_keepalive = 20
