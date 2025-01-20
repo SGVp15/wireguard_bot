@@ -30,3 +30,4 @@ PATTERN_USER = r'\s*([А-Я][а-я]+\s+[А-Я][а-я]+)\s*'
 for path in (PATH_CONFIG, PATH_QR, PATH_KEYS):
     os.makedirs(path, exist_ok=True)
     os.makedirs(os.path.join(path, 'trash'), exist_ok=True)
+    print(os.path.join(path, 'trash'))
