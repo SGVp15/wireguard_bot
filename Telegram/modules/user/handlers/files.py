@@ -35,7 +35,7 @@ async def show_config_list_files(callback_query: CallbackQuery):
 async def show_config_menu(callback_query: CallbackQuery):
     if DEBUG:
         print(f'{MENU_CONF_LIST.__prefix__=}')
-    name = callback_query.data.replace(MENU_CONF_LIST.__prefix__, '')
+    name = callback_query.data.replace(f'{MENU_CONF_LIST.__prefix__}:', '')
 
     await callback_query.message.edit_text(
         text=f'CONF: {name}',
