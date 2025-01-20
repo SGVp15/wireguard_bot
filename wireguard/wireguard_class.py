@@ -132,7 +132,7 @@ class WIREGUARD:
         for file_name in user_files_configs:
             with open(os.path.join(PATH_CONFIG, file_name), 'r') as f:
                 user_config = UserConfig(file_name, f.read())
-                configs.append(f'[Peer]# {user_config.name}'
+                configs.append(f'[Peer]# {user_config.name}\n'
                                f'PublicKey = {user_config.public_key}\n'
                                f'AllowedIPs = {user_config.address}')
 
