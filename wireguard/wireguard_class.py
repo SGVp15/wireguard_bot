@@ -119,13 +119,16 @@ class WIREGUARD:
     def create_wg_conf(cls):
         with open(WG_PRIVATE_KEY, 'r') as f:
             wg_private_key = f.read().strip()
+
         config_default = (f'[Interface]\n'
                           f'PrivateKey = {wg_private_key}\n'
                           f'Address = {IPV4NETWORK}\n'
                           f'ListenPort = {WG_SERVER_PORT}\n'
                           f'PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o ens3 -j MASQUERADE\n'
                           f'PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o ens3 -j MASQUERADE\n')
+
         user_configs = [f for f in os.listdir(PATH_CONFIG) if isfile(f)]
+
         for file_name in user_configs:
             with open(os.path.join(PATH_CONFIG, file_name), 'r') as f:
                 user_config = UserConfig(file_name, f.read())

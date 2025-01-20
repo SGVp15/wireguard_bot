@@ -21,6 +21,8 @@ class MyCallBackData:
     menu_reboot_server = 'menu_reboot_server'
     reboot_server_ok = 'reboot_server_ok'
 
+    wg_create_main_config = 'wg_create_main_config'
+
     file_download_qr_ = 'file_download_qr_'
     file_download_config_ = 'download_config_'
     file_delete_qr_ = 'file_delete_qr_'

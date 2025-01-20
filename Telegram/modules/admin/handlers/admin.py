@@ -6,11 +6,11 @@ from aiogram.types import CallbackQuery
 from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID
 from Telegram.loader import bot
-from Telegram.modules.user.handlers.files import my_send_document
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from Telegram.modules.admin.menus.admin import show_admin_menu
+from Telegram.modules.user.handlers.files import my_send_document
 from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION, DEBUG
-from wireguard.wireguard_class import WIREGUARD as wg
+from wireguard.wireguard_class import WIREGUARD as wg, WIREGUARD
 
 if DEBUG:
     print(f'import {__name__}')
@@ -54,7 +54,6 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     wg.restart_service()
 
 
-
 @router.callback_query(
     F.data.in_({MyCallBackData.reboot_server_ok, })
     & F.from_user.id.in_({*ADMIN_ID, })
@@ -68,6 +67,19 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     )
     await show_admin_menu(callback_query, state)
     wg.reboot_server()
+
+
+@router.callback_query(
+    F.data.in_({MyCallBackData.wg_create_main_config, })
+    & F.from_user.id.in_({*ADMIN_ID, })
+)
+async def wg_create_main_config(callback_query: CallbackQuery, state: FSMContext):
+    WIREGUARD.create_wg_conf()
+    await callback_query.message.edit_text(
+        text='Create wg0.conf - ok',
+        reply_markup=k_menu_admin
+    )
+    await show_admin_menu(callback_query, state)
 
 
 @router.callback_query(
