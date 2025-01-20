@@ -117,24 +117,24 @@ class WIREGUARD:
 
     @classmethod
     def create_wg_conf(cls):
+        configs = []
         with open(WG_PRIVATE_KEY, 'r') as f:
             wg_private_key = f.read().strip()
 
-        config_default = (f'[Interface]\n'
-                          f'PrivateKey = {wg_private_key}\n'
-                          f'Address = {IPV4NETWORK}\n'
-                          f'ListenPort = {WG_SERVER_PORT}\n'
-                          f'PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o ens3 -j MASQUERADE\n'
-                          f'PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o ens3 -j MASQUERADE\n')
+        configs.append(f'[Interface]\n'
+                       f'PrivateKey = {wg_private_key}\n'
+                       f'Address = {IPV4NETWORK}\n'
+                       f'ListenPort = {WG_SERVER_PORT}\n'
+                       f'PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o ens3 -j MASQUERADE\n'
+                       f'PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o ens3 -j MASQUERADE')
 
-        user_configs = [f for f in os.listdir(PATH_CONFIG) if os.path.isfile(os.path.join(PATH_CONFIG,f))]
-
-        for file_name in user_configs:
+        user_files_configs = [f for f in os.listdir(PATH_CONFIG) if os.path.isfile(os.path.join(PATH_CONFIG, f))]
+        for file_name in user_files_configs:
             with open(os.path.join(PATH_CONFIG, file_name), 'r') as f:
                 user_config = UserConfig(file_name, f.read())
-                config_default += (f'\n[Peer]# {user_config.name}'
-                                   f'PublicKey = {user_config.public_key}\n'
-                                   f'AllowedIPs = {user_config.address}\n')
+                configs.append(f'[Peer]# {user_config.name}'
+                               f'PublicKey = {user_config.public_key}\n'
+                               f'AllowedIPs = {user_config.address}')
 
         with open(WG_CONF, 'w') as f:
-            f.write(config_default)
+            f.write('\n'.join(configs))
