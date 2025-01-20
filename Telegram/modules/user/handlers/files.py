@@ -33,6 +33,8 @@ async def show_config_list_files(callback_query: CallbackQuery):
 
 @router.callback_query(MENU_CONF_LIST.filter())
 async def show_config_menu(callback_query: CallbackQuery):
+    if DEBUG:
+        print(f'{callback_query.data=}')
     await callback_query.message.edit_text(
         text=f'CONF: {callback_query.data}',
         reply_markup=builder_config_file_keyboard(callback_query.data)
