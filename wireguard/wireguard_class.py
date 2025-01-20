@@ -59,7 +59,7 @@ class WIREGUARD:
             f.write(s)
 
         with open(wg_public_key_file) as f:
-            wg_public_key = f.read()
+            wg_public_key = f.read().strip()
 
         config_string = f'[Interface]\n' \
                         f'PrivateKey = {private_key}\n' \
