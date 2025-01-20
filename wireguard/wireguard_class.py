@@ -5,7 +5,7 @@ from datetime import datetime
 from ipaddress import IPv4Network, IPv4Address
 
 from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG, WG_CONF, IPV4NETWORK, WG_SERVER_PORT, PATH_WG, PATH_KEYS, \
-    WG_PRIVATE_KEY, DEBUG
+    WG_PRIVATE_KEY, DEBUG, WG_SERVER_LOCAL_IP
 from utils.log import log
 from utils.translit import transliterate
 from wireguard.user_config import UserConfig
@@ -124,7 +124,7 @@ class WIREGUARD:
 
         configs.append(f'[Interface]\n'
                        f'PrivateKey = {wg_private_key}\n'
-                       f'Address = {IPV4NETWORK}\n'
+                       f'Address = {WG_SERVER_LOCAL_IP}\n'
                        f'ListenPort = {WG_SERVER_PORT}\n'
                        f'PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o ens3 -j MASQUERADE\n'
                        f'PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o ens3 -j MASQUERADE')
