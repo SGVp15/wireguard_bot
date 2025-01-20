@@ -129,6 +129,7 @@ class WIREGUARD:
                        f'PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o ens3 -j MASQUERADE')
 
         user_files_configs = [f for f in os.listdir(PATH_CONFIG) if os.path.isfile(os.path.join(PATH_CONFIG, f))]
+        user_files_configs = sorted(user_files_configs)
         for file_name in user_files_configs:
             user_config = UserConfig(file_name)
             configs.append(f'[Peer]# {user_config.name}\n'
