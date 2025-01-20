@@ -9,7 +9,7 @@ config = dotenv_values(find_dotenv())
 
 SERVER_IP = config['SERVER_IP']
 
-IPV4NETWORK = '172.26.10.0/24'
+IPV4NETWORK = '172.26.10.1/24'
 
 WG_SERVER_PORT = 443
 

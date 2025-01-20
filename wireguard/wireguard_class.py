@@ -3,10 +3,12 @@ import re
 import time
 from datetime import datetime
 from ipaddress import IPv4Network, IPv4Address
+from os.path import isfile
 
 from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG, WG_CONF, IPV4NETWORK, WG_SERVER_PORT, PATH_WG, PATH_KEYS
 from utils.log import log
 from utils.translit import transliterate
+from wireguard.user_config import UserConfig
 
 
 class WIREGUARD:
@@ -28,7 +30,6 @@ class WIREGUARD:
 
         # IP
         ips_current = [IPv4Address(x) for x in re.findall(r'(\d+\.\d+\.\d+\.\d+)', s)]
-        # print(ips_current)
 
         ip = ''
         for ip_net in net.hosts():
@@ -43,9 +44,9 @@ class WIREGUARD:
         time.sleep(0.1)
 
         with open(path_user_private_key) as f:
-            private_key = f.read()
+            private_key = f.read().strip()
         with open(path_user_public_key) as f:
-            public_key = f.read()
+            public_key = f.read().strip()
 
         s += f'\n' \
              f'[Peer] # {name}\n' \
@@ -112,3 +113,25 @@ class WIREGUARD:
     @classmethod
     def update_bot(cls):
         os.system('systemctl restart wg_bot')
+
+    @classmethod
+    def create_wg_conf(cls):
+        WG_PRIVATE_KEY = ''
+        with open(WG_PRIVATE_KEY, 'r') as f:
+            wg_private_key = f.read().strip()
+        config_default = (f'[Interface]\n'
+                          f'PrivateKey = {wg_private_key}\n'
+                          f'Address = {IPV4NETWORK}\n'
+                          f'ListenPort = {WG_SERVER_PORT}\n'
+                          f'PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o ens3 -j MASQUERADE\n'
+                          f'PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o ens3 -j MASQUERADE\n')
+        user_configs = [f for f in os.listdir(PATH_CONFIG) if isfile(f)]
+        for file_name in user_configs:
+            with open(os.path.join(PATH_CONFIG, file_name), 'r') as f:
+                user_config = UserConfig(file_name, f.read())
+                config_default += (f'\n[Peer]# {user_config.name}'
+                                   f'PublicKey = {user_config.public_key}\n'
+                                   f'AllowedIPs = {user_config.address}\n')
+
+        with open(WG_CONF, 'w') as f:
+            f.write(config_default)

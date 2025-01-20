@@ -89,7 +89,7 @@ async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
 )
 async def download_logs(callback_query: CallbackQuery, state: FSMContext):
     file = SYSTEM_LOG
-    filename = f'log.log'
+    filename = f'system.log'
     await callback_query.answer()
     await my_send_document(file, filename, callback_query.from_user.id)
     await show_admin_menu(callback_query, state)
