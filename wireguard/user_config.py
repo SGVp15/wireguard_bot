@@ -5,7 +5,7 @@ from config import PATH_CONFIG, PATH_KEYS, PATH_QR
 
 
 class UserConfig:
-    def __init__(self, file_name: str, s: str):
+    def __init__(self, file_name: str):
         with open(os.path.join(PATH_CONFIG, file_name), 'r') as f:
             s = f.read()
         self.name = file_name.replace('.conf', '')
