@@ -7,10 +7,13 @@ from aiogram.types import CallbackQuery
 from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.modules.user.handlers.files import my_send_document
+from Telegram.modules.user.keyboards.menu_files import DELETE_CONFIG_FILE
+from Telegram.modules.user.keyboards.menu_user import k_back_to_menu_users
 from Telegram.modules.user.states.mashine_state import UserState
 from config import DEBUG
 from utils.log import log
-from wireguard.wireguard_class import WIREGUARD as wg
+from wireguard.user_config import UserConfig
+from wireguard.wireguard_class import WIREGUARD as wg, WIREGUARD
 
 if DEBUG:
     print(f'import {__name__}')
@@ -23,11 +26,8 @@ router = Router()
                        & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
                        )
 async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
-    if DEBUG:
-        print('create_user_config  {__name__}')
     data = await state.get_data()
     user = data.get('name')
-    print(f'{user}')
     config_string, full_path_conf_file, full_path_qr_file = wg.create_user(user)
     log.info('create_user {user}')
     await state.clear()
@@ -36,3 +36,14 @@ async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
                            full_path=full_path_conf_file)
     await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(full_path_qr_file),
                            full_path=full_path_qr_file)
+
+
+@router.callback_query(DELETE_CONFIG_FILE.filter())
+async def delete_user_config(callback_query: CallbackQuery,
+                             callback_data: DELETE_CONFIG_FILE, ):
+    name = callback_data.name
+    UserConfig(name).delete_conf()
+    await callback_query.message.edit_text(
+        text=f'Delete: {name} - ok',
+        reply_markup=k_back_to_menu_users
+    )
