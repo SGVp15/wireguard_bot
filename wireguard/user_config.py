@@ -21,7 +21,6 @@ class UserConfig:
             self.public_key = f.read().strip()
 
     def rename_config(self, new_name):
-        self.new_name = new_name
         for path in (self.public_key, self.public_key, self.config_file, self.path_qr_file):
-            dist = os.path.join(os.path.dirname(path), os.path.basename(path).replace(self.name, self.new_name))
+            dist = os.path.join(os.path.dirname(path), os.path.basename(path).replace(self.name, new_name))
             os.rename(path, dist)
