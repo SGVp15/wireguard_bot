@@ -34,8 +34,9 @@ async def show_config_list_files(callback_query: CallbackQuery):
 @router.callback_query(MENU_CONF_LIST.filter())
 async def show_config_menu(callback_query: CallbackQuery):
     if DEBUG:
-        print(f'{MENU_CONF_LIST.__prefix__=}')
-    name = callback_query.data.replace(f'{MENU_CONF_LIST.__prefix__}:', '')
+        print(f'{MENU_CONF_LIST.__prefix__=}\n{MENU_CONF_LIST.__separator__=}')
+
+    name = callback_query.data.replace(f'{MENU_CONF_LIST.__prefix__}{MENU_CONF_LIST.__separator__}', '')
 
     await callback_query.message.edit_text(
         text=f'CONF: {name}',
