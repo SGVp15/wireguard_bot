@@ -10,7 +10,8 @@ from aiogram.types import FSInputFile, CallbackQuery
 from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.loader import bot
-from Telegram.modules.user.keyboards.menu_files import builder_config_list_files_keyboard, DOWNLOAD_CONFIG_FILE
+from Telegram.modules.user.keyboards.menu_files import builder_config_list_files_keyboard, DOWNLOAD_CONFIG_FILE, \
+    MENU_CONF_LIST, builder_config_file_keyboard
 from config import PATH_QR, PATH_CONFIG, DEBUG
 
 if DEBUG:
@@ -24,12 +25,17 @@ router = Router(name=__name__)
     & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
 )
 async def show_config_list_files(callback_query: CallbackQuery):
-    await bot.edit_message_text(
+    await callback_query.message.edit_text(
         text='Список Config files',
-        parse_mode=ParseMode.HTML,
-        chat_id=callback_query.from_user.id,
-        message_id=callback_query.message.message_id,
         reply_markup=builder_config_list_files_keyboard()
+    )
+
+
+@router.callback_query(MENU_CONF_LIST.filter())
+async def show_config_menu(callback_query: CallbackQuery):
+    await callback_query.message.edit_text(
+        text=f'CONF: {callback_query.data}',
+        reply_markup=builder_config_file_keyboard(callback_query.data)
     )
 
 

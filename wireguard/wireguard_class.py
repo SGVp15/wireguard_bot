@@ -3,7 +3,6 @@ import re
 import time
 from datetime import datetime
 from ipaddress import IPv4Network, IPv4Address
-from os.path import isfile
 
 from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG, WG_CONF, IPV4NETWORK, WG_SERVER_PORT, PATH_WG, PATH_KEYS, \
     WG_PRIVATE_KEY
