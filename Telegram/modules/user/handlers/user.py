@@ -42,7 +42,8 @@ async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
 async def delete_user_config(callback_query: CallbackQuery,
                              callback_data: DELETE_CONFIG_FILE, ):
     name = callback_data.name
-    UserConfig(name).delete_conf()
+    u = UserConfig(name)
+    u.delete_conf()
     await callback_query.message.edit_text(
         text=f'Delete: {name} - ok',
         reply_markup=k_back_to_menu_users
