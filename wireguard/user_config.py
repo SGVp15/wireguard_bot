@@ -2,6 +2,7 @@ import os
 import re
 
 from config import PATH_CONFIG, PATH_KEYS, PATH_QR
+from utils.log import log
 
 
 class UserConfig:
@@ -34,4 +35,4 @@ class UserConfig:
             try:
                 os.renames(path, dist)
             except FileNotFoundError:
-                print(path)
+                log.error('FileNotFoundError', path)
