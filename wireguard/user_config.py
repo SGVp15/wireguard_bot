@@ -1,6 +1,5 @@
 import os
 import re
-from os.path import exists
 
 from config import PATH_CONFIG, PATH_KEYS, PATH_QR
 
@@ -30,6 +29,6 @@ class UserConfig:
 
     def delete_conf(self):
         for path in (self.private_key, self.public_key, self.config_file, self.qr_file):
-            os.makedirs(os.path.join(os.path.dirname(path), 'trash'), exist_ok=True)
+            # os.makedirs(os.path.join(os.path.dirname(path), 'trash'), exist_ok=True)
             dist = os.path.join(os.path.dirname(path), 'trash', os.path.basename(path))
-            os.replace(path, dist)
+            os.renames(path, dist)
