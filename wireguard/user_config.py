@@ -6,21 +6,22 @@ from config import PATH_CONFIG, PATH_KEYS, PATH_QR
 
 class UserConfig:
     def __init__(self, file_name: str):
-        with open(os.path.join(PATH_CONFIG, file_name), 'r') as f:
-            s = f.read()
         self.name = file_name.replace('.conf', '')
-        self.address = re.findall(r'Address\s*=\s*(.*)', s)[0].strip()
 
-        with open(os.path.join(PATH_KEYS, f'{self.name}_public.key'), 'r') as f:
+        self.path_qr_file = os.path.join(PATH_QR, f'{self.name}.png')
+        self.public_key = os.path.join(PATH_KEYS, f'{self.name}_public.key')
+        self.private_key = os.path.join(PATH_KEYS, f'{self.name}_private.key')
+        self.config_file = os.path.join(PATH_CONFIG, f'{self.name}.conf')
+
+        with open(self.config_file, 'r') as f:
+            s = f.read()
+            self.address = re.findall(r'Address\s*=\s*(.*)', s)[0].strip()
+
+        with open(self.public_key, 'r') as f:
             self.public_key = f.read().strip()
 
     def rename_config(self, new_name):
         self.new_name = new_name
-        os.rename(os.path.join(PATH_KEYS, f'{self.name}_public.key'),
-                  os.path.join(PATH_KEYS, f'{self.new_name}_public.key'))
-        os.rename(os.path.join(PATH_KEYS, f'{self.name}_private.key'),
-                  os.path.join(PATH_KEYS, f'{self.new_name}_private.key'))
-        os.rename(os.path.join(PATH_CONFIG, f'{self.name}.conf'),
-                  os.path.join(PATH_CONFIG, f'{self.new_name}.conf'))
-        os.rename(os.path.join(PATH_QR, f'{self.name}.png'),
-                  os.path.join(PATH_QR, f'{self.new_name}.png'))
+        for path in (self.public_key, self.public_key, self.config_file, self.path_qr_file):
+            dist = os.path.join(os.path.dirname(path), os.path.basename(path).replace(self.name, self.new_name))
+            os.rename(path, dist)
