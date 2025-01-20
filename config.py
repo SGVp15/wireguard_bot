@@ -18,6 +18,7 @@ SYSTEM_LOG = './.log.txt'
 PATH_WG = os.path.join('/', 'etc', 'wireguard')
 
 WG_CONF = os.path.join(PATH_WG, 'wg0.conf')
+WG_PRIVATE_KEY = os.path.join(PATH_WG, 'private.key')
 WG_DUMP = './wg_dump.txt'
 
 PATH_CONFIG = os.path.join(PATH_WG, 'confs')

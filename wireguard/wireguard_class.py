@@ -5,7 +5,8 @@ from datetime import datetime
 from ipaddress import IPv4Network, IPv4Address
 from os.path import isfile
 
-from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG, WG_CONF, IPV4NETWORK, WG_SERVER_PORT, PATH_WG, PATH_KEYS
+from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG, WG_CONF, IPV4NETWORK, WG_SERVER_PORT, PATH_WG, PATH_KEYS, \
+    WG_PRIVATE_KEY
 from utils.log import log
 from utils.translit import transliterate
 from wireguard.user_config import UserConfig
@@ -116,7 +117,6 @@ class WIREGUARD:
 
     @classmethod
     def create_wg_conf(cls):
-        WG_PRIVATE_KEY = ''
         with open(WG_PRIVATE_KEY, 'r') as f:
             wg_private_key = f.read().strip()
         config_default = (f'[Interface]\n'
