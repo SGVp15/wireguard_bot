@@ -3,7 +3,7 @@ from dotenv import dotenv_values, find_dotenv
 
 DEBUG = True
 
-VERSION = '1.6.6'
+VERSION = '1.6.9'
 
 config = dotenv_values(find_dotenv())
 
