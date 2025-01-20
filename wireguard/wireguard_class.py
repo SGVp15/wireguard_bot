@@ -137,4 +137,4 @@ class WIREGUARD:
                                f'AllowedIPs = {user_config.address}')
 
         with open(WG_CONF, 'w') as f:
-            f.write('\n'.join(configs))
+            f.write('\n\n'.join(configs))
