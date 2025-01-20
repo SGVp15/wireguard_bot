@@ -13,7 +13,6 @@ class UserConfig:
 
         with open(os.path.join(PATH_KEYS, f'{self.name}_public.key'), 'r') as f:
             self.public_key = f.read().strip()
-            print(f'{self.public_key=}')
 
     def rename_config(self, new_name):
         self.new_name = new_name
