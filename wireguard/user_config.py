@@ -15,10 +15,10 @@ class UserConfig:
 
         with open(self.config_file, 'r') as f:
             s = f.read()
-            self.address = re.findall(r'Address\s*=\s*(.*)', s)[0].strip()
+            self.address = re.findall(r'Address\s*=\s*(\d+\.\d+\.\d+\.\d+/\d+)', s)[0].strip()
 
         with open(self.public_key, 'r') as f:
-            self.public_key = f.read().strip()
+            self.public_key = re.sub('\s+', '', f.read())
 
     def rename_config(self, new_name):
         for path in (self.public_key, self.public_key, self.config_file, self.path_qr_file):
