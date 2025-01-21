@@ -1,9 +1,7 @@
 import os
 import os.path
-import re
 
 from aiogram import F, Router
-from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, CallbackQuery
 
@@ -12,7 +10,7 @@ from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.loader import bot
 from Telegram.modules.user.keyboards.menu_files import builder_config_list_files_keyboard, DOWNLOAD_CONFIG_FILE, \
     MENU_CONF_LIST, builder_config_file_keyboard
-from config import PATH_QR, PATH_CONFIG, DEBUG
+from config import DEBUG
 from wireguard.user_config import UserConfig
 
 if DEBUG:
@@ -48,13 +46,16 @@ async def download_config_file(callback_query: CallbackQuery,
                                state: FSMContext):
     user_config = UserConfig(callback_data.name)
 
-    await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(user_config.path_config_file),
+    await my_send_document(chat_id=callback_query.from_user.id,
                            full_path=user_config.path_config_file)
-    await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(user_config.path_qr_file),
+
+    await my_send_document(chat_id=callback_query.from_user.id,
                            full_path=user_config.path_qr_file)
 
 
-async def my_send_document(full_path, filename, chat_id):
+async def my_send_document(full_path, chat_id, filename=None):
+    if filename is None:
+        filename = os.path.basename(full_path)
     if os.path.exists(full_path):
         full_path = FSInputFile(full_path, filename=filename)
         await bot.send_document(
