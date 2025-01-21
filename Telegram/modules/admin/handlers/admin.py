@@ -88,9 +88,8 @@ async def wg_create_main_config(callback_query: CallbackQuery, state: FSMContext
 )
 async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
     file = WG_CONF
-    filename = f'wg0.conf'
     await callback_query.answer()
-    await my_send_document(file, filename, callback_query.from_user.id)
+    await my_send_document(chat_id=callback_query.from_user.id, full_path=file)
     await show_admin_menu(callback_query, state)
 
 
@@ -101,9 +100,8 @@ async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
 )
 async def download_logs(callback_query: CallbackQuery, state: FSMContext):
     file = SYSTEM_LOG
-    filename = f'system.log'
     await callback_query.answer()
-    await my_send_document(file, filename, callback_query.from_user.id)
+    await my_send_document(chat_id=callback_query.from_user.id, full_path=file)
     await show_admin_menu(callback_query, state)
 
 
@@ -125,6 +123,5 @@ async def clear_log(callback_query: CallbackQuery, state: FSMContext):
 async def download_wg_dump(callback_query: CallbackQuery, state: FSMContext):
     wg.get_dump()
     file = WG_DUMP
-    filename = f'wg_dump.txt'
-    await my_send_document(file, filename, callback_query.from_user.id)
+    await my_send_document(chat_id=callback_query.from_user.id, full_path=file)
     await show_admin_menu(callback_query, state)

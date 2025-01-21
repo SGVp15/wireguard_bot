@@ -53,7 +53,7 @@ async def download_config_file(callback_query: CallbackQuery,
                            full_path=user_config.path_qr_file)
 
 
-async def my_send_document(full_path, chat_id, filename=None):
+async def my_send_document(chat_id: str | int, full_path: str, filename: str = None) -> None:
     if filename is None:
         filename = os.path.basename(full_path)
     if os.path.exists(full_path):
