@@ -13,6 +13,7 @@ from Telegram.loader import bot
 from Telegram.modules.user.keyboards.menu_files import builder_config_list_files_keyboard, DOWNLOAD_CONFIG_FILE, \
     MENU_CONF_LIST, builder_config_file_keyboard
 from config import PATH_QR, PATH_CONFIG, DEBUG
+from wireguard.user_config import UserConfig
 
 if DEBUG:
     print(f'import {__name__}')
@@ -36,7 +37,7 @@ async def show_config_menu(callback_query: CallbackQuery,
                            callback_data: MENU_CONF_LIST, ):
     name = callback_data.name
     await callback_query.message.edit_text(
-        text=f'CONF:<b>{name}</b>',
+        text=f'CONF: <b>{name}</b>',
         reply_markup=builder_config_file_keyboard(name)
     )
 
@@ -45,13 +46,12 @@ async def show_config_menu(callback_query: CallbackQuery,
 async def download_config_file(callback_query: CallbackQuery,
                                callback_data: DOWNLOAD_CONFIG_FILE,
                                state: FSMContext):
-    conf_name = callback_data.name
-    qr_name = re.sub(r'\.conf$', '.png', conf_name)
-    path_conf_file = os.path.join(PATH_CONFIG, conf_name)
-    path_qr_file = os.path.join(PATH_QR, qr_name)
+    user_config = UserConfig(callback_data.name)
 
-    await my_send_document(chat_id=callback_query.from_user.id, filename=conf_name, full_path=path_conf_file)
-    await my_send_document(chat_id=callback_query.from_user.id, filename=qr_name, full_path=path_qr_file)
+    await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(user_config.path_config_file),
+                           full_path=user_config.path_config_file)
+    await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(user_config.path_qr_file),
+                           full_path=user_config.path_qr_file)
 
 
 async def my_send_document(full_path, filename, chat_id):
