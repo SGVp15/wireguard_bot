@@ -35,7 +35,7 @@ async def show_config_menu(callback_query: CallbackQuery,
                            callback_data: MENU_CONF_LIST, ):
     name = callback_data.name
     await callback_query.message.edit_text(
-        text=f'CONF: <b>{name}</b>',
+        text=f'Conf: <b>{name}</b>',
         reply_markup=builder_config_file_keyboard(name)
     )
 
