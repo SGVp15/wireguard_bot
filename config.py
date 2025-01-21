@@ -3,14 +3,14 @@ from dotenv import dotenv_values, find_dotenv
 
 DEBUG = True
 
-VERSION = '1.7.1'
+VERSION = '1.7.2'
 
 config = dotenv_values(find_dotenv())
 
 SERVER_IP = config['SERVER_IP']
 
-IPV4NETWORK = '172.26.10.0/24'
-WG_SERVER_LOCAL_IP = '172.26.10.1/24'
+IPV4NETWORK = config['IPV4NETWORK']
+WG_SERVER_LOCAL_IP = config['WG_SERVER_LOCAL_IP']
 WG_SERVER_PORT = 443
 
 SYSTEM_LOG = './.log.txt'
