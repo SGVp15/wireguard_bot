@@ -11,12 +11,7 @@ if DEBUG:
     print(f'import {__name__}')
 
 
-class CONFIG_FILE(CallbackData):
-    name: str
-
-
-class DOWNLOAD_CONFIG_FILE(CallbackData):
-    __prefix__ = 'getConf'
+class DOWNLOAD_CONFIG_FILE(CallbackData, prefix='getConf'):
     name: str
 
 
