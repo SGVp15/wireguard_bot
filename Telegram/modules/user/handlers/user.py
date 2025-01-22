@@ -13,7 +13,7 @@ from Telegram.modules.user.states.mashine_state import UserState
 from config import DEBUG
 from utils.log import log
 from wireguard.user_config import UserConfig
-from wireguard.wireguard_class import WIREGUARD as wg, WIREGUARD
+from wireguard.wireguard_class import WIREGUARD as wg
 
 if DEBUG:
     print(f'import {__name__}')

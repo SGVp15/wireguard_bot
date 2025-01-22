@@ -45,7 +45,9 @@ async def rename_user_menu(callback_query: CallbackQuery, callback_data: RENAME_
     name = callback_data.name
     await state.set_state(UserState.rename_user)
     await callback_query.message.edit_text(
-        text=f'[ Переименовать ]\n{name}\nВведите новое название',
+        text=f'[ Переименовать ]\n'
+             f'{name}\n'
+             f'Введите новое название',
         reply_markup=k_back_to_menu_users
     )
 
