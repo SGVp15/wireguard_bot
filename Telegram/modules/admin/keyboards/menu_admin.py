@@ -10,8 +10,8 @@ button_menu_admin = InlineKeyboardButton(text='🔙 Назад', callback_data=M
 
 k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🌟 Перезагрузить службу wireguard',
-                          callback_data=MyCallBackData.menu_restart_service_wg), ],
-    [InlineKeyboardButton(text='💀 Перезагрузить сервер', callback_data=MyCallBackData.menu_reboot_server), ],
+                          callback_data=MyCallBackData.menu_service_wg_restart), ],
+    [InlineKeyboardButton(text='💀 Перезагрузить сервер', callback_data=MyCallBackData.menu_server_reboot), ],
     [InlineKeyboardButton(text='📒 Скачать логи', callback_data=MyCallBackData.download_logs), ],
     [InlineKeyboardButton(text='📒 Скачать WG_CONF', callback_data=MyCallBackData.download_wg_conf), ],
     [InlineKeyboardButton(text='📒 Скачать WG_DUMP', callback_data=MyCallBackData.download_wg_dump), ],
@@ -24,14 +24,14 @@ k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
 
 k_menu_restart_service = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🛑 Все верно перезагрузить службу wireguard!',
-                          callback_data=MyCallBackData.restart_service_wg_ok), ],
+                          callback_data=MyCallBackData.service_wg_restart_ok), ],
     [button_menu_admin, ],
 
 ])
 
 k_menu_reboot_server = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🛑 Все верно перезагрузить Server!',
-                          callback_data=MyCallBackData.reboot_server_ok), ],
+                          callback_data=MyCallBackData.server_reboot_ok), ],
     [button_menu_admin, ],
 ])
 

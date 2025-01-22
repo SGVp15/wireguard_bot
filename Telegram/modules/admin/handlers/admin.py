@@ -43,7 +43,7 @@ async def show_version(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(
-    F.data.in_({MyCallBackData.restart_service_wg_ok, })
+    F.data.in_({MyCallBackData.service_wg_restart_ok, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def restart_service(callback_query: CallbackQuery, state: FSMContext):
@@ -55,7 +55,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(
-    F.data.in_({MyCallBackData.reboot_server_ok, })
+    F.data.in_({MyCallBackData.server_reboot_ok, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def restart_service(callback_query: CallbackQuery, state: FSMContext):

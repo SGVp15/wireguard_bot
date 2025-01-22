@@ -28,7 +28,7 @@ async def user_menu(callback_query: CallbackQuery, state: FSMContext):
 
 
 @dp.callback_query(
-    (F.data == MyCallBackData.menu_create_user)
+    (F.data == MyCallBackData.menu_config_user_create)
     & (F.from_user.id.in_({*ADMIN_ID, }))
 )
 async def create_user_menu(callback_query: CallbackQuery, state: FSMContext):
