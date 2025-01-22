@@ -1,4 +1,5 @@
 class MyCallBackData:
+    user_config_rename_ok = 'user_config_rename_ok'
     show_version = 'show_version'
     clear_log = 'clear_log'
     update_bot = 'update_bot'

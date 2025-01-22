@@ -38,6 +38,18 @@ async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
                            full_path=full_path_qr_file)
 
 
+@router.callback_query(UserState.rename_user,
+                       F.data.in_({MyCallBackData.user_config_rename_ok, })
+                       & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
+                       )
+async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
+    data = await state.get_data()
+    user_config = UserConfig(data.get('name'))
+    user_config.rename_conf('new_name')
+    log.info('create_user {user}')
+    await state.clear()
+
+
 @router.callback_query(DELETE_CONFIG_FILE.filter())
 async def delete_user_config(callback_query: CallbackQuery,
                              callback_data: DELETE_CONFIG_FILE, ):

@@ -10,5 +10,5 @@ class UserState(StatesGroup):
 
     create_user_menu = State()
     name = State()
-
     create_user = State()
+    rename_user = State()

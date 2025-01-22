@@ -33,5 +33,5 @@ k_menu_reboot_server = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🛑 Все верно перезагрузить Server!',
                           callback_data=MyCallBackData.reboot_server_ok), ],
     [button_menu_admin, ],
-
 ])
+

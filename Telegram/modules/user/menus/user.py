@@ -5,7 +5,8 @@ from aiogram.types import CallbackQuery
 from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.loader import dp
-from Telegram.modules.user.keyboards.menu_user import k_menu_user_create, k_back_to_menu_users, k_menu_users
+from Telegram.modules.user.keyboards.menu_files import RENAME_CONFIG_FILE
+from Telegram.modules.user.keyboards.menu_user import k_menu_user_config_create, k_back_to_menu_users, k_menu_users
 from Telegram.modules.user.states.mashine_state import UserState
 from config import DEBUG
 
@@ -38,6 +39,16 @@ async def create_user_menu(callback_query: CallbackQuery, state: FSMContext):
     )
 
 
+@dp.callback_query(RENAME_CONFIG_FILE.filter())
+async def rename_user_menu(callback_query: CallbackQuery, callback_data: RENAME_CONFIG_FILE, state: FSMContext):
+    name = callback_data.name
+    await state.set_state(UserState.rename_user)
+    await callback_query.message.edit_text(
+        text=f'[ Переименовать ]\n{name}\nВведите новое название',
+        reply_markup=k_back_to_menu_users
+    )
+
+
 @dp.message(UserState.create_user_menu, F.from_user.id.in_({*ADMIN_ID, }))
 async def user_create(message: types.Message, state: FSMContext):
     user = message.text
@@ -45,5 +56,5 @@ async def user_create(message: types.Message, state: FSMContext):
     await state.set_state(UserState.create_user)
     await message.answer(
         text=f'❔ Создать пользователя \n<b>{user}</b>',
-        reply_markup=k_menu_user_create
+        reply_markup=k_menu_user_config_create
     )

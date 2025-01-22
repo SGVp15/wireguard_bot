@@ -13,10 +13,14 @@ k_menu_users = InlineKeyboardMarkup(inline_keyboard=[
 
 ])
 
-k_menu_user_create = InlineKeyboardMarkup(inline_keyboard=[
+k_menu_user_config_create = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='✅ Cоздать', callback_data=MyCallBackData.create_user_ok), ],
     [InlineKeyboardButton(text='🔙 Назад', callback_data=MyCallBackData.menu_users), ],
+])
 
+k_menu_user_config_rename = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='✅ Все верно переименовать', callback_data=MyCallBackData.user_config_rename_ok), ],
+    [InlineKeyboardButton(text='🔙 Назад', callback_data=MyCallBackData.menu_users), ],
 ])
 
 k_back_to_menu_users = InlineKeyboardMarkup(inline_keyboard=[

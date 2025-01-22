@@ -57,3 +57,4 @@ async def menu_reboot_server(callback_query: CallbackQuery, state: FSMContext):
         text='<b>[ Перезагрузить сервер ]</b>',
         reply_markup=k_menu_reboot_server
     )
+
