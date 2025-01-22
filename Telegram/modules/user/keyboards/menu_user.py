@@ -14,7 +14,7 @@ k_menu_users = InlineKeyboardMarkup(inline_keyboard=[
 ])
 
 k_menu_user_config_create = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='✅ Cоздать', callback_data=MyCallBackData.create_user_ok), ],
+    [InlineKeyboardButton(text='✅ Cоздать', callback_data=MyCallBackData.config_user_create_ok), ],
     [InlineKeyboardButton(text='🔙 Назад', callback_data=MyCallBackData.menu_users), ],
 ])
 

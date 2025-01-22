@@ -22,7 +22,7 @@ router = Router()
 
 
 @router.callback_query(UserState.create_user,
-                       F.data.in_({MyCallBackData.create_user_ok, })
+                       F.data.in_({MyCallBackData.config_user_create_ok, })
                        & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
                        )
 async def create_user_config(callback_query: CallbackQuery, state: FSMContext):

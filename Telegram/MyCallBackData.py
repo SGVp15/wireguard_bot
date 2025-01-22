@@ -9,10 +9,10 @@ class MyCallBackData:
 
     show_config_files = 'show_config_files'
 
-    menu_config_user_create = 'mConfCreate'
-    create_user_ok = 'create_user_ok'
+    menu_config_user_create = 'menu_config_user_create'
+    config_user_create_ok = 'config_user_create_ok'
 
-    menu_config_user_rename = 'mConfRename'
+    menu_config_user_rename = 'menu_config_user_rename'
     config_user_rename_ok = 'config_user_rename_ok'
 
     menu_users = 'menu_users'
