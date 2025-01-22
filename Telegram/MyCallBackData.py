@@ -1,5 +1,4 @@
 class MyCallBackData:
-    user_config_rename_ok = 'user_config_rename_ok'
     show_version = 'show_version'
     clear_log = 'clear_log'
     update_bot = 'update_bot'
@@ -11,7 +10,9 @@ class MyCallBackData:
     show_config_files = 'show_config_files'
 
     create_user_ok = 'create_user_ok'
+    config_user_rename_ok = 'config_user_rename_ok'
     menu_create_user = 'menu_create_user'
+    menu_config_user_rename = 'menu_config_user_rename'
     menu_users = 'menu_users'
     menu_main = 'menu_main'
     menu_admin = 'menu_admin'

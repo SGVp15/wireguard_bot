@@ -19,7 +19,7 @@ k_menu_user_config_create = InlineKeyboardMarkup(inline_keyboard=[
 ])
 
 k_menu_user_config_rename = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='✅ Все верно переименовать', callback_data=MyCallBackData.user_config_rename_ok), ],
+    [InlineKeyboardButton(text='✅ Все верно переименовать', callback_data=MyCallBackData.config_user_rename_ok), ],
     [InlineKeyboardButton(text='🔙 Назад', callback_data=MyCallBackData.menu_users), ],
 ])
 

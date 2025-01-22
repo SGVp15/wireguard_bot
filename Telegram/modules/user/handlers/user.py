@@ -39,7 +39,7 @@ async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(UserState.rename_user,
-                       F.data.in_({MyCallBackData.user_config_rename_ok, })
+                       F.data.in_({MyCallBackData.config_user_rename_ok, })
                        & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
                        )
 async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
