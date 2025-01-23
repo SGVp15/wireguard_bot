@@ -72,6 +72,9 @@ async def rename_user(message: types.Message, state: FSMContext):
     await state.update_data(new_config_name=message.text)
     await state.update_data(name=data.get('name'))
     await message.answer(
-        text=f'❔ Перименовать conf\n<b>{old_config_name}</b>\n -> \n<b>{new_config_name}</b>',
+        text=f'❔ Перименовать conf\n'
+             f'<b>{old_config_name}</b>\n'
+             f' -> \n'
+             f'<b>{new_config_name}</b>',
         reply_markup=k_menu_user_config_rename
     )
