@@ -1,4 +1,5 @@
 import os
+import re
 
 from aiogram.filters.callback_data import CallbackData
 from aiogram.types import InlineKeyboardMarkup
@@ -34,6 +35,7 @@ class DELETE_CONFIG_FILE(CallbackData, prefix='delConf'):
 def builder_config_list_files_keyboard() -> InlineKeyboardMarkup:
     file_list = [f for f in os.listdir(PATH_CONFIG) if os.path.isfile(os.path.join(PATH_CONFIG, f))]
     config_files = sorted(file_list)
+    config_files = [re.sub(r'\.conf$', '', c) for c in config_files]
     builder = InlineKeyboardBuilder()
     builder.button(text='🔙 Назад', callback_data=MyCallBackData.menu_users)
     for config_file in config_files:

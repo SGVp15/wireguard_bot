@@ -24,13 +24,18 @@ class UserConfig:
             with open(self.path_public_key, 'r') as f:
                 self.public_key = f.read().strip()
 
-    def rename_conf(self, new_name):
+    def rename_conf(self, new_name) -> bool:
+        config_files = [f for f in os.listdir(PATH_CONFIG)]
+        if f'{new_name}.conf' in config_files:
+            return False
+
         for path in (self.path_private_key, self.path_public_key, self.path_config_file, self.path_qr_file):
             dist = os.path.join(os.path.dirname(path), os.path.basename(path).replace(self.name, new_name))
             try:
                 os.rename(path, dist)
             except FileNotFoundError:
                 log.error('FileNotFoundError', path)
+        return True
 
     def delete_conf(self):
         for path in (self.path_private_key, self.path_public_key, self.path_config_file, self.path_qr_file):
