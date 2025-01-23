@@ -44,9 +44,12 @@ async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
                        )
 async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
     data = await state.get_data()
-    user_config = UserConfig(data.get('name'))
-    user_config.rename_conf(data.get('new_name'))
-    log.info('create_user {user}')
+    print(data)
+    name = data.get('name')
+    user_config = UserConfig(name)
+    new_name = data.get('new_name')
+    user_config.rename_conf(new_name)
+    log.info('rename_user {user} ->')
     await state.clear()
 
 
