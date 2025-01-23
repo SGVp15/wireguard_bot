@@ -66,15 +66,15 @@ async def user_create(message: types.Message, state: FSMContext):
 @dp.message(UserState.rename_user, F.from_user.id.in_({*ADMIN_ID, }))
 async def rename_user(message: types.Message, state: FSMContext):
     data = await state.get_data()
+    name = data.get('name')
     await state.set_state(UserState.rename_user)
-    old_config_name = data.get('name')
-    new_config_name = message.text
-    await state.update_data(new_config_name=message.text)
+    new_name = message.text
+    await state.update_data(new_name=message.text)
     await state.update_data(name=data.get('name'))
     await message.answer(
         text=f'❔ Перименовать conf\n'
-             f'<b>{old_config_name}</b>\n'
+             f'<b>{name}</b>\n'
              f' -> \n'
-             f'<b>{new_config_name}</b>',
+             f'<b>{new_name}</b>',
         reply_markup=k_menu_user_config_rename
     )

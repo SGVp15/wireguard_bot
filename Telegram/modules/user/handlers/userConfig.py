@@ -49,7 +49,7 @@ async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
     user_config = UserConfig(name)
     new_name = data.get('new_name')
     user_config.rename_conf(new_name)
-    log.info('rename_user {user} ->')
+    log.info('rename_user {user} -> {new_name}')
     await state.clear()
 
 
