@@ -1,4 +1,5 @@
 from aiogram import F, types
+from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
@@ -38,7 +39,8 @@ async def create_user_menu(callback_query: CallbackQuery, state: FSMContext):
     await callback_query.message.edit_text(
         text=f'Введите имя пользователя\n'
              f'Пример: Иванов Иван',
-        reply_markup=k_back_to_menu_users
+        reply_markup=k_back_to_menu_users,
+        parse_mode=ParseMode.HTML,
     )
 
 
@@ -51,7 +53,9 @@ async def rename_user_menu(callback_query: CallbackQuery, callback_data: RENAME_
         text=f'[ Переименовать ]\n'
              f'{user_config.name}\n'
              f'Введите новое название',
-        reply_markup=k_back_to_menu_users
+        reply_markup=k_back_to_menu_users,
+        parse_mode=ParseMode.HTML,
+
     )
 
 
@@ -63,7 +67,9 @@ async def user_create(message: types.Message, state: FSMContext):
     await message.answer(
         text=f'❔ Создать пользователя \n'
              f'<b>{user}</b>',
-        reply_markup=k_menu_user_config_create
+        reply_markup=k_menu_user_config_create,
+        parse_mode=ParseMode.HTML,
+
     )
 
 
@@ -77,5 +83,6 @@ async def q_rename_user(message: types.Message, state: FSMContext):
     await message.answer(
         text=f'❔ Перименовать\n'
              f'<b>{user_config.name}</b> -> <b>{user_config.new_name}</b>',
-        reply_markup=k_menu_user_config_rename
+        reply_markup=k_menu_user_config_rename,
+        parse_mode=ParseMode.HTML,
     )

@@ -38,7 +38,7 @@ async def show_version(callback_query: CallbackQuery, state: FSMContext):
         parse_mode=ParseMode.HTML,
         chat_id=callback_query.from_user.id,
         message_id=callback_query.message.message_id,
-        reply_markup=k_menu_admin
+        reply_markup=k_menu_admin,
     )
 
 
@@ -63,7 +63,9 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     await callback_query.answer()
     await bot.send_message(
         text='restart service - ok',
-        chat_id=callback_query.from_user.id
+        chat_id=callback_query.from_user.id,
+        parse_mode=ParseMode.HTML,
+
     )
     await show_admin_menu(callback_query, state)
     wg.reboot_server()
@@ -77,7 +79,9 @@ async def wg_create_main_config(callback_query: CallbackQuery, state: FSMContext
     WIREGUARD.create_wg_conf()
     await callback_query.message.edit_text(
         text='Create wg0.conf - ok',
-        reply_markup=k_menu_admin
+        reply_markup=k_menu_admin,
+        parse_mode=ParseMode.HTML,
+
     )
     await show_admin_menu(callback_query, state)
 
