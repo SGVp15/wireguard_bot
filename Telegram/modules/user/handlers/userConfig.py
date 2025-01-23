@@ -8,7 +8,7 @@ from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.modules.user.handlers.files import my_send_document
 from Telegram.modules.user.keyboards.menu_files import DELETE_CONFIG_FILE
-from Telegram.modules.user.keyboards.menu_user import k_back_to_menu_users
+from Telegram.modules.user.keyboards.menu_userConfig import k_back_to_menu_users
 from Telegram.modules.user.states.mashine_state import UserState
 from config import DEBUG
 from utils.log import log
@@ -44,8 +44,8 @@ async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
                        )
 async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
     data = await state.get_data()
-    user_config = UserConfig(data.get('name'))
-    user_config.rename_conf('new_name')
+    user_config = data.get('name')
+    user_config.rename_conf(data.get('new_name'))
     log.info('create_user {user}')
     await state.clear()
 

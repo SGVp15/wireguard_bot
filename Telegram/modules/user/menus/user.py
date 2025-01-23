@@ -6,7 +6,7 @@ from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.loader import dp
 from Telegram.modules.user.keyboards.menu_files import RENAME_CONFIG_FILE
-from Telegram.modules.user.keyboards.menu_user import k_menu_user_config_create, k_back_to_menu_users, k_menu_users, \
+from Telegram.modules.user.keyboards.menu_userConfig import k_menu_user_config_create, k_back_to_menu_users, k_menu_users, \
     k_menu_user_config_rename
 from Telegram.modules.user.states.mashine_state import UserState
 from config import DEBUG
