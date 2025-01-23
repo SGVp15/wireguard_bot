@@ -44,6 +44,7 @@ async def create_user_menu(callback_query: CallbackQuery, state: FSMContext):
 async def rename_user_menu(callback_query: CallbackQuery, callback_data: RENAME_CONFIG_FILE, state: FSMContext):
     name = callback_data.name
     await state.set_state(UserState.rename_user)
+    await state.update_data(name=name)
     await callback_query.message.edit_text(
         text=f'[ Переименовать ]\n'
              f'{name}\n'
@@ -70,7 +71,7 @@ async def rename_user(message: types.Message, state: FSMContext):
     await state.set_state(UserState.rename_user)
     new_name = message.text
     await state.update_data(new_name=message.text)
-    await state.update_data(name=data.get('name'))
+    await state.update_data(name=name)
     await message.answer(
         text=f'❔ Перименовать conf\n'
              f'<b>{name}</b>\n'
