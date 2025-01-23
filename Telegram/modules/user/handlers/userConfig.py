@@ -51,6 +51,10 @@ async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
     user_config.rename_conf(new_name)
     log.info('rename_user {user} -> {new_name}')
     await state.clear()
+    await callback_query.message.edit_text(
+        text=f'Rename: {name} -> {new_name} ok',
+        reply_markup=k_back_to_menu_users
+    )
 
 
 @router.callback_query(DELETE_CONFIG_FILE.filter())
