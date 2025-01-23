@@ -1,7 +1,7 @@
 import os
 import re
 
-from config import PATH_CONFIG, PATH_KEYS, PATH_QR
+from config import PATH_CONFIG, PATH_KEYS, PATH_QR, DEBUG
 from utils.log import log
 
 
@@ -27,6 +27,7 @@ class UserConfig:
     def rename_conf(self, new_name) -> bool:
         config_files = [f for f in os.listdir(PATH_CONFIG)]
         if f'{new_name}.conf' in config_files:
+            if DEBUG: print(__name__, ' return False')
             return False
 
         for path in (self.path_private_key, self.path_public_key, self.path_config_file, self.path_qr_file):
