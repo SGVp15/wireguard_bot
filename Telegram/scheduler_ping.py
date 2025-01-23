@@ -6,7 +6,7 @@ from Telegram.utils.admin import send_message_to_admins
 from utils.log import log
 
 
-async def ping_host(host: str = '195.91.139.50', hostname=''):
+async def ping_host(host: str = '195.91.139.50', hostname='', num=5):
     down = []
     host_is_down = False
     while True:
@@ -25,7 +25,7 @@ async def ping_host(host: str = '195.91.139.50', hostname=''):
         if response != 0:
             down.append(True)
 
-        if len(down) == 3 and all(down):
+        if len(down) == num and all(down):
             host_is_down = True
             await send_message_to_admins(text=f'❌ {datetime.now()} - {hostname} {host} is DOWN! ❌')
             log.error(f'{hostname} {host} is DOWN!')
