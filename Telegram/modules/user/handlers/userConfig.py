@@ -54,7 +54,7 @@ async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
         )
     else:
         await callback_query.message.edit_text(
-            text=f'Такое имя уже существует',
+            text=f'Такое имя уже существует <b>{user_config.new_name}<\b>',
             reply_markup=k_back_to_menu_users
         )
 
