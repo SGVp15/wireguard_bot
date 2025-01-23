@@ -8,7 +8,7 @@ from utils.log import log
 class UserConfig:
     def __init__(self, file_name: str):
         self.name = file_name.replace('.conf', '')
-
+        self.new_name = ''
         self.path_qr_file = os.path.join(PATH_QR, f'{self.name}.png')
         self.path_public_key = os.path.join(PATH_KEYS, f'{self.name}_public.key')
         self.path_private_key = os.path.join(PATH_KEYS, f'{self.name}_private.key')

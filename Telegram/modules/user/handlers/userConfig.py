@@ -45,9 +45,9 @@ async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
 async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     user_config: UserConfig = data.get('user_config')
+    print(f'{user_config.name=}\n{user_config.new_name=}')
     if user_config.rename_conf(user_config.new_name):
         log.info('rename_user {user} -> {new_name}')
-        await state.clear()
         await callback_query.message.edit_text(
             text=f'Rename: {user_config.name} -> {user_config.new_name} ok',
             reply_markup=k_back_to_menu_users
@@ -57,7 +57,7 @@ async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
             text=f'Такое имя уже существует <b>{user_config.new_name}<\b>',
             reply_markup=k_back_to_menu_users
         )
-
+    await state.clear()
 
 @router.callback_query(DELETE_CONFIG_FILE.filter())
 async def delete_user_config(callback_query: CallbackQuery,
