@@ -27,8 +27,8 @@ router = Router()
                        )
 async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
     data = await state.get_data()
-    user = data.get('name')
-    config_string, full_path_conf_file, full_path_qr_file = wg.create_user(user)
+    name = data.get('name')
+    config_string, full_path_conf_file, full_path_qr_file = wg.create_user(name)
     log.info('create_user {user}')
     await state.clear()
 
