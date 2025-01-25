@@ -50,9 +50,10 @@ async def show_config_menu(callback_query: CallbackQuery,
         reply_markup=builder_config_file_keyboard(name)
     )
 
+
 @router.callback_query(MENU_CONF_DELETE_LIST.filter())
 async def show_config_menu(callback_query: CallbackQuery,
-                           callback_data: MENU_CONF_LIST, ):
+                           callback_data: MENU_CONF_DELETE_LIST, ):
     name = callback_data.name
     await callback_query.message.edit_text(
         text=f'Conf: <b>{name}</b>',
