@@ -24,7 +24,11 @@ class MENU_CONF_LIST(CallbackData, prefix='Conf'):
     name: str
 
 
-class DISABLE_CONFIG_FILE(CallbackData, prefix='disConf'):
+class MENU_CONF_DELETE_LIST(CallbackData, prefix='Cdel'):
+    name: str
+
+
+class RETURN_CONFIG_FILE(CallbackData, prefix='returnConf'):
     name: str
 
 
@@ -39,7 +43,7 @@ def builder_config_delete_list_files_keyboard() -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     builder.button(text='🔙 Назад', callback_data=MyCallBackData.menu_users)
     for config_file in config_files:
-        builder.button(text=f'{config_file}', callback_data=MENU_CONF_LIST(name=config_file).pack())
+        builder.button(text=f'{config_file}', callback_data=MENU_CONF_DELETE_LIST(name=config_file).pack())
     builder.button(text='🔙 Назад', callback_data=MyCallBackData.menu_users)
     builder.adjust(1)
     return builder.as_markup()
@@ -64,6 +68,16 @@ def builder_config_file_keyboard(config_file) -> InlineKeyboardMarkup:
     builder.button(text=f'⏬ Скачать', callback_data=DOWNLOAD_CONFIG_FILE(name=config_file).pack())
     builder.button(text=f'Переименовать', callback_data=RENAME_CONFIG_FILE(name=config_file).pack())
     builder.button(text=f'Удалить', callback_data=DELETE_CONFIG_FILE(name=config_file).pack())
+    builder.button(text='🔙 Назад', callback_data=MyCallBackData.menu_users)
+    builder.adjust(1)
+    return builder.as_markup()
+
+
+def builder_config_delete_file_keyboard(config_file) -> InlineKeyboardMarkup:
+    builder = InlineKeyboardBuilder()
+    builder.button(text='🔙 Назад', callback_data=MyCallBackData.menu_users)
+    builder.button(text=f'⏬ Скачать', callback_data=DOWNLOAD_CONFIG_FILE(name=config_file).pack())
+    builder.button(text=f'Восстановить', callback_data=RETURN_CONFIG_FILE(name=config_file).pack())
     builder.button(text='🔙 Назад', callback_data=MyCallBackData.menu_users)
     builder.adjust(1)
     return builder.as_markup()
