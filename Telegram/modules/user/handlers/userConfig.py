@@ -8,7 +8,7 @@ from aiogram.types import CallbackQuery
 from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.modules.user.handlers.files import my_send_document
-from Telegram.modules.user.keyboards.menu_files import DELETE_CONFIG_FILE
+from Telegram.modules.user.keyboards.menu_files import RETURN_CONFIG_FILE
 from Telegram.modules.user.keyboards.menu_userConfig import k_back_to_menu_users
 from Telegram.modules.user.states.mashine_state import UserState
 from config import DEBUG
@@ -65,6 +65,9 @@ async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
     await state.clear()
 
 
+return_conf()
+
+
 @router.callback_query(UserState.delete_user,
                        F.data.in_({MyCallBackData.config_user_delete_ok, })
                        & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
@@ -76,6 +79,20 @@ async def delete_user_config_ok(callback_query: CallbackQuery,
     user_config.delete_conf()
     await callback_query.message.edit_text(
         text=f'Delete: <b>{user_config.name}</b> - ok',
+        reply_markup=k_back_to_menu_users,
+        parse_mode=ParseMode.HTML,
+    )
+    await state.clear()
+
+
+@router.callback_query(RETURN_CONFIG_FILE.filter())
+async def delete_user_config_ok(callback_query: CallbackQuery,
+                                callback_data: RETURN_CONFIG_FILE,
+                                state: FSMContext):
+    user_config = UserConfig(callback_data.name)
+    user_config.return_conf()
+    await callback_query.message.edit_text(
+        text=f'Восстановлен: <b>{user_config.name}</b> - ok',
         reply_markup=k_back_to_menu_users,
         parse_mode=ParseMode.HTML,
     )
