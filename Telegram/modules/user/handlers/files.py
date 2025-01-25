@@ -29,8 +29,9 @@ async def show_config_list_files(callback_query: CallbackQuery):
         reply_markup=builder_config_list_files_keyboard()
     )
 
+
 @router.callback_query(
-    F.data.in_({MyCallBackData.show_config_files, })
+    F.data.in_({MyCallBackData.show_config_delete_files, })
     & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
 )
 async def show_delete_config_list_files(callback_query: CallbackQuery):
@@ -38,7 +39,6 @@ async def show_delete_config_list_files(callback_query: CallbackQuery):
         text='Список Удаленных Config files',
         reply_markup=builder_config_delete_list_files_keyboard()
     )
-
 
 
 @router.callback_query(MENU_CONF_LIST.filter())
