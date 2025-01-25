@@ -65,14 +65,18 @@ async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
     await state.clear()
 
 
-@router.callback_query(DELETE_CONFIG_FILE.filter())
-async def delete_user_config(callback_query: CallbackQuery,
-                             callback_data: DELETE_CONFIG_FILE, ):
-    name = callback_data.name
-    u = UserConfig(name)
-    u.delete_conf()
+@router.callback_query(UserState.delete_user,
+                       F.data.in_({MyCallBackData.config_user_delete_ok, })
+                       & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
+                       )
+async def delete_user_config_ok(callback_query: CallbackQuery,
+                                state: FSMContext):
+    data = await state.get_data()
+    user_config: UserConfig = data.get('user_config')
+    user_config.delete_conf()
     await callback_query.message.edit_text(
-        text=f'Delete: <b>{name}</b> - ok',
+        text=f'Delete: <b>{user_config.name}</b> - ok',
         reply_markup=k_back_to_menu_users,
         parse_mode=ParseMode.HTML,
     )
+    await state.clear()

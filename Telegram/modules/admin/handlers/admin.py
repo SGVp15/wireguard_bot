@@ -65,7 +65,6 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
         text='restart service - ok',
         chat_id=callback_query.from_user.id,
         parse_mode=ParseMode.HTML,
-
     )
     await show_admin_menu(callback_query, state)
     wg.reboot_server()
@@ -81,7 +80,6 @@ async def wg_create_main_config(callback_query: CallbackQuery, state: FSMContext
         text='Create wg0.conf - ok',
         reply_markup=k_menu_admin,
         parse_mode=ParseMode.HTML,
-
     )
     await show_admin_menu(callback_query, state)
 

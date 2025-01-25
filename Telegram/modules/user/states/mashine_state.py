@@ -5,6 +5,7 @@ from config import DEBUG
 if DEBUG:
     print(f'import {__name__}')
 
+
 class UserState(StatesGroup):
     users_menu = State()
 
@@ -12,3 +13,4 @@ class UserState(StatesGroup):
     name = State()
     create_user = State()
     rename_user = State()
+    delete_user = State()

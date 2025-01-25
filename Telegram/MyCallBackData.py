@@ -12,8 +12,9 @@ class MyCallBackData:
     menu_config_user_create = 'menu_config_user_create'
     config_user_create_ok = 'config_user_create_ok'
 
-    menu_config_user_rename = 'menu_config_user_rename'
     config_user_rename_ok = 'config_user_rename_ok'
+
+    config_user_delete_ok = 'config_user_delete_ok'
 
     menu_users = 'menu_users'
     menu_main = 'menu_main'

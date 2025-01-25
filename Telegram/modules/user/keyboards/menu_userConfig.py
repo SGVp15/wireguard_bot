@@ -23,6 +23,11 @@ k_menu_user_config_rename = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🔙 Назад', callback_data=MyCallBackData.menu_users), ],
 ])
 
+k_menu_user_config_delete = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='✅ OK - Удалить', callback_data=MyCallBackData.config_user_delete_ok), ],
+    [InlineKeyboardButton(text='🔙 Назад', callback_data=MyCallBackData.menu_users), ],
+])
+
 k_back_to_menu_users = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🔙 Назад', callback_data=MyCallBackData.menu_users), ]
 ])

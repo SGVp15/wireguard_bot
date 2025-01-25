@@ -6,10 +6,10 @@ from aiogram.types import CallbackQuery
 from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.loader import dp
-from Telegram.modules.user.keyboards.menu_files import RENAME_CONFIG_FILE
+from Telegram.modules.user.keyboards.menu_files import RENAME_CONFIG_FILE, DELETE_CONFIG_FILE
 from Telegram.modules.user.keyboards.menu_userConfig import k_menu_user_config_create, k_back_to_menu_users, \
     k_menu_users, \
-    k_menu_user_config_rename
+    k_menu_user_config_rename, k_menu_user_config_delete
 from Telegram.modules.user.states.mashine_state import UserState
 from config import DEBUG
 from wireguard.user_config import UserConfig
@@ -59,8 +59,21 @@ async def rename_user_menu(callback_query: CallbackQuery, callback_data: RENAME_
     )
 
 
+@dp.callback_query(DELETE_CONFIG_FILE.filter())
+async def delete_user_menu(callback_query: CallbackQuery, callback_data: RENAME_CONFIG_FILE, state: FSMContext):
+    user_config = UserConfig(callback_data.name)
+    await state.set_state(UserState.delete_user)
+    await state.update_data(user_config=user_config)
+    await callback_query.message.edit_text(
+        text=f'[ Удалить ]\n'
+             f'{user_config.name}\n',
+        reply_markup=k_menu_user_config_delete,
+        parse_mode=ParseMode.HTML,
+    )
+
+
 @dp.message(UserState.create_user_menu, F.from_user.id.in_({*ADMIN_ID, }))
-async def user_create(message: types.Message, state: FSMContext):
+async def q_user_create(message: types.Message, state: FSMContext):
     user = message.text
     await state.update_data(name=user)
     await state.set_state(UserState.create_user)
