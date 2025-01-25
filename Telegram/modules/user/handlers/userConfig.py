@@ -87,10 +87,21 @@ async def return_config_file(callback_query: CallbackQuery,
                              callback_data: RETURN_CONFIG_FILE,
                              state: FSMContext):
     user_config = UserConfig(callback_data.name)
-    user_config.return_conf()
-    await callback_query.message.edit_text(
-        text=f'Восстановлен: <b>{user_config.name}</b> - ok',
-        reply_markup=k_back_to_menu_users,
-        parse_mode=ParseMode.HTML,
-    )
+    if user_config.return_conf():
+        log.info('rename_user {user} -> {new_name}')
+        await callback_query.message.edit_text(
+            text=f'Восстановлен: <b>{user_config.name}</b>',
+            reply_markup=k_back_to_menu_users,
+            parse_mode=ParseMode.HTML,
+
+        )
+    else:
+        if DEBUG: print(__name__, ' else')
+        await callback_query.message.edit_text(
+            text=f'Возникли проблемы с восстановлением {user_config.new_name}',
+            reply_markup=k_back_to_menu_users,
+            parse_mode=ParseMode.HTML,
+
+        )
+    await state.clear()
     await state.clear()
