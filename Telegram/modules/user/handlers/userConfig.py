@@ -93,7 +93,6 @@ async def return_config_file(callback_query: CallbackQuery,
             text=f'Восстановлен: <b>{user_config.name}</b>',
             reply_markup=k_back_to_menu_users,
             parse_mode=ParseMode.HTML,
-
         )
     else:
         if DEBUG: print(__name__, ' else')

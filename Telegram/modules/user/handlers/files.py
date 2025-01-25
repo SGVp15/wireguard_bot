@@ -57,7 +57,7 @@ async def show_config_menu(callback_query: CallbackQuery,
     name = callback_data.name
     await callback_query.message.edit_text(
         text=f'Conf: <b>{name}</b>',
-        reply_markup=builder_config_file_keyboard(name)
+        reply_markup=builder_config_delete_list_files_keyboard(name)
     )
 
 
