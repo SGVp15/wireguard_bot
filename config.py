@@ -25,6 +25,10 @@ PATH_CONFIG = os.path.join(PATH_WG, 'confs')
 PATH_QR = os.path.join(PATH_WG, 'qr')
 PATH_KEYS = os.path.join(PATH_WG, 'keys')
 
+PATH_CONFIG_DELETE = os.path.join(PATH_CONFIG, 'trash')
+PATH_QR_DELETE = os.path.join(PATH_QR, 'trash')
+PATH_KEYS_DELETE = os.path.join(PATH_KEYS, 'trash')
+
 PATTERN_USER = r'\s*([А-Я][а-я]+\s+[А-Я][а-я]+)\s*'
 
 for path in (PATH_CONFIG, PATH_QR, PATH_KEYS):

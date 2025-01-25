@@ -8,6 +8,7 @@ class MyCallBackData:
     download_logs = 'download_logs'
 
     show_config_files = 'show_config_files'
+    show_config_delete_files = 'show_config_delete_files'
 
     menu_config_user_create = 'menu_config_user_create'
     config_user_create_ok = 'config_user_create_ok'

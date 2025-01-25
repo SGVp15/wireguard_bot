@@ -9,6 +9,7 @@ if DEBUG:
 k_menu_users = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🌟 Создать пользователя >>', callback_data=MyCallBackData.menu_config_user_create), ],
     [InlineKeyboardButton(text='🔖 Показать Configs', callback_data=MyCallBackData.show_config_files), ],
+    [InlineKeyboardButton(text='🔖 Показать Удаленные Configs', callback_data=MyCallBackData.show_config_delete_files), ],
     [InlineKeyboardButton(text='🔙 Назад', callback_data=MyCallBackData.menu_main), ],
 
 ])

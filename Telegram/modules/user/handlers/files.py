@@ -9,7 +9,7 @@ from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.loader import bot
 from Telegram.modules.user.keyboards.menu_files import builder_config_list_files_keyboard, DOWNLOAD_CONFIG_FILE, \
-    MENU_CONF_LIST, builder_config_file_keyboard
+    MENU_CONF_LIST, builder_config_file_keyboard, builder_config_delete_list_files_keyboard
 from config import DEBUG
 from wireguard.user_config import UserConfig
 
@@ -28,6 +28,17 @@ async def show_config_list_files(callback_query: CallbackQuery):
         text='Список Config files',
         reply_markup=builder_config_list_files_keyboard()
     )
+
+@router.callback_query(
+    F.data.in_({MyCallBackData.show_config_files, })
+    & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
+)
+async def show_delete_config_list_files(callback_query: CallbackQuery):
+    await callback_query.message.edit_text(
+        text='Список Удаленных Config files',
+        reply_markup=builder_config_delete_list_files_keyboard()
+    )
+
 
 
 @router.callback_query(MENU_CONF_LIST.filter())
