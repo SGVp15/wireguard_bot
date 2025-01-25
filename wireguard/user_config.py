@@ -39,8 +39,16 @@ class UserConfig:
 
     def delete_conf(self):
         for path in (self.path_private_key, self.path_public_key, self.path_config_file, self.path_qr_file):
-            dist = os.path.join(os.path.dirname(path), 'trash', os.path.basename(path))
+            trash = os.path.join(os.path.dirname(path), 'trash', os.path.basename(path))
             try:
-                os.replace(path, dist)
+                os.replace(path, trash)
+            except FileNotFoundError:
+                log.error('FileNotFoundError', path)
+
+    def return_conf(self):
+        for path in (self.path_private_key, self.path_public_key, self.path_config_file, self.path_qr_file):
+            trash = os.path.join(os.path.dirname(path), 'trash', os.path.basename(path))
+            try:
+                os.replace(trash, path)
             except FileNotFoundError:
                 log.error('FileNotFoundError', path)
