@@ -16,6 +16,10 @@ class DOWNLOAD_CONFIG_FILE(CallbackData, prefix='getConf'):
     name: str
 
 
+class DOWNLOAD_DEL_CONFIG_FILE(CallbackData, prefix='getDelC'):
+    name: str
+
+
 class RENAME_CONFIG_FILE(CallbackData, prefix='ranameConf'):
     name: str
 
@@ -76,7 +80,7 @@ def builder_config_file_keyboard(config_file) -> InlineKeyboardMarkup:
 def builder_config_delete_file_keyboard(config_file) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     builder.button(text='🔙 Назад', callback_data=MyCallBackData.menu_users)
-    builder.button(text=f'⏬ Скачать', callback_data=DOWNLOAD_CONFIG_FILE(name=config_file).pack())
+    builder.button(text=f'⏬ Скачать', callback_data=DOWNLOAD_DEL_CONFIG_FILE(name=config_file).pack())
     builder.button(text=f'Восстановить', callback_data=RETURN_CONFIG_FILE(name=config_file).pack())
     builder.button(text='🔙 Назад', callback_data=MyCallBackData.menu_users)
     builder.adjust(1)

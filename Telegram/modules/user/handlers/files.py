@@ -10,7 +10,7 @@ from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.loader import bot
 from Telegram.modules.user.keyboards.menu_files import builder_config_list_files_keyboard, DOWNLOAD_CONFIG_FILE, \
     MENU_CONF_LIST, builder_config_file_keyboard, builder_config_delete_list_files_keyboard, MENU_CONF_DELETE_LIST, \
-    builder_config_delete_file_keyboard
+    builder_config_delete_file_keyboard, DOWNLOAD_DEL_CONFIG_FILE
 from config import DEBUG
 from wireguard.user_config import UserConfig
 
@@ -73,6 +73,22 @@ async def download_config_file(callback_query: CallbackQuery,
 
     await my_send_document(chat_id=callback_query.from_user.id,
                            full_path=user_config.path_qr_file)
+
+
+@router.callback_query(DOWNLOAD_DEL_CONFIG_FILE.filter())
+async def download_config_file(callback_query: CallbackQuery,
+                               callback_data: DOWNLOAD_CONFIG_FILE,
+                               state: FSMContext):
+    user_config = UserConfig(callback_data.name)
+
+    path = os.path.join(os.path.dirname(user_config.path_config_file), 'trash',
+                        os.path.basename(user_config.path_config_file))
+    await my_send_document(chat_id=callback_query.from_user.id,
+                           full_path=path)
+
+    path = os.path.join(os.path.dirname(user_config.path_qr_file), 'trash', os.path.basename(user_config.path_qr_file))
+    await my_send_document(chat_id=callback_query.from_user.id,
+                           full_path=path)
 
 
 async def my_send_document(chat_id: str | int, full_path: str, filename: str = None) -> None:
