@@ -9,7 +9,8 @@ from Telegram.MyCallBackData import MyCallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.loader import bot
 from Telegram.modules.user.keyboards.menu_files import builder_config_list_files_keyboard, DOWNLOAD_CONFIG_FILE, \
-    MENU_CONF_LIST, builder_config_file_keyboard, builder_config_delete_list_files_keyboard, MENU_CONF_DELETE_LIST
+    MENU_CONF_LIST, builder_config_file_keyboard, builder_config_delete_list_files_keyboard, MENU_CONF_DELETE_LIST, \
+    builder_config_delete_file_keyboard
 from config import DEBUG
 from wireguard.user_config import UserConfig
 
@@ -57,7 +58,7 @@ async def show_config_menu(callback_query: CallbackQuery,
     name = callback_data.name
     await callback_query.message.edit_text(
         text=f'Conf: <b>{name}</b>',
-        reply_markup=builder_config_delete_list_files_keyboard(name)
+        reply_markup=builder_config_delete_file_keyboard(name)
     )
 
 
