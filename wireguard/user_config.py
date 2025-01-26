@@ -1,7 +1,7 @@
 import os
 import re
 
-from config import PATH_CONFIG, PATH_KEYS, PATH_QR, DEBUG
+from config import PATH_CONFIG, PATH_KEYS, PATH_QR
 from utils.log import log
 
 
