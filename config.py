@@ -4,7 +4,7 @@ from dotenv import dotenv_values, find_dotenv
 
 DEBUG = True
 
-VERSION = '1.8'
+VERSION = '1.8.1'
 
 config = dotenv_values(find_dotenv())
 
