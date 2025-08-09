@@ -24,6 +24,9 @@ class MyCallBackData:
     menu_service_wg_restart = 'menu_service_wg_restart'
     service_wg_restart_ok = 'service_wg_restart_ok'
 
+    menu_service_vpn_restart = 'menu_service_vpn_restart'
+    service_vpn_restart_ok = 'service_vpn_restart_ok'
+
     menu_server_reboot = 'menu_reboot_server'
     server_reboot_ok = 'reboot_server_ok'
 

@@ -9,7 +9,7 @@ if DEBUG:
 button_menu_admin = InlineKeyboardButton(text='🔙 Назад', callback_data=MyCallBackData.menu_admin)
 
 k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='🌟 Перезагрузить службу wireguard',
+    [InlineKeyboardButton(text='🌟 Перезагрузить службу VPN',
                           callback_data=MyCallBackData.menu_service_wg_restart), ],
     [InlineKeyboardButton(text='💀 Перезагрузить сервер', callback_data=MyCallBackData.menu_server_reboot), ],
     # [InlineKeyboardButton(text='📒 Скачать логи', callback_data=MyCallBackData.download_logs), ],
@@ -24,7 +24,7 @@ k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
 
 k_menu_restart_service = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🛑 Все верно перезагрузить службу!',
-                          callback_data=MyCallBackData.service_wg_restart_ok), ],
+                          callback_data=MyCallBackData.service_vpn_restart_ok), ],
     [button_menu_admin, ],
 
 ])

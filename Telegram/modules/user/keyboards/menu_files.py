@@ -70,7 +70,7 @@ def builder_config_file_keyboard(config_file) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     builder.button(text='🔙 Назад', callback_data=MyCallBackData.menu_users)
     builder.button(text=f'⏬ Скачать', callback_data=DOWNLOAD_CONFIG_FILE(name=config_file).pack())
-    builder.button(text=f'⌨️ Переименовать', callback_data=RENAME_CONFIG_FILE(name=config_file).pack())
+    # builder.button(text=f'⌨️ Переименовать', callback_data=RENAME_CONFIG_FILE(name=config_file).pack())
     builder.button(text=f'🗑 Удалить', callback_data=DELETE_CONFIG_FILE(name=config_file).pack())
     builder.button(text='🔙 Назад', callback_data=MyCallBackData.menu_users)
     builder.adjust(1)
