@@ -1,7 +1,9 @@
 import os
 
 from dotenv import dotenv_values, find_dotenv
+from wireguard.wireguard_class import WIREGUARD
 
+VPN = WIREGUARD
 DEBUG = True
 
 VERSION = '2.0'
@@ -16,15 +18,15 @@ WG_SERVER_PORT = config['WG_SERVER_PORT']
 
 SYSTEM_LOG = './.log.txt'
 
-PATH_WG = os.path.join('/', 'etc', 'wireguard')
+PATH_VPN = os.path.join('/', 'root')
 
-WG_CONF = os.path.join(PATH_WG, 'wg0.conf')
-WG_PRIVATE_KEY = os.path.join(PATH_WG, 'private.key')
+WG_CONF = os.path.join(PATH_VPN, 'wg0.conf')
+WG_PRIVATE_KEY = os.path.join(PATH_VPN, 'private.key')
 WG_DUMP = './wg_dump.txt'
 
-PATH_CONFIG = os.path.join(PATH_WG, 'confs')
-PATH_QR = os.path.join(PATH_WG, 'qr')
-PATH_KEYS = os.path.join(PATH_WG, 'keys')
+PATH_CONFIG = os.path.join(PATH_VPN, 'confs')
+PATH_QR = os.path.join(PATH_VPN, 'qr')
+PATH_KEYS = os.path.join(PATH_VPN, 'keys')
 
 PATH_CONFIG_DELETE = os.path.join(PATH_CONFIG, 'trash')
 PATH_QR_DELETE = os.path.join(PATH_QR, 'trash')

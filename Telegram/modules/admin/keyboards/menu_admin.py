@@ -10,7 +10,7 @@ button_menu_admin = InlineKeyboardButton(text='🔙 Назад', callback_data=M
 
 k_menu_admin = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🌟 Перезагрузить службу VPN',
-                          callback_data=MyCallBackData.menu_service_wg_restart), ],
+                          callback_data=MyCallBackData.menu_service_vpn_restart), ],
     [InlineKeyboardButton(text='💀 Перезагрузить сервер', callback_data=MyCallBackData.menu_server_reboot), ],
     # [InlineKeyboardButton(text='📒 Скачать логи', callback_data=MyCallBackData.download_logs), ],
     # [InlineKeyboardButton(text='📒 Скачать WG_CONF', callback_data=MyCallBackData.download_wg_conf), ],

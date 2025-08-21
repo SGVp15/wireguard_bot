@@ -4,16 +4,17 @@ import time
 from datetime import datetime
 from ipaddress import IPv4Network, IPv4Address
 
-from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG, WG_CONF, IPV4NETWORK, WG_SERVER_PORT, PATH_WG, PATH_KEYS, \
+from VPN_SERVICE import ABC_VPN_Service
+from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG, WG_CONF, IPV4NETWORK, WG_SERVER_PORT, PATH_VPN, PATH_KEYS, \
     WG_PRIVATE_KEY, DEBUG, WG_SERVER_LOCAL_IP
 from utils.log import log
 from utils.translit import transliterate
 from wireguard.user_config import UserConfig
 
 
-class WIREGUARD:
+class WIREGUARD(ABC_VPN_Service):
     @staticmethod
-    def create_user(name: str) -> (str, str):
+    def create_user_config(name: str) -> (str, str):
         if DEBUG:
             print(f'run  create_user {__name__}')
         allowed_ips = '0.0.0.0/0'
@@ -25,7 +26,7 @@ class WIREGUARD:
         name = re.sub(r'\s+', '_', name)
         name = transliterate(name) + datetime.today().strftime('_%Y-%m-%d')
 
-        wg_public_key_file = os.path.join(PATH_WG, 'public.key')
+        wg_public_key_file = os.path.join(PATH_VPN, 'public.key')
 
         with open(WG_CONF, 'r') as f:
             s = f.read()
@@ -140,3 +141,29 @@ class WIREGUARD:
 
         with open(WG_CONF, 'w') as f:
             f.write('\n\n'.join(configs))
+
+    # ---------------
+
+    def edit_user_config(self):
+        pass
+
+    def recreate_user_config(self):
+        pass
+
+    def remove_user_config(self):
+        pass
+
+    def get_status_service(self):
+        pass
+
+    def start_service(self):
+        pass
+
+    def stop_service(self):
+        pass
+
+    def get_user_config(self):
+        pass
+
+    def get_all_users_configs(self):
+        pass

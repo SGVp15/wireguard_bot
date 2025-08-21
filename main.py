@@ -2,6 +2,7 @@ import asyncio
 
 from Telegram.main import start_bot
 from Telegram.scheduler_ping import ping_host
+from config import VPN
 from utils.log import log
 from wireguard.wireguard_class import WIREGUARD
 
@@ -23,6 +24,6 @@ async def main():
 
 
 if __name__ == '__main__':
-    WIREGUARD().create_all_qrcodes()
+    VPN.create_all_qrcodes()
     log.info('wireguard-bot start')
     asyncio.run(main())

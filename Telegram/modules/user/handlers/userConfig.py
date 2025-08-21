@@ -11,10 +11,9 @@ from Telegram.modules.user.handlers.files import my_send_document
 from Telegram.modules.user.keyboards.menu_files import RETURN_CONFIG_FILE
 from Telegram.modules.user.keyboards.menu_userConfig import k_back_to_menu_users
 from Telegram.modules.user.states.mashine_state import UserState
-from config import DEBUG
+from config import DEBUG, VPN
 from utils.log import log
 from wireguard.user_config import UserConfig
-from wireguard.wireguard_class import WIREGUARD as wg
 
 if DEBUG:
     print(f'import {__name__}')
@@ -29,7 +28,7 @@ router = Router()
 async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     name = data.get('name')
-    config_string, full_path_conf_file, full_path_qr_file = wg.create_user(name)
+    config_string, full_path_conf_file, full_path_qr_file = VPN.create_user_config(name)
     log.info('create_user {user}')
     await state.clear()
 
@@ -102,5 +101,4 @@ async def return_config_file(callback_query: CallbackQuery,
             parse_mode=ParseMode.HTML,
 
         )
-    await state.clear()
     await state.clear()

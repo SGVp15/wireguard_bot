@@ -9,8 +9,7 @@ from Telegram.loader import bot
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from Telegram.modules.admin.menus.admin import show_admin_menu
 from Telegram.modules.user.handlers.files import my_send_document
-from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION, DEBUG
-from wireguard.wireguard_class import WIREGUARD as wg, WIREGUARD
+from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION, DEBUG, VPN
 
 if DEBUG:
     print(f'import {__name__}')
@@ -24,7 +23,7 @@ router = Router(name=__name__)
 )
 async def update_bot(callback_query: CallbackQuery, state: FSMContext):
     await callback_query.answer()
-    wg.update_bot()
+    VPN.update_bot()
 
 
 @router.callback_query(
@@ -43,7 +42,7 @@ async def show_version(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(
-    F.data.in_({MyCallBackData.service_wg_restart_ok, })
+    F.data.in_({MyCallBackData.service_vpn_restart_ok, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def restart_service(callback_query: CallbackQuery, state: FSMContext):
@@ -51,7 +50,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     await callback_query.answer()
     await bot.send_message(text='restart service - ok', chat_id=callback_query.from_user.id, )
     await show_admin_menu(callback_query, state)
-    wg.restart_service()
+    VPN.restart_service()
 
 
 @router.callback_query(
@@ -67,7 +66,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
         parse_mode=ParseMode.HTML,
     )
     await show_admin_menu(callback_query, state)
-    wg.reboot_server()
+    VPN.reboot_server()
 
 
 @router.callback_query(
@@ -75,7 +74,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def wg_create_main_config(callback_query: CallbackQuery, state: FSMContext):
-    WIREGUARD.create_wg_conf()
+    VPN.create_wg_conf()
     await callback_query.message.edit_text(
         text='Create wg0.conf - ok',
         reply_markup=k_menu_admin,
@@ -85,7 +84,7 @@ async def wg_create_main_config(callback_query: CallbackQuery, state: FSMContext
 
 
 @router.callback_query(
-    F.data.in_({MyCallBackData.download_wg_conf, })
+    F.data.in_({MyCallBackData.download_vpn_conf, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def download_wg_conf(callback_query: CallbackQuery, state: FSMContext):
@@ -119,11 +118,11 @@ async def clear_log(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(
-    F.data.in_({MyCallBackData.download_wg_dump, })
+    F.data.in_({MyCallBackData.download_vpn_dump, })
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def download_wg_dump(callback_query: CallbackQuery, state: FSMContext):
-    wg.get_dump()
+    VPN.get_dump()
     file = WG_DUMP
     await my_send_document(chat_id=callback_query.from_user.id, full_path=file)
     await show_admin_menu(callback_query, state)
