@@ -11,7 +11,8 @@ from Telegram.modules.user.handlers.files import my_send_document
 from Telegram.modules.user.keyboards.menu_files import RETURN_CONFIG_FILE
 from Telegram.modules.user.keyboards.menu_userConfig import k_back_to_menu_users
 from Telegram.modules.user.states.mashine_state import UserState
-from config import DEBUG, VPN
+from config import DEBUG
+from config_VPN import VPN
 from utils.log import log
 from wireguard.user_config import UserConfig
 
@@ -99,6 +100,5 @@ async def return_config_file(callback_query: CallbackQuery,
             text=f'Возникли проблемы с восстановлением {user_config.new_name}',
             reply_markup=k_back_to_menu_users,
             parse_mode=ParseMode.HTML,
-
         )
     await state.clear()

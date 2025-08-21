@@ -2,9 +2,7 @@ from pathlib import Path
 
 from dotenv import dotenv_values, find_dotenv
 
-from wireguard.wireguard_class import WIREGUARD
 
-VPN = WIREGUARD
 DEBUG = True
 
 VERSION = '2.0'
