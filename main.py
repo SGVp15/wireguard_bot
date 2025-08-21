@@ -2,9 +2,8 @@ import asyncio
 
 from Telegram.main import start_bot
 from Telegram.scheduler_ping import ping_host
-from config import VPN
+from config_VPN import VPN
 from utils.log import log
-from wireguard.wireguard_class import WIREGUARD
 
 
 async def main():

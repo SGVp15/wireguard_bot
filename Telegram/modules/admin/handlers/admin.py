@@ -9,7 +9,9 @@ from Telegram.loader import bot
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin
 from Telegram.modules.admin.menus.admin import show_admin_menu
 from Telegram.modules.user.handlers.files import my_send_document
-from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION, DEBUG, VPN
+from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION, DEBUG
+
+from config_VPN import VPN
 
 if DEBUG:
     print(f'import {__name__}')
