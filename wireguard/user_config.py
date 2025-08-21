@@ -1,15 +1,17 @@
-import os
 import re
 from pathlib import Path
+
 from config import PATH_CONFIG, PATH_KEYS, PATH_QR
 from utils.log import log
 
+
 class UserConfig:
     """Класс для управления конфигурационными файлами, ключами и QR-кодами."""
+
     def __init__(self, file_name: str):
         """Инициализирует объект с указанным именем конфигурационного файла."""
         for directory in (PATH_CONFIG, PATH_KEYS, PATH_QR):
-            if not os.path.isdir(directory):
+            if not Path.is_dir(directory):
                 raise FileNotFoundError(f"Директория не найдена: {directory}")
         if not file_name.endswith('.conf'):
             raise ValueError("Имя файла должно заканчиваться на '.conf'")
