@@ -10,7 +10,7 @@ async def main():
     tasks = [
         start_bot(),
         ping_host('195.91.139.50','ITExpert-Rinet'),
-        ping_host('82.198.187.1','ITExpert-Globus'),
+        ping_host('82.198.187.7','ITExpert-Globus'),
         ping_host('82.142.155.191','VL Moscow'),
         ping_host('82.209.222.210','VL Minsk'),
         ping_host('45.8.117.13','VL KZ'),
