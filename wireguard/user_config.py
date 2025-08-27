@@ -20,7 +20,7 @@ class UserConfig:
         self.path_qr_file = Path(PATH_QR) / f'{self.name}.png'
         self.path_public_key = Path(PATH_KEYS) / f'{self.name}_public.key'
         self.path_private_key = Path(PATH_KEYS) / f'{self.name}_private.key'
-        self.path_config_file = Path(PATH_CONFIG) / f'{self.name}.conf'
+        self.path_config_file = Path(PATH_CONFIG) / f'{self.name}.txt'
 
         self.address = ''
         self.public_key = ''
