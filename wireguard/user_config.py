@@ -10,13 +10,15 @@ class UserConfig:
 
     def __init__(self, file_name: str):
         """Инициализирует объект с указанным именем конфигурационного файла."""
+        self.new_name = ''
+
         for directory in (PATH_CONFIG, PATH_KEYS, PATH_QR):
             if not Path.is_dir(directory):
                 raise FileNotFoundError(f"Директория не найдена: {directory}")
         if not file_name.endswith('.txt'):
             raise ValueError("Имя файла должно заканчиваться на '.txt'")
-        self.name = file_name[:-5]
-        self.new_name = ''
+        self.name = file_name[:-4]
+
         self.path_qr_file = Path(PATH_QR) / f'{self.name}.png'
         self.path_public_key = Path(PATH_KEYS) / f'{self.name}_public.key'
         self.path_private_key = Path(PATH_KEYS) / f'{self.name}_private.key'
