@@ -13,8 +13,8 @@ class UserConfig:
         for directory in (PATH_CONFIG, PATH_KEYS, PATH_QR):
             if not Path.is_dir(directory):
                 raise FileNotFoundError(f"Директория не найдена: {directory}")
-        if not file_name.endswith('.conf'):
-            raise ValueError("Имя файла должно заканчиваться на '.conf'")
+        if not file_name.endswith('.txt'):
+            raise ValueError("Имя файла должно заканчиваться на '.txt'")
         self.name = file_name[:-5]
         self.new_name = ''
         self.path_qr_file = Path(PATH_QR) / f'{self.name}.png'

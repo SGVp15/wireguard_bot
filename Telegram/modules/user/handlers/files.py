@@ -12,6 +12,7 @@ from Telegram.modules.user.keyboards.menu_files import builder_config_list_files
     MENU_CONF_LIST, builder_config_file_keyboard, builder_config_delete_list_files_keyboard, MENU_CONF_DELETE_LIST, \
     builder_config_delete_file_keyboard, DOWNLOAD_DEL_CONFIG_FILE
 from config import DEBUG, PATH_CONFIG_DELETE, PATH_QR_DELETE
+from utils.log import log
 from wireguard.user_config import UserConfig
 
 if DEBUG:
@@ -67,12 +68,16 @@ async def download_config_file(callback_query: CallbackQuery,
                                callback_data: DOWNLOAD_CONFIG_FILE,
                                state: FSMContext):
     user_config = UserConfig(callback_data.name)
-
-    await my_send_document(chat_id=callback_query.from_user.id,
-                           full_path=user_config.path_config_file)
-
-    await my_send_document(chat_id=callback_query.from_user.id,
-                           full_path=user_config.path_qr_file)
+    try:
+        await my_send_document(chat_id=callback_query.from_user.id,
+                               full_path=user_config.path_config_file)
+    except Exception as e:
+        log.error(e)
+    try:
+        await my_send_document(chat_id=callback_query.from_user.id,
+                               full_path=user_config.path_qr_file)
+    except Exception as e:
+        log.error(e)
 
 
 @router.callback_query(DOWNLOAD_DEL_CONFIG_FILE.filter())
