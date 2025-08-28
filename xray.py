@@ -1,5 +1,4 @@
 import json
-import os
 import re
 import subprocess
 from uuid import uuid4
@@ -29,13 +28,11 @@ class Xray(ABC_VPN_Service):
             new_client = {"email": email, "id": uuid, "flow": "xtls-rprx-vision"}
             config['inbounds'][0]['settings']['clients'].append(new_client)
 
-            # Write updated config to temporary file and move
-            with open('tmp.json', 'w') as f:
+            with open(config_path, 'w') as f:
                 json.dump(config, f, indent=2)
-            os.rename('tmp.json', config_path)
 
             # Restart Xray service
-            subprocess.run(['systemctl', 'restart', 'xray'], check=True)
+            self.restart_service()
 
             # Get user index and configuration details
             clients = config['inbounds'][0]['settings']['clients']
@@ -95,13 +92,13 @@ class Xray(ABC_VPN_Service):
         pass
 
     def start_service(self):
-        pass
+        subprocess.run(['systemctl', 'start', 'xray'], check=True)
 
     def restart_service(self):
-        pass
+        subprocess.run(['systemctl', 'restart', 'xray'], check=True)
 
     def stop_service(self):
-        pass
+        subprocess.run(['systemctl', 'stop', 'xray'], check=True)
 
     def get_user_config(self):
         pass
