@@ -23,6 +23,6 @@ async def main():
 
 
 if __name__ == '__main__':
-    VPN.create_all_qrcodes()
+    # VPN.create_all_qrcodes()
     log.info('wireguard-bot start')
     asyncio.run(main())
