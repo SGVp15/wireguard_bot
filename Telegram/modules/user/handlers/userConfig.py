@@ -29,7 +29,7 @@ router = Router()
 async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     name = data.get('name')
-    if not VPN.create_user_config(name):
+    if not name or not VPN.create_user_config(name):
         return
     # config_string, full_path_conf_file, full_path_qr_file
     log.info('create_user {user}')
