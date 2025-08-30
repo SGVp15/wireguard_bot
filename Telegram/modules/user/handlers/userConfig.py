@@ -29,14 +29,16 @@ router = Router()
 async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     name = data.get('name')
-    config_string, full_path_conf_file, full_path_qr_file = VPN.create_user_config(name)
+    if not VPN.create_user_config(name):
+        return
+    # config_string, full_path_conf_file, full_path_qr_file
     log.info('create_user {user}')
     await state.clear()
 
-    await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(full_path_conf_file),
-                           full_path=full_path_conf_file)
-    await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(full_path_qr_file),
-                           full_path=full_path_qr_file)
+    # await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(full_path_conf_file),
+    #                        full_path=full_path_conf_file)
+    # await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(full_path_qr_file),
+    #                        full_path=full_path_qr_file)
 
 
 @router.callback_query(UserState.rename_user,
