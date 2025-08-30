@@ -10,7 +10,7 @@ from VPN_SERVICE import ABC_VPN_Service
 
 
 class Xray(ABC_VPN_Service):
-    def create_user_config(self, email) -> bool:
+    def create_user_config(email) -> bool:
         # Read Xray config file
         config_path = "/usr/local/etc/xray/config.json"
         with open(config_path, 'r') as f:
@@ -47,8 +47,8 @@ class Xray(ABC_VPN_Service):
         # Read keys from file
         with open('/usr/local/etc/xray/.keys', 'r') as f:
             keys_content = f.read()
-        pbk = re.search(r'Public key: (.*)', keys_content).group(1)
-        sid = re.search(r'shortsid: (.*)', keys_content).group(1)
+        pbk: str = re.search(r'Public key: (.*)', keys_content).group(1)
+        sid: str = re.search(r'shortsid: (.*)', keys_content).group(1)
 
         # Get other configuration details
         username = clients[index]['email']

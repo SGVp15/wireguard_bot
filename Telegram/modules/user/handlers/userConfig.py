@@ -12,7 +12,7 @@ from Telegram.modules.user.keyboards.menu_files import RETURN_CONFIG_FILE
 from Telegram.modules.user.keyboards.menu_userConfig import k_back_to_menu_users
 from Telegram.modules.user.states.mashine_state import UserState
 from config import DEBUG
-from config_VPN import VPN
+from config_VPN import vpn
 from utils.log import log
 from wireguard.user_config import UserConfig
 
@@ -33,7 +33,7 @@ async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
     print(f'name=')
     if not name:
         return
-    if not VPN.create_user_config(name):
+    if not vpn.create_user_config(name):
         return
     # config_string, full_path_conf_file, full_path_qr_file
     log.info('create_user {user}')

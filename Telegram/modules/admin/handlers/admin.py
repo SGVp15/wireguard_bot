@@ -11,7 +11,7 @@ from Telegram.modules.admin.menus.admin import show_admin_menu
 from Telegram.modules.user.handlers.files import my_send_document
 from config import WG_CONF, WG_DUMP, SYSTEM_LOG, VERSION, DEBUG
 
-from config_VPN import VPN
+from config_VPN import vpn
 
 if DEBUG:
     print(f'import {__name__}')
@@ -25,7 +25,7 @@ router = Router(name=__name__)
 )
 async def update_bot(callback_query: CallbackQuery, state: FSMContext):
     await callback_query.answer()
-    VPN.update_bot()
+    vpn.update_bot()
 
 
 @router.callback_query(
@@ -52,7 +52,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     await callback_query.answer()
     await bot.send_message(text='restart service - ok', chat_id=callback_query.from_user.id, )
     await show_admin_menu(callback_query, state)
-    VPN.restart_service()
+    vpn.restart_service()
 
 
 @router.callback_query(
@@ -68,7 +68,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
         parse_mode=ParseMode.HTML,
     )
     await show_admin_menu(callback_query, state)
-    VPN.reboot_server()
+    vpn.reboot_server()
 
 
 @router.callback_query(
@@ -76,7 +76,7 @@ async def restart_service(callback_query: CallbackQuery, state: FSMContext):
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def wg_create_main_config(callback_query: CallbackQuery, state: FSMContext):
-    VPN.create_wg_conf()
+    vpn.create_wg_conf()
     await callback_query.message.edit_text(
         text='Create wg0.conf - ok',
         reply_markup=k_menu_admin,
@@ -124,7 +124,7 @@ async def clear_log(callback_query: CallbackQuery, state: FSMContext):
     & F.from_user.id.in_({*ADMIN_ID, })
 )
 async def download_wg_dump(callback_query: CallbackQuery, state: FSMContext):
-    VPN.get_dump()
+    vpn.get_dump()
     file = WG_DUMP
     await my_send_document(chat_id=callback_query.from_user.id, full_path=file)
     await show_admin_menu(callback_query, state)
