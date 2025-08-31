@@ -58,13 +58,12 @@ class Xray(ABC_VPN_Service):
         ip = requests.get('https://icanhazip.com').text.strip()
 
         # Construct connection link
-        link = f"{protocol}://{uuid}@{ip}:{port}?security=reality&sni={sni}&fp=firefox&pbk={pbk}&sid={sid}&spx=/&type=tcp&flow=xtls-rprx-vision&encryption=none#{username}"
-
+        link = (f"{protocol}://{uuid}@{ip}:{port}?security=reality&sni={sni}"
+                f"&fp=firefox&pbk={pbk}&sid={sid}&spx=/&type=tcp"
+                f"&flow=xtls-rprx-vision&encryption=none#{username}")
         # Print and save connection link
-        print(f"Ссылка для подключения: \n{link}")
         with open(f"/root/confs/{email}.txt", 'w') as f:
             f.write(link)
-
         # Generate and display QR code
         qr = qrcode.QRCode(version=1, box_size=2, border=1)
         # qr = qrcode.make(data=link, version=1, box_size=2, border=1)
