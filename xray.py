@@ -102,3 +102,6 @@ class Xray(ABC_VPN_Service):
 
     def get_all_users_configs(self):
         pass
+
+    def return_user_config(self):
+        pass
