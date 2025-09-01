@@ -14,7 +14,7 @@ async def main():
         ping_host('82.209.222.210', 'VL Minsk'),
         ping_host('45.8.117.13', 'VL KZ'),
     ]
-    await asyncio.gather(*tasks)
+    # await asyncio.gather(*tasks)
 
     done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
     for task in pending:
