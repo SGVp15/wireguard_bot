@@ -49,7 +49,7 @@ class Xray(ABC_VPN_Service):
         # Read keys from file
         with open('/usr/local/etc/xray/.keys', 'r') as f:
             keys_content = f.read()
-        pbk: str = re.search(r'Public [Kk]ey: (.*)', keys_content).group(1)
+        pbk: str = re.search(r'Public *[Kk]ey: (.*)', keys_content).group(1)
         sid: str = re.search(r'shortsid: (.*)', keys_content).group(1)
 
         # Get other configuration details
