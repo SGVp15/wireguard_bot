@@ -2,6 +2,8 @@ import asyncio
 import os
 from datetime import datetime
 
+from aiogram.exceptions import TelegramBadRequest
+
 from Telegram.utils.admin import send_message_to_admins
 from utils.log import log
 
@@ -27,7 +29,10 @@ async def ping_host(host: str = '195.91.139.50', hostname='', num=5):
 
         if len(down) == num and all(down):
             host_is_down = True
-            await send_message_to_admins(text=f'❌ {datetime.now()} - {hostname} {host} is DOWN! ❌')
-            log.error(f'{hostname} {host} is DOWN!')
+            try:
+                log.error(f'{hostname} {host} is DOWN!')
+                await send_message_to_admins(text=f'❌ {datetime.now()} - {hostname} {host} is DOWN! ❌')
+            except TelegramBadRequest:
+                pass
 
         await asyncio.sleep(10)

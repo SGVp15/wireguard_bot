@@ -3,7 +3,7 @@ from pathlib import Path
 from dotenv import dotenv_values, find_dotenv
 
 
-DEBUG = True
+DEBUG = False
 
 VERSION = '2.2'
 
