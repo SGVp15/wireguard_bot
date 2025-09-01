@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import subprocess
 from uuid import uuid4
@@ -7,6 +8,7 @@ import qrcode
 import requests
 
 from VPN_SERVICE import ABC_VPN_Service
+from config import PATH_CONFIG, PATH_QR
 
 
 class Xray(ABC_VPN_Service):
@@ -47,7 +49,7 @@ class Xray(ABC_VPN_Service):
         # Read keys from file
         with open('/usr/local/etc/xray/.keys', 'r') as f:
             keys_content = f.read()
-        pbk: str = re.search(r'Public key: (.*)', keys_content).group(1)
+        pbk: str = re.search(r'Public [Kk]ey: (.*)', keys_content).group(1)
         sid: str = re.search(r'shortsid: (.*)', keys_content).group(1)
 
         # Get other configuration details
@@ -62,7 +64,8 @@ class Xray(ABC_VPN_Service):
                 f"&fp=firefox&pbk={pbk}&sid={sid}&spx=/&type=tcp"
                 f"&flow=xtls-rprx-vision&encryption=none#{username}")
         # Print and save connection link
-        with open(f"/root/confs/{email}.txt", 'w') as f:
+        full_path_conf_file = os.path.join(PATH_CONFIG, f'{email}.txt')
+        with open(full_path_conf_file, 'w') as f:
             f.write(link)
         # Generate and display QR code
         qr = qrcode.QRCode(version=1, box_size=2, border=1)
@@ -71,8 +74,9 @@ class Xray(ABC_VPN_Service):
         qr.make(fit=True)
 
         # Save QR code as PNG
+        full_path_qr_file = os.path.join(PATH_QR, f'{email}.png')
         qr_img = qr.make_image(fill_color="black", back_color="white")
-        qr_img.save(f"/root/qr/{email}.png")
+        qr_img.save(full_path_qr_file)
         return True
 
     def edit_user_config(self):

@@ -11,7 +11,7 @@ from Telegram.modules.user.handlers.files import my_send_document
 from Telegram.modules.user.keyboards.menu_files import RETURN_CONFIG_FILE
 from Telegram.modules.user.keyboards.menu_userConfig import k_back_to_menu_users
 from Telegram.modules.user.states.mashine_state import UserState
-from config import DEBUG
+from config import DEBUG, PATH_QR, PATH_CONFIG
 from config_VPN import vpn
 from utils.log import log
 from wireguard.user_config import UserConfig
@@ -35,14 +35,15 @@ async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
         return
     if not vpn.create_user_config(name):
         return
-    # config_string, full_path_conf_file, full_path_qr_file
+    full_path_conf_file = os.path.join(PATH_CONFIG, f'{name}.txt')
+    full_path_qr_file = os.path.join(PATH_QR, f'{name}.png')
     log.info('create_user {user}')
     await state.clear()
 
-    # await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(full_path_conf_file),
-    #                        full_path=full_path_conf_file)
-    # await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(full_path_qr_file),
-    #                        full_path=full_path_qr_file)
+    await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(full_path_conf_file),
+                           full_path=full_path_conf_file)
+    await my_send_document(chat_id=callback_query.from_user.id, filename=os.path.basename(full_path_qr_file),
+                           full_path=full_path_qr_file)
 
 
 @router.callback_query(UserState.rename_user,
