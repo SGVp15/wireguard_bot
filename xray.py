@@ -64,7 +64,7 @@ class Xray(ABC_VPN_Service):
                 f"&fp=firefox&pbk={pbk}&sid={sid}&spx=/&type=tcp"
                 f"&flow=xtls-rprx-vision&encryption=none#{username}")
         # Print and save connection link
-        full_path_conf_file = os.path.join(PATH_CONFIG, f'{email}.txt')
+        full_path_conf_file = PATH_CONFIG / f'{email}.txt'
         with open(full_path_conf_file, 'w') as f:
             f.write(link)
         # Generate and display QR code
@@ -74,7 +74,7 @@ class Xray(ABC_VPN_Service):
         qr.make(fit=True)
 
         # Save QR code as PNG
-        full_path_qr_file = os.path.join(PATH_QR, f'{email}.png')
+        full_path_qr_file = PATH_QR / f'{email}.png'
         qr_img = qr.make_image(fill_color="black", back_color="white")
         qr_img.save(full_path_qr_file)
         return True

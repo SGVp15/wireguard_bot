@@ -1,5 +1,4 @@
 import os
-import os.path
 
 from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
@@ -86,10 +85,10 @@ async def download_config_file(callback_query: CallbackQuery,
                                state: FSMContext):
     user_config = UserConfig(callback_data.name)
 
-    path = os.path.join(PATH_CONFIG_DELETE, os.path.basename(user_config.path_config_file))
+    path = PATH_CONFIG_DELETE / os.path.basename(user_config.path_config_file)
     await my_send_document(chat_id=callback_query.from_user.id, full_path=path)
 
-    path = os.path.join(PATH_QR_DELETE, os.path.basename(user_config.path_qr_file))
+    path = PATH_QR_DELETE / os.path.basename(user_config.path_qr_file)
     await my_send_document(chat_id=callback_query.from_user.id, full_path=path)
 
 

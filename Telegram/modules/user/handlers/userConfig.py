@@ -35,8 +35,8 @@ async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
         return
     if not vpn.create_user_config(name):
         return
-    full_path_conf_file = os.path.join(PATH_CONFIG, f'{name}.txt')
-    full_path_qr_file = os.path.join(PATH_QR, f'{name}.png')
+    full_path_conf_file = PATH_CONFIG / f'{name}.txt'
+    full_path_qr_file = PATH_QR / f'{name}.png'
     log.info('create_user {user}')
     await state.clear()
 

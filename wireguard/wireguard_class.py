@@ -26,7 +26,7 @@ class WIREGUARD(ABC_VPN_Service):
         name = re.sub(r'\s+', '_', name)
         name = transliterate(name) + datetime.today().strftime('_%Y-%m-%d')
 
-        wg_public_key_file = os.path.join(PATH_VPN, 'public.key')
+        wg_public_key_file = PATH_VPN / 'public.key'
 
         with open(WG_CONF, 'r') as f:
             s = f.read()
@@ -40,8 +40,8 @@ class WIREGUARD(ABC_VPN_Service):
                 ip = ip_net
                 break
 
-        path_user_private_key = os.path.join(PATH_KEYS, f'{name}_private.key')
-        path_user_public_key = os.path.join(PATH_KEYS, f'{name}_public.key')
+        path_user_private_key = PATH_KEYS / f'{name}_private.key'
+        path_user_public_key = PATH_KEYS / f'{name}_public.key'
 
         os.system(f'wg genkey | tee {path_user_private_key} | wg pubkey | tee {path_user_public_key}')
         time.sleep(0.1)
@@ -74,13 +74,13 @@ class WIREGUARD(ABC_VPN_Service):
                         f'PersistentKeepalive = {persistent_keepalive}\n'
 
         time.sleep(0.1)
-        full_path_conf_file = os.path.join(PATH_CONFIG, f'{name}.conf')
+        full_path_conf_file = PATH_CONFIG / f'{name}.conf'
         with open(full_path_conf_file, 'w') as f:
             f.write(config_string)
 
         WIREGUARD.restart_service()
 
-        full_path_qr_file = os.path.join(PATH_QR, f'{name}.png')
+        full_path_qr_file = PATH_QR / f'{name}.png'
         WIREGUARD.create_qr_code(input_file_path=full_path_conf_file, output_file_path=full_path_qr_file)
 
         return config_string, full_path_conf_file, full_path_qr_file
@@ -95,7 +95,7 @@ class WIREGUARD(ABC_VPN_Service):
         for file in os.listdir(PATH_CONFIG):
             full_path_conf_file = os.path.join(PATH_CONFIG, file)
             qr = re.sub(r'\.conf$', '.png', file)
-            full_path_qr_file = os.path.join(PATH_QR, qr)
+            full_path_qr_file = PATH_QR / qr
             WIREGUARD.create_qr_code(input_file_path=full_path_conf_file, output_file_path=full_path_qr_file)
 
     @staticmethod
