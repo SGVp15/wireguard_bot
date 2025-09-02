@@ -95,7 +95,8 @@ class Xray(ABC_VPN_Service):
         subprocess.run(['systemctl', 'start', 'xray'], check=True)
 
     def restart_service(self):
-        subprocess.run(['systemctl', 'restart', 'xray'], check=True)
+        self.stop_service()
+        self.start_service()
 
     def stop_service(self):
         subprocess.run(['systemctl', 'stop', 'xray'], check=True)

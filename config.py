@@ -5,7 +5,7 @@ from dotenv import dotenv_values, find_dotenv
 
 DEBUG = False
 
-VERSION = '2.2'
+VERSION = '2.2.1'
 
 config = dotenv_values(find_dotenv())
 
