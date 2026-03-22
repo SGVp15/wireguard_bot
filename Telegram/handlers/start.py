@@ -1,34 +1,47 @@
-from aiogram import types, F, Router
-from aiogram.filters import Command
+from aiogram import types, F
 from aiogram.fsm.context import FSMContext
 
-from Telegram.config import ADMIN_ID, USERS_ID
-from Telegram.keyboards.menu_main import k_main_menu
-from config import DEBUG
+from aiogram.filters import Command
 
-if DEBUG:
-    print(f'import {__name__}')
-
-router = Router()
-
-
-@router.message(F.text.in_({'/start', '/help'}) & F.from_user.id.in_({*ADMIN_ID, *USERS_ID}))
-async def send_welcome_new_user(message: types.Message, state: FSMContext):
-    text = f'[ /help ] Здравствуйте, {message.from_user.first_name}.'
-    text += f'\n ❓[ /id ] - узнать ваш id'
-    if DEBUG:
-        print(message.text)
-        print(state)
-    await message.answer(text=text, reply_markup=k_main_menu)
+from Telegram.Call_Back_Data import CallBackData
+from Telegram.keybords.inline import inline_kb_main
+from root_config import ADMIN_ID, USERS_ID, VERSION
+from Telegram.keybords import inline
+from Telegram.main import dp, bot
 
 
-@router.message(F.command.in_({'start', 'help'}))
+@dp.message(F.command.in_({'start', 'help'}) & F.from_user.id.in_({*ADMIN_ID}))
+async def send_welcome_admin(message: types.Message, state: FSMContext):
+    text = f'Здравствуйте , {message.from_user.first_name}! \n'
+    text += f'Этот бот работает с ProctorEDU.'
+    text += f'\n ❓/id - узнать ваш id'
+    text += f'\n Version = {VERSION}'
+    await message.answer(text=text, reply_markup=inline.inline_kb_main)
+
+
+@dp.message(F.command.in_({'start', 'help'}) & F.from_user.id.in_({*USERS_ID}))
 async def send_welcome_new_user(message: types.Message):
     text = f'Здравствуйте, {message.from_user.first_name}.'
-    text += f'\n ❓[ /id ] - узнать ваш id'
-    await message.answer(text=text)
+    text += f'\n ❓/id - узнать ваш id'
+    text += f'\n Version = {VERSION}'
+    await message.answer(text=text, reply_markup=inline.inline_kb_main)
 
 
-@router.message(Command('id'))
+@dp.message(Command('start', 'help'))
+async def send_welcome(message: types.Message):
+    text = f'Здравствуйте, {message.from_user.first_name}.'
+    text += f'\n ❓/id - узнать ваш id'
+    text += f'\n Version = {VERSION}'
+
+    await message.answer(text=text, reply_markup=inline.inline_kb_main)
+
+
+@dp.callback_query(F.data.in_({CallBackData.SHOW_VERSION}))
+async def btn_sent_report_and_cert_lk(callback_query: types.callback_query):
+    await bot.send_message(text=f'{VERSION}', chat_id=callback_query.from_user.id,
+                           reply_markup=inline_kb_main)
+
+
+@dp.message(Command('id'))
 async def send_id(message: types.Message):
     await message.answer(str(message.chat.id))

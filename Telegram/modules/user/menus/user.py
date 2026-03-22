@@ -3,7 +3,7 @@ from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
-from Telegram.MyCallBackData import MyCallBackData
+from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.loader import dp
 from Telegram.modules.user.keyboards.menu_files import RENAME_CONFIG_FILE, DELETE_CONFIG_FILE
@@ -19,7 +19,7 @@ if DEBUG:
 
 
 @dp.callback_query(
-    (F.data == MyCallBackData.menu_users)
+    (F.data == CallBackData.menu_users)
     & (F.from_user.id.in_({*ADMIN_ID, *USERS_ID}))
 )
 async def user_menu(callback_query: CallbackQuery, state: FSMContext):
@@ -31,14 +31,13 @@ async def user_menu(callback_query: CallbackQuery, state: FSMContext):
 
 
 @dp.callback_query(
-    (F.data == MyCallBackData.menu_config_user_create)
+    (F.data == CallBackData.menu_config_user_create)
     & (F.from_user.id.in_({*ADMIN_ID, }))
 )
 async def create_user_menu(callback_query: CallbackQuery, state: FSMContext):
     await state.set_state(UserState.create_user_menu)
     await callback_query.message.edit_text(
-        text=f'Введите имя пользователя\n'
-             f'Пример: Иванов Иван',
+        text=f'Введите имя пользователя',
         reply_markup=k_back_to_menu_users,
         parse_mode=ParseMode.HTML,
     )

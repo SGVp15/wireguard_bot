@@ -5,7 +5,7 @@ from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
-from Telegram.MyCallBackData import MyCallBackData
+from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.modules.user.handlers.files import my_send_document
 from Telegram.modules.user.keyboards.menu_files import RETURN_CONFIG_FILE
@@ -13,7 +13,7 @@ from Telegram.modules.user.keyboards.menu_userConfig import k_back_to_menu_users
 from Telegram.modules.user.states.mashine_state import UserState
 from config import DEBUG, PATH_QR, PATH_CONFIG
 from config_VPN import vpn
-from utils.log import log
+from Utils.log import log
 from wireguard.user_config import UserConfig
 
 if DEBUG:
@@ -23,7 +23,7 @@ router = Router()
 
 
 @router.callback_query(UserState.create_user,
-                       F.data.in_({MyCallBackData.config_user_create_ok, })
+                       F.data.in_({CallBackData.config_user_create_ok, })
                        & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
                        )
 async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
@@ -47,7 +47,7 @@ async def create_user_config(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(UserState.rename_user,
-                       F.data.in_({MyCallBackData.config_user_rename_ok, })
+                       F.data.in_({CallBackData.config_user_rename_ok, })
                        & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
                        )
 async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
@@ -73,7 +73,7 @@ async def rename_user_config(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(UserState.delete_user,
-                       F.data.in_({MyCallBackData.config_user_delete_ok, })
+                       F.data.in_({CallBackData.config_user_delete_ok, })
                        & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
                        )
 async def delete_user_config_ok(callback_query: CallbackQuery,

@@ -7,83 +7,12 @@ from ipaddress import IPv4Network, IPv4Address
 from VPN_SERVICE import ABC_VPN_Service
 from config import SERVER_IP, WG_DUMP, PATH_QR, PATH_CONFIG, WG_CONF, IPV4NETWORK, WG_SERVER_PORT, PATH_VPN, PATH_KEYS, \
     WG_PRIVATE_KEY, DEBUG, WG_SERVER_LOCAL_IP
-from utils.log import log
-from utils.translit import transliterate
+from Utils.log import log
+from Utils.translit import transliterate
 from wireguard.user_config import UserConfig
 
 
 class WIREGUARD(ABC_VPN_Service):
-    @staticmethod
-    def create_user_config(name: str) -> (str, str):
-        if DEBUG:
-            print(f'run  create_user {__name__}')
-        allowed_ips = '0.0.0.0/0'
-        dns = '8.8.8.8'
-        persistent_keepalive = 20
-        net = IPv4Network(IPV4NETWORK)
-
-        name = name.strip()
-        name = re.sub(r'\s+', '_', name)
-        name = transliterate(name) + datetime.today().strftime('_%Y-%m-%d')
-
-        wg_public_key_file = PATH_VPN / 'public.key'
-
-        with open(WG_CONF, 'r') as f:
-            s = f.read()
-
-        # IP
-        ips_current = [IPv4Address(x) for x in re.findall(r'(\d+\.\d+\.\d+\.\d+)', s)]
-
-        ip = ''
-        for ip_net in net.hosts():
-            if ip_net not in ips_current:
-                ip = ip_net
-                break
-
-        path_user_private_key = PATH_KEYS / f'{name}_private.key'
-        path_user_public_key = PATH_KEYS / f'{name}_public.key'
-
-        os.system(f'wg genkey | tee {path_user_private_key} | wg pubkey | tee {path_user_public_key}')
-        time.sleep(0.1)
-
-        with open(path_user_private_key) as f:
-            private_key = f.read().strip()
-        with open(path_user_public_key) as f:
-            public_key = f.read().strip()
-
-        s += f'\n' \
-             f'[Peer] # {name}\n' \
-             f'PublicKey = {public_key}\n' \
-             f'AllowedIPs = {ip}/32\n'
-
-        with open(WG_CONF, 'w') as f:
-            f.write(s)
-
-        with open(wg_public_key_file) as f:
-            wg_public_key = f.read().strip()
-
-        config_string = f'[Interface]\n' \
-                        f'PrivateKey = {private_key}\n' \
-                        f'Address = {ip}/32\n' \
-                        f'DNS = {dns}\n' \
-                        f'\n' \
-                        f'[Peer]\n' \
-                        f'PublicKey = {wg_public_key}\n' \
-                        f'AllowedIPs = {allowed_ips}\n' \
-                        f'Endpoint = {SERVER_IP}:{WG_SERVER_PORT}\n' \
-                        f'PersistentKeepalive = {persistent_keepalive}\n'
-
-        time.sleep(0.1)
-        full_path_conf_file = PATH_CONFIG / f'{name}.conf'
-        with open(full_path_conf_file, 'w') as f:
-            f.write(config_string)
-
-        WIREGUARD.restart_service()
-
-        full_path_qr_file = PATH_QR / f'{name}.png'
-        WIREGUARD.create_qr_code(input_file_path=full_path_conf_file, output_file_path=full_path_qr_file)
-
-        return config_string, full_path_conf_file, full_path_qr_file
 
     @staticmethod
     def restart_service():
@@ -167,3 +96,75 @@ class WIREGUARD(ABC_VPN_Service):
 
     def get_all_users_configs(self):
         pass
+
+
+def create_user_config(name: str) -> (str, str):
+    if DEBUG:
+        print(f'run  create_user {__name__}')
+    allowed_ips = '0.0.0.0/0'
+    dns = '8.8.8.8'
+    persistent_keepalive = 20
+    net = IPv4Network(IPV4NETWORK)
+
+    name = name.strip()
+    name = re.sub(r'\s+', '_', name)
+    name = transliterate(name) + datetime.today().strftime('_%Y-%m-%d')
+
+    wg_public_key_file = PATH_VPN / 'public.key'
+
+    with open(WG_CONF, 'r') as f:
+        s = f.read()
+
+    # IP
+    ips_current = [IPv4Address(x) for x in re.findall(r'(\d+\.\d+\.\d+\.\d+)', s)]
+
+    ip = ''
+    for ip_net in net.hosts():
+        if ip_net not in ips_current:
+            ip = ip_net
+            break
+
+    path_user_private_key = PATH_KEYS / f'{name}_private.key'
+    path_user_public_key = PATH_KEYS / f'{name}_public.key'
+
+    os.system(f'wg genkey | tee {path_user_private_key} | wg pubkey | tee {path_user_public_key}')
+    time.sleep(0.1)
+
+    with open(path_user_private_key) as f:
+        private_key = f.read().strip()
+    with open(path_user_public_key) as f:
+        public_key = f.read().strip()
+
+    s += f'\n' \
+         f'[Peer] # {name}\n' \
+         f'PublicKey = {public_key}\n' \
+         f'AllowedIPs = {ip}/32\n'
+
+    with open(WG_CONF, 'w') as f:
+        f.write(s)
+
+    with open(wg_public_key_file) as f:
+        wg_public_key = f.read().strip()
+
+    config_string = f'[Interface]\n' \
+                    f'PrivateKey = {private_key}\n' \
+                    f'Address = {ip}/32\n' \
+                    f'DNS = {dns}\n' \
+                    f'\n' \
+                    f'[Peer]\n' \
+                    f'PublicKey = {wg_public_key}\n' \
+                    f'AllowedIPs = {allowed_ips}\n' \
+                    f'Endpoint = {SERVER_IP}:{WG_SERVER_PORT}\n' \
+                    f'PersistentKeepalive = {persistent_keepalive}\n'
+
+    time.sleep(0.1)
+    full_path_conf_file = PATH_CONFIG / f'{name}.conf'
+    with open(full_path_conf_file, 'w') as f:
+        f.write(config_string)
+
+    WIREGUARD.restart_service()
+
+    full_path_qr_file = PATH_QR / f'{name}.png'
+    WIREGUARD.create_qr_code(input_file_path=full_path_conf_file, output_file_path=full_path_qr_file)
+
+    return config_string, full_path_conf_file, full_path_qr_file

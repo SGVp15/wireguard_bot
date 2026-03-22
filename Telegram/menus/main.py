@@ -2,7 +2,7 @@ from aiogram import F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
-from Telegram.MyCallBackData import MyCallBackData
+from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.keyboards.menu_main import k_main_menu
 from Telegram.loader import dp
@@ -13,7 +13,7 @@ if DEBUG:
 
 
 @dp.callback_query(
-    (F.data == MyCallBackData.menu_main)
+    (F.data == CallBackData.menu_main)
     & (F.from_user.id.in_({*ADMIN_ID, *USERS_ID}))
 )
 async def back_to_main(callback_query: CallbackQuery, state: FSMContext):

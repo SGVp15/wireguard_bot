@@ -11,62 +11,59 @@ from VPN_SERVICE import ABC_VPN_Service
 from config import PATH_CONFIG, PATH_QR
 
 
+import json
+import uuid
+import subprocess
+import sys
+import os
+import socket
+
+
+CONFIG_PATH = '/usr/local/etc/xray/config.json'
+
+
+def get_server_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except: return "YOUR_IP"
+
+
+def get_pub_key(priv_key):
+    proc = subprocess.Popen(['/usr/local/bin/xray', 'x25519', '-i', priv_key],
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    out, err = proc.communicate()
+    for line in (out + err).split('\n'):
+        if "Public key:" in line or "Password:" in line:
+            return line.split(': ')[1].strip()
+    return None
+
 class Xray(ABC_VPN_Service):
     def create_user_config(self, email) -> bool:
-        # Read Xray config file
-        config_path = "/usr/local/etc/xray/config.json"
-        with open(config_path, 'r') as f:
+        with open(CONFIG_PATH, 'r') as f:
             config = json.load(f)
 
-        # Check if user already exists
-        user_json = next(
-            (client for client in config['inbounds'][0]['settings']['clients'] if client['email'] == email), None)
+        inbound = next(i for i in config['inbounds'] if i.get('tag') == 'VLESS-XHTTP-REALITY')
+        new_uuid = str(uuid.uuid4())
 
-        if user_json:
-            print("Пользователь с таким именем уже существует. Попробуйте снова.")
-            return False
+        inbound['settings']['clients'].append({"id": new_uuid, "email": email, "level": 0})
 
-        # Generate new UUID
-        uuid = str(uuid4())
-
-        # Add new user to config
-        new_client = {"email": email, "id": uuid, "flow": "xtls-rprx-vision"}
-        config['inbounds'][0]['settings']['clients'].append(new_client)
-
-        with open(config_path, 'w') as f:
+        with open(CONFIG_PATH, 'w') as f:
             json.dump(config, f, indent=2)
 
-        # Restart Xray service
-        self.restart_service()
+        subprocess.run(['systemctl', 'restart', 'xray'])
 
-        # Get user index and configuration details
-        clients = config['inbounds'][0]['settings']['clients']
-        index = next(i for i, client in enumerate(clients) if client['email'] == email)
-        protocol = config['inbounds'][0]['protocol']
-        port = config['inbounds'][0]['port']
-        uuid = clients[index]['id']
+        # Данные для ссылки
+        ip = get_server_ip()
+        reality = inbound['streamSettings']['realitySettings']
+        xhttp = inbound['streamSettings']['xhttpSettings']
+        pub_key = get_pub_key(reality['privateKey'])
 
-        # Read keys from file
-        with open('/usr/local/etc/xray/.keys', 'r') as f:
-            keys_content = f.read()
-        pbk: str = re.search(r'Public *[Kk]ey: (.*)', keys_content).group(1)
-        sid: str = re.search(r'shortsid: (.*)', keys_content).group(1)
+        link = f"vless://{new_uuid}@{ip}:443?security=reality&sni={reality['serverNames'][0]}&fp=chrome&pbk={pub_key}&sid={reality['shortIds'][0]}&type=xhttp&mode={xhttp.get('mode', 'auto')}&path={xhttp['path'].replace('/', '%2F')}#{email}"
 
-        # Get other configuration details
-        username = clients[index]['email']
-        sni = config['inbounds'][0]['streamSettings']['realitySettings']['serverNames'][0]
-
-        # Get public IP
-        ip = requests.get('https://icanhazip.com').text.strip()
-
-        # Construct connection link
-        link = (f"{protocol}://{uuid}@{ip}:{port}?security=reality&sni={sni}"
-                f"&fp=firefox&pbk={pbk}&sid={sid}&spx=/&type=tcp"
-                f"&flow=xtls-rprx-vision&encryption=none#{username}")
-        # Print and save connection link
-        full_path_conf_file = PATH_CONFIG / f'{email}.txt'
-        with open(full_path_conf_file, 'w') as f:
-            f.write(link)
         # Generate and display QR code
         qr = qrcode.QRCode(version=1, box_size=2, border=1)
         # qr = qrcode.make(data=link, version=1, box_size=2, border=1)

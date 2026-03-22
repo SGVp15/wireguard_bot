@@ -4,14 +4,14 @@ from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, CallbackQuery
 
-from Telegram.MyCallBackData import MyCallBackData
+from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID, USERS_ID
 from Telegram.loader import bot
 from Telegram.modules.user.keyboards.menu_files import builder_config_list_files_keyboard, DOWNLOAD_CONFIG_FILE, \
     MENU_CONF_LIST, builder_config_file_keyboard, builder_config_delete_list_files_keyboard, MENU_CONF_DELETE_LIST, \
     builder_config_delete_file_keyboard, DOWNLOAD_DEL_CONFIG_FILE
 from config import DEBUG, PATH_CONFIG_DELETE, PATH_QR_DELETE
-from utils.log import log
+from Utils.log import log
 from wireguard.user_config import UserConfig
 
 if DEBUG:
@@ -21,7 +21,7 @@ router = Router(name=__name__)
 
 
 @router.callback_query(
-    F.data.in_({MyCallBackData.show_config_files, })
+    F.data.in_({CallBackData.show_config_files, })
     & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
 )
 async def show_config_list_files(callback_query: CallbackQuery):
@@ -32,7 +32,7 @@ async def show_config_list_files(callback_query: CallbackQuery):
 
 
 @router.callback_query(
-    F.data.in_({MyCallBackData.show_config_delete_files, })
+    F.data.in_({CallBackData.show_config_delete_files, })
     & F.from_user.id.in_({*ADMIN_ID, *USERS_ID})
 )
 async def show_delete_config_list_files(callback_query: CallbackQuery):

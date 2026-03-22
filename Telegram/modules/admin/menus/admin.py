@@ -2,7 +2,7 @@ from aiogram import F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
-from Telegram.MyCallBackData import MyCallBackData
+from Telegram.Call_Back_Data import CallBackData
 from Telegram.config import ADMIN_ID
 from Telegram.loader import bot, dp
 from Telegram.modules.admin.keyboards.menu_admin import k_menu_admin, k_menu_restart_service, k_menu_reboot_server
@@ -14,7 +14,7 @@ if DEBUG:
 
 
 @dp.callback_query(
-    (F.data == MyCallBackData.menu_admin)
+    (F.data == CallBackData.menu_admin)
     & (F.from_user.id.in_({*ADMIN_ID}))
 )
 async def show_admin_menu(callback_query: CallbackQuery, state: FSMContext):
@@ -36,7 +36,7 @@ async def show_admin_menu(callback_query: CallbackQuery, state: FSMContext):
 
 
 @dp.callback_query(
-    (F.data == MyCallBackData.menu_service_vpn_restart)
+    (F.data == CallBackData.menu_service_vpn_restart)
     & (F.from_user.id.in_({*ADMIN_ID}))
 )
 async def menu_restart_service_wg(callback_query: CallbackQuery, state: FSMContext):
@@ -48,7 +48,7 @@ async def menu_restart_service_wg(callback_query: CallbackQuery, state: FSMConte
 
 
 @dp.callback_query(
-    (F.data == MyCallBackData.menu_server_reboot)
+    (F.data == CallBackData.menu_server_reboot)
     & (F.from_user.id.in_({*ADMIN_ID}))
 )
 async def menu_reboot_server(callback_query: CallbackQuery, state: FSMContext):
